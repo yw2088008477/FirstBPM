@@ -1,0 +1,39 @@
+<div ng-controller="cooperationMessageDetailCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="todo-ui">
+                <!-- BEGIN TODO CONTENT -->
+                <div class="todo-content">
+                    <div class="portlet light">
+                        <!-- PROJECT HEAD -->
+                        <div class="portlet-title">
+                            <div class="tab-pane " id="buttons_metro">
+                                <a href="#/notification" class="btn btn-circle blue m-icon-big">
+                                    <i class="m-icon-swapleft m-icon-white"></i> 返回
+                                </a>
+                            </div>
+                        </div>
+                        <!-- end PROJECT HEAD -->
+                        <div class="portlet-body">
+                            <div class="scroller" style="height:600px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+                                <div class="note note-warning">
+                                    <p><span ng-bind="attribute.docName"></span> 已导入, 其中有<span ng-bind="attribute.failedCount"></span>个问题 成功导入<span ng-bind="attribute.expectedCount"></span>个项目中的<span ng-bind="attribute.importedCount"></span>个</p>
+                                </div>
+                                <div class="note note-danger">
+                                    <h4>近一步查看</h4>
+                                    <a href="javascript:'" style="text-decoration:none;" ng-bind="attribute.logDocName"></a>
+                                </div>
+                                <div class="note note-success">
+                                    <h4>导入报告在位置</h4>
+                                    <a href="javascript:'" style="text-decoration:none;" ng-bind="attribute.logFolderName">My Import Logs</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END TODO CONTENT -->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>

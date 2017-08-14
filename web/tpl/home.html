@@ -1,0 +1,404 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<!--<div>-->
+<!--<div class="page-title">-->
+
+<!--<ul class="page-breadcrumb breadcrumb">-->
+<!--<li>-->
+<!--<a ui-sref="dashboard">主页</a>-->
+<!--<i class="fa fa-circle"></i>-->
+<!--</li>-->
+<!--<li class="active"> 个人主页</li>-->
+<!--<li class="active"> &nbsp;&nbsp;刷新&nbsp;<i class="icon-reload"></i>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--&lt;!&ndash; BEGIN PAGE TOOLBAR &ndash;&gt;-->
+<!--<div class="page-toolbar">-->
+<!--&lt;!&ndash; BEGIN THEME PANEL &ndash;&gt;-->
+<!--<div class="btn-group btn-theme-panel">-->
+<!--<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">-->
+<!--<i class="icon-settings"></i>-->
+<!--</a>-->
+<!--<div class="dropdown-menu theme-panel pull-right dropdown-custom hold-on-click">-->
+<!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash; END THEME PANEL &ndash;&gt;-->
+<!--</div>-->
+<!--&lt;!&ndash; END PAGE TOOLBAR &ndash;&gt;-->
+<!--</div>-->
+<div class="page-bar">
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/home">
+                <span translate="header.navbar.home.HOME">主页</span>
+            </a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li class="active">
+            <span translate="header.navbar.home.PLATFORMHOME">平台主页</span>
+        </li>
+        <li class="active" style="cursor: pointer;" ng-click="reloadPage()">
+            &nbsp;&nbsp;<span translate="common.REFRESH">刷新</span>&nbsp;
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div>
+    <!-- BEGIN DASHBOARD STATS -->
+    <div class="row">
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a href="#/task/inbox/0" style="cursor: pointer;">
+                <div class="dashboard-stat dashboard-stat-v2 blue">
+                    <div class="visual">
+                        <i class="fa fa-bar-chart-o"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" ng-bind="qtTaskData.qtTaskWait"></div>
+                        <div class="desc">
+                            <span translate="content.dashboard.UPCOMINGTASKS">待办任务</span>
+                        </div>
+                    </div>
+                        <span class="more" translate="common.VIEWDETAILS">查看详细
+                        <i class="m-icon-swapright m-icon-white"></i></span>
+
+                </div>
+            </a>
+
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a href="#/process/inbox/0" style="cursor: pointer;">
+                <div class="dashboard-stat dashboard-stat-v2  red">
+                    <div class="visual">
+                        <i class="fa fa-shopping-cart"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" ng-bind="qtProcessData.qtallNu"></div>
+                        <div class="desc">
+                            <span translate="content.dashboard.INITIATEDTASKS">发起任务</span>
+
+                            <span></span>
+                        </div>
+                    </div>
+                        <span class="more" translate="common.VIEWDETAILS">查看详细
+                         <i class="m-icon-swapright m-icon-white"></i>
+                        </span>
+
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a href="#/notification" style="cursor: pointer;">
+                <div class="dashboard-stat dashboard-stat-v2 green">
+                    <div class="visual">
+                        <i class="fa fa-comments"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" ng-bind="getnotificationscount.unread"></div>
+                        <div class="desc">
+                            <span translate="content.dashboard.NOTICE">通知</span>
+                        </div>
+                    </div>
+                    <span class="more" translate="common.VIEWDETAILS">查看详细
+                                        <i class="m-icon-swapright m-icon-white"></i>
+</span>
+                </div>
+
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <!--<a href="#/otherPlatform/5" style="cursor: pointer;">-->
+            <a style="cursor: pointer;">
+                <div class="dashboard-stat dashboard-stat-v2 purple">
+                    <div class="visual">
+                        <i class="fa fa-globe"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" ng-bind="taskCount.status2"></div>
+                        <div class="desc">
+                            <!--<span translate="content.dashboard.EMAIL">敬请期待</span>-->
+                            <span>敬请期待</span>
+                        </div>
+                    </div>
+                        <span class="more" translate="common.VIEWDETAILS">查看详细
+                            <i class="m-icon-swapright m-icon-white"></i>
+                        </span>
+
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- END DASHBOARD STATS -->
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light bordered ">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption">
+                        <i class="icon-globe font-green"></i>
+                        <span class="caption-subject font-green bold uppercase">
+                            <span translate="header.navbar.NEWS">新闻资讯</span>
+                        </span>
+                    </div>
+                    <div class="actions" style="float:right;margin-left:20px;">
+                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#"> </a>
+                    </div>
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_1_3" data-toggle="tab">
+                                <span translate="header.navbar.NEWS">新闻资讯</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#tab_1_4" data-toggle="tab">
+                                <span translate="content.dashboard.ENTERPRIASEPARTYBUILDING">企业党建</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="portlet-body">
+                    <div style="height: 300px;" data-always-visible="1" data-rail-visible="0">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="tab_1_3">
+                                <div class="news_up clearfix">
+                                    <a href="javascript:;" ng-click="lookDetails(newNews[0].topics[0].threadId)">
+                                        <img src="{{getSrc(newNews[0].topics[0].attachments)}}">
+                                    </a>
+                                    <ul>
+                                        <li ng-repeat="newNew in newNews[0].topics">
+                                            <a href="javascript:;" ng-click="lookDetails(newNew.threadId)"
+                                               title="newNew.subject">
+                                                <span ng-show="newNew.isRead" style="white-space:nowrap;"
+                                                      ng-bind="newNew.subject"></span>
+                                                <span ng-show="!newNew.isRead"
+                                                      style="font-weight:bold;white-space:nowrap;"
+                                                      ng-bind="newNew.subject"></span>
+                                                <br>
+                                                <i class="icon-calendar font-blue" style="margin-top:12px"></i>
+                                                <span ng-bind="newNew.ThreadCreateDate"></span>
+                                                <i class="icon-paper-clip font-blue"></i>
+                                                <span ng-bind="getAttachmentLength(newNew)"></span>
+                                                <i class="icon-eye font-blue"></i>
+                                                <span ng-bind="newNew.readCount"></span>
+                                                <!-- <i ng-show="!newNew.isRead" class="icon-fire font-rad"></i>
+                                                <span ng-show="!newNew.isRead" style="color:red">news</span> -->
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab_1_4">
+                                <div class="news_up clearfix">
+                                    <a href="javascript:;" ng-click="lookDetails(newComs[0].topics[0].threadId)">
+                                        <img src="{{getSrc(newComs[0].topics[0].attachments)}}">
+                                    </a>
+                                    <ul>
+                                        <li ng-repeat="newCom in newComs[0].topics">
+                                            <a href="javascript:;" ng-click="lookDetails(newCom.threadId)"
+                                               title="newCom.subject">
+                                                <span ng-show="!newCom.isRead"
+                                                      style="font-weight:bold;white-space:nowrap;"
+                                                      ng-bind="newCom.subject"></span>
+                                                <span ng-show="newCom.isRead" style="white-space:nowrap;"
+                                                      ng-bind="newCom.subject"></span>
+                                                <br>
+                                                <i class="icon-calendar font-blue" style="margin-top:12px"></i>
+                                                <span ng-bind="newCom.ThreadCreateDate"></span>
+                                                <i class="icon-paper-clip font-blue"></i>
+                                                <span>{{getAttachmentLength(newCom)}}</span>
+                                                <i class="icon-eye font-blue"></i>
+                                                <span ng-bind="newCom.readCount"></span>
+                                                <!-- <i ng-show="!newCom.isRead" class="icon-fire font-rad"></i>
+                                                <span ng-show="!newCom.isRead" style="color:red">news</span> -->
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <hr> -->
+                    </div>
+                    <div class="scroller-footer">
+                        <div class="btn-arrow-link pull-right">
+                            <a href="#/nonfometNews">
+                                <span translate="common.VIEWMORE">查看更多</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END PORTLET-->
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <!-- BEGIN REGIONAL STATS PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-title tabbable-line" style="margin-bottom:0px !important;">
+                    <ul class="nav nav-tabs pull-left">
+                        <li class="caption active">
+                            <a href="#portlet_tab1" data-toggle="tab" class="caption-subject font-green bold"
+                               style="font-size:16px;padding:7px 20px 13px 13px;">
+                                <i class="icon-docs font-green"></i>
+                                <span translate="header.navbar.ANNOUNCEMENT">通知公告</span>
+                            </a>
+                        </li>
+                        <li class="caption">
+                            <a href="#portlet_tab2" data-toggle="tab" class="caption-subject font-green bold"
+                               style="font-size:16px;padding:7px 20px 13px 13px;">
+                                <i class="icon-wallet font-green"></i>
+                                <span translate="content.dashboard.PRODUCTPRICING">产品定价</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- <div class="caption">
+                        <i class="icon-docs font-green"></i>
+                        <span class="caption-subject font-green bold uppercase">通知公告</span>
+                    </div> -->
+                    <div class="actions">
+                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#"> </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div style="height: 310px;overflow:hidden;" data-always-visible="1" data-rail-visible="0">
+                        <div class="tab-content scroller" data-rail-visible="1" data-rail-color="red"
+                             data-handle-color="green" style="height:300px;">
+                            <div class="tab-pane active" id="portlet_tab1">
+                                <ul>
+                                    <li class="search-item clearfix" ng-repeat="newsFast in newsFastss">
+                                        <div class="row">
+                                            <div class="col-sm-8 col-xs-12 notify-title">
+                                                <h3 class="search-title">
+                                                    <a href="#/accounmentRead/accounmentView/{{newsFast.threadId}}"
+                                                       title="newsFast.subject">
+                                                        <!-- <i ng-show="!newsFast.isRead" class="icon-fire font-red"></i> -->
+
+                                                        <span ng-show="!newsFast.isRead"
+                                                              style="font-weight:bold;white-space:nowrap;"
+                                                              ng-bind="newsFast.subject"></span>
+                                                        <span ng-show="newsFast.isRead" style="white-space:nowrap;"
+                                                              ng-bind="newsFast.subject"></span>
+
+                                                    </a>
+                                                </h3>
+                                                <p>
+                                                    <span class="font-grey-salt">开始{{newsFast.ThreadCreateDate}} 截止{{newsFast.body.substring(0,newsFast.body.indexOf("T"))}}</span>
+
+                                                    <!-- <span class="font-grey-salt">
+                                                        开始{{newsFast.forumCreateDate}}
+                                                        截止
+                                                    </span> -->
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-2 col-xs-6">
+                                                <p class="search-counter-number"><i
+                                                        class="icon-paper-clip font-blue"></i>{{newsFast.attactCount-1}}
+                                                </p>
+
+                                                <!-- <p class="search-counter-number"><i class="icon-paper-clip font-blue"></i>{{newsFast.messageCountToday}}</p> -->
+
+                                                <!-- <p class="search-counter-label uppercase">附件</p> -->
+                                            </div>
+                                            <div class="col-sm-2 col-xs-6">
+                                                <p class="search-counter-number"><i class="icon-eye font-blue"></i>{{newsFast.readCount}}
+                                                </p>
+                                                <!-- <p class="search-counter-label uppercase">浏览</p> -->
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane" id="portlet_tab2">
+                                <ul>
+                                    <li class="search-item clearfix" ng-repeat="newThreadInfo in newThreadInfos">
+                                        <div class="row">
+                                            <div class="col-sm-8 col-xs-12 notify-title">
+                                                <h3 class="search-title">
+                                                    <a href="#/accounmentRead/accounmentView/{{newThreadInfo.threadId}}"
+                                                       title="newThreadInfo.subject">
+
+                                                        <span ng-show="!newThreadInfo.isRead"
+                                                              style="font-weight:bold;white-space:nowrap;"
+                                                              ng-bind="newThreadInfo.subject"></span>
+                                                        <span ng-show="newThreadInfo.isRead" style="white-space:nowrap;"
+                                                              ng-bind="newThreadInfo.subject"></span>
+
+                                                    </a>
+                                                </h3>
+                                                <p>
+                                                    <span class="font-grey-salt">开始{{newThreadInfo.ThreadCreateDate}} 截止{{newThreadInfo.body.substring(0,newThreadInfo.body.indexOf("T"))}}</span>
+
+                                                    <!-- <span class="font-grey-salt">
+                                                        开始{{newsFast.forumCreateDate}}
+                                                        截止
+                                                    </span> -->
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-2 col-xs-6">
+                                                <p class="search-counter-number"><i
+                                                        class="icon-paper-clip font-blue"></i>{{newThreadInfo.attactCount-1}}
+                                                </p>
+
+                                                <!-- <p class="search-counter-number"><i class="icon-paper-clip font-blue"></i>{{newsFast.messageCountToday}}</p> -->
+
+                                                <!-- <p class="search-counter-label uppercase">附件</p> -->
+                                            </div>
+                                            <div class="col-sm-2 col-xs-6">
+                                                <p class="search-counter-number"><i class="icon-eye font-blue"></i>{{newThreadInfo.readCount}}
+                                                </p>
+                                                <!-- <p class="search-counter-label uppercase">浏览</p> -->
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scroller-footer">
+                        <div class="btn-arrow-link pull-right">
+                            <!-- <a href="#/accounmentAll/{{newsFastss[0].formId}}">查看更多</a> -->
+                            <a href="#/accounmentRead/accounmentInbox">
+                                <span translate="common.VIEWMORE">查看更多</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END REGIONAL STATS PORTLET-->
+        </div>
+    </div>
+    <!--<div class="row" ng-show="homeFunc||userInfo.userName=='Administrator'">-->
+    <!--<div class="row">-->
+    <!--<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">-->
+    <!--<div class="portlet light bordered">-->
+    <!--<div class="portlet-title">-->
+    <!--<div class="caption caption-md">-->
+    <!--<i class="icon-bar-chart font-green"></i>-->
+    <!--<span class="caption-subject font-green bold uppercase">-->
+    <!--<span translate="content.dashboard.CHART">图表</span>-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--<div class="actions">-->
+    <!--<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#"> </a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="portlet-body">-->
+    <!--<div style="height:650px;" data-always-visible="1" data-rail-visible1="0"-->
+    <!--data-handle-color="#D7DCE2">-->
+    <!--<iframe width="100%" frameborder="0" height="100%"-->
+    <!--src="/suite/plugins/servlet/loadsource/1735/tabEcharts.html" scrolling="no"></iframe>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+<script>
+    Dashboard.init();
+</script>
+<!-- BEGIN MAIN JS & CSS -->

@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div ng-controller="newsDetailController">
+    <!-- END PAGE HEADER-->
+    <div class="blog-page blog-content-2">
+        <div class="row">
+            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                <!-- BEGIN REGIONAL STATS PORTLET-->
+                <div class="portlet light">
+                    <div class="portlet-title tabbable-line">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-target="#tab_1_1" data-toggle="tab">
+                                    <span translate="content.announce.TEXT">正文</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a data-target="#tab_2_1" data-toggle="tab">
+                                    <span translate="content.announce.ANNEX">附件</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="portlet-body">
+                        <div data-always-visible="1" data-rail-visible="0">
+                            <div class="tab-content">
+                                <div class="tab-pane fade active in" id="tab_1_1">
+                                    <div class="blog-single-content blog-container">
+                                        <div class="blog-single-desc">
+                                            <div class="portlet light">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="icon-speech"></i>
+                                                        <span class="caption-subject bold uppercase">{{threadSummry.subject}}</span>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <div class="actions">
+
+                                                        <span translate="content.announce.PUBLISHER">发布人</span>
+
+                                                        <a href="{{openUserInofUrl}}">
+                                                            {{threadSummry.ThreadCreatorName == "" ?
+                                                            threadSummry.creator : threadSummry.ThreadCreatorName}}</a>
+                                                        &nbsp;
+                                                        <i class="icon-calendar font-blue"></i>
+                                                        <a href="javascript:;">{{threadSummry.createDate}}</a>
+                                                        &nbsp;
+                                                        <!-- <i class="icon-bubble font-blue"></i>
+                                                        <a href="javascript:;">{{threadSummry.commentCount}} 评论</a> -->
+                                                        <i class="icon-eye font-blue"></i>
+                                                        <a href="javascript:;">{{threadSummry.readCount}}
+                                                            <span translate="content.announce.BROWSE">浏览</span>
+                                                        </a>
+                                                        &nbsp;
+                                                        <a class="btn btn-circle btn-icon-only btn-default fullscreen"
+                                                           href="javascript:;"> </a>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <iframe id="mainFrame" name="mainFrame"
+                                                            src="{{getIframSrc(threadSummry.attachments)}}"
+                                                            scrolling="no" frameborder="0"
+                                                            style="padding: 0px; width: 100%; height: 1000px;">
+                                                    </iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab_2_1">
+                                    <div ng-show="{{getAttachmentLength(threadSummry)}}!=0"
+                                         class="portlet light portlet-fit ">
+                                        <!-- <div class="portlet-title">
+
+                                        </div> -->
+                                        <div class="portlet-body">
+                                            <div class="table-scrollable table-scrollable-borderless">
+                                                <table class="table table-hover table-light">
+                                                    <thead>
+                                                    <tr class="uppercase">
+                                                        <th translate="content.announce.IMAGE"> 图片</th>
+                                                        <th translate="content.announce.ATTACHNAME"> 附件名</th>
+                                                        <th translate="content.announce.TYPE"> 类型</th>
+                                                        <th translate="content.announce.UPLOADNAME"> 上传人</th>
+                                                        <th translate="content.announce.OPERAT"> 操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="attach in threadSummry.attachments"
+                                                        ng-if="attach.attachmentId != 'null' && attach.fileName.indexOf('新闻附件(') < 0">
+                                                        <td>
+                                                            <img class="img-circle" width="60" height="60"
+                                                                 ng-show="attach.attachmentImage=='no'"
+                                                                 src="/suite/plugins/img/attach/attach.png">
+                                                            <img class="img-circle" width="60" height="60"
+                                                                 ng-show="attach.attachmentImage=='yes'"
+                                                                 src="/suite/plugins/servlet/loadsource/3816/{{attach.fileName + '.' + attach.suffix}}">
+                                                        </td>
+                                                        <td>
+                                                            <a href="/suite/doc/{{attach.attachmentId}}">
+                                                                {{attach.fileName}}
+                                                            </a>
+                                                        </td>
+                                                        <td> {{attach.suffix}}</td>
+                                                        <td>
+                                                            <a href="{{openUserInofUrl}}">
+                                                                {{threadSummry.ThreadCreatorName == "" ?
+                                                                threadSummry.creator :
+                                                                threadSummry.ThreadCreatorName}}</a>
+                                                            <!-- <img class="img-circle" width="40" height="40" src="/suite/plugins/servlet/loadsource/3/{{userInfo.userName}}.png"> -->
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-circle btn-danger"
+                                                               href="/suite/doc/{{attach.attachmentId}}">
+                                                                <span translate="content.news.DOWNLOAD">下载</span>
+
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="{{getAttachmentLength(threadSummry)}}==0" class="wrapper-xs lt"
+                                         style="width:100%;height:200px;text-align:center;">
+                                        <img src="/suite/plugins/img/attach/attach.png" width="100px" height="100px">
+                                        <br>
+                                        <br>
+                                        <span style="font-size:20px;font-family:'黑体';"
+                                              translate="content.announce.NOATTACH">没有附件</span>！
+                                    </div>
+                                    <!-- </div> -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END REGIONAL STATS PORTLET-->
+
+
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <div class="blog-single-sidebar bordered blog-container">
+                    <div class="blog-single-sidebar-search">
+                        <div class="input-icon right">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" id="threadSearch" class="form-control"
+                                   ng-keypress="searchThread(threadSummry.forumId,$event)" placeholder="看看其他"></div>
+                    </div>
+                    <div class="blog-single-sidebar-recent">
+                        <h3 class="blog-sidebar-title uppercase" translate="content.news.RECENTINFORMATION"> 最近资讯</h3>
+                        <ul class="unstyled">
+                            <li ng-repeat="newsFast in newsFasts" class="list-group-item">
+                                <i class="icon-flag"></i>
+                                <a href="javascript:;"
+                                   ng-click="updateThread(newsFast.threadId)">{{newsFast.subject}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="blog-single-sidebar-links">
+                        <h3 class="blog-sidebar-title uppercase" translate="content.news.OTHERCLASSIFICATION">其他分类</h3>
+                        <ul>
+                            <li ng-repeat="forum in forums">
+                                <!-- <i class="icon-fire"></i> -->
+                                <a href="javascript:;" ng-click="lookDetails(forum.forumId)">{{forum.forumName}}</a>
+                                <!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
+                                <p class="tellandsee">
+                                    <span translate="content.news.NEWSNUMBER">新闻数量</span>！
+
+                                    :<span class="badge badge-success">{{forum.threadCount}}</span>
+                                    &nbsp;
+                                    <span translate="content.news.BROWSETODAY">今日浏览量</span>！
+
+                                    :<span class="badge badge-info">{{forum.messageCountToday}}</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="blog-single-sidebar-ui">
+                        <h3 class="blog-sidebar-title uppercase" translate="content.news.RECENTPHOTOS">近期照片</h3>
+                        <div class="row ui-margin">
+                            <div class="col-xs-4 ui-padding" ng-repeat="newsFast in newsFasts">
+                                <a href="javascript:;" ng-click="updateThread(newsFast.threadId)">
+                                    <img src="{{getSrc(newsFast.attachments)}}"/>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="js/apps/news/newsDetailController.js"></script>

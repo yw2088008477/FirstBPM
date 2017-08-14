@@ -1,0 +1,118 @@
+<h4>附件列表</h4>
+<div id="tabs">
+    <span ng-repeat="tab in tabs"
+              ng-class="tab.isSelect?'active':''"
+              ng-click="typeChanged(tab.value)"><i ng-class="::tab.class"></i></span>
+</div>
+<!-- 列表附件展示 -->
+<div class="tables">
+    <table class="table" ng-show="defaultValue=='one'">
+        <thead>
+        <tr>
+            <th width="40%">附件名称</th>
+            <th>附件类型</th>
+            <th>操作时间</th>
+            <th>操作列表</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="file in fileList track by $index">
+            <td>
+                <strong data-ng-bind="file.name" ng-if="!attach.hasDownload"></strong>
+                <a href="/suite/doc/{{file.field}}" data-ng-bind="file.name" ng-if="attach.hasDownload"></a>
+            </td>
+            <td nowrap data-ng-bind="file.suffix"></td>
+            <td class="text-center">
+                <span data-ng-cloak>{{ file.lastModified | date:'yyyy-MM-dd hh:mm:ss' }}</span>
+            </td>
+            <td nowrap>
+                <a ng-click="open(file,'view')" ng-if="attach.hasView">
+                    查看
+                </a>
+                &nbsp;
+                <a ng-click="open(file,'modify')" ng-if="attach.hasModify && isDoc(file.suffix)">
+                    编辑
+                </a>
+                &nbsp;
+                <a ng-click="remove()" ng-if="attach.hasRemove">
+                    删除
+                </a>
+            </td>
+        </tr>
+        <tr ng-if="fileList.length<1">
+            <td colspan="4" class="center">
+                暂无附件
+            </td>
+        </tr>
+        <tr ng-if="attach.hasNew">
+            <td colspan="4">
+                <div class="table-item-operation pull-right">
+                    <a ng-click="open(null,'modify')" >在线编辑</a> | <a type="file" ngf-select="uploadFiles($files, $invalidFiles)" class="file-box">本地上传</a>
+                </div>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <!-- 图标附件展示 -->
+    <div class="first-archives-list" ng-show="defaultValue=='two'">
+        <div class="list-item" ng-repeat="file in fileList track by $index">
+            <div class="list-item-main">
+                <div class="list-item-icon">
+                    <i class="fa fa-file-text-o fa-3x fa-fw"></i>
+                </div>
+                <span class="list-item-text">{{file.name}}</span>
+            </div>
+            <div class="list-item-operation">
+                <span>
+                    <a ng-click="open(file,'view')" ng-if="attach.hasView">
+                        查看
+                    </a>
+                    <a href="/suite/doc/{{file.field}}" ng-if="attach.hasDownload">
+                        下载
+                    </a>
+                    <a ng-click="open(file,'modify')" ng-if="attach.hasModify && isDoc(file.suffix)">
+                        编辑
+                    </a>
+                    &nbsp;
+                    <a ng-click="remove()" ng-if="attach.hasRemove">
+                        删除
+                    </a>
+                </span>
+            </div>
+        </div>
+        <div class="list-item" ng-if="fileList.length<1">
+            <div class="list-item-main">
+                <div class="list-item-icon">
+                    <i class="fa fa-file-text-o fa-3x fa-fw"></i>
+                </div>
+                <span class="list-item-text">暂无附件</span>
+            </div>
+            <div class="list-item-operation">
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="list-item base" ng-show="attach.hasNew">
+            <div class="list-item-main">
+                <span class="list-item-icon"><i class="fa fa-plus fa-2x"></i></span>
+                <span class="list-item-text">上传</span>
+            </div>
+            <div class="list-item-btns">
+                <button class="btn btn-primary" ngf-select="uploadFiles($files, $invalidFiles)" multiple
+                        ngf-max-height="1000" ngf-max-size="1MB">本地上传
+                </button>
+                <button class="btn btn-default" ng-click="open(null,'modify')">在线编辑</button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script>
+    $(".first-archives-list .list-item-btns").hide();
+    $(".first-archives-list .list-item.base").click(function () {
+        $(".first-archives-list .list-item-btns").toggle(1500);
+    });
+</script>

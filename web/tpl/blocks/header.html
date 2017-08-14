@@ -1,0 +1,393 @@
+<style>
+    #searchInput:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: #BCC2CB;
+        opacity: 1;
+    }
+
+    #searchInput::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: #BCC2CB;
+        opacity: 1;
+    }
+
+    #searchInput:-ms-input-placeholder {
+        color: #BCC2CB;
+        opacity: 1;
+    }
+
+    #searchInput::-webkit-input-placeholder {
+        color: #BCC2CB;
+        opacity: 1;
+    }
+</style>
+<!-- BEGIN HEADER TOP -->
+<div class="page-header-top">
+    <div class="container-fluid">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a ui-sref="dashboard">
+                <!--<img src="/suite/plugins/metronic/theme/assets/layouts/layout2/img/logo-default.png" alt="logo" class="logo-default" /> </a>-->
+                <img src="img/{{logoName}}"
+                     alt="logo" class="logo-default" style="margin-top: 17.5px;"> </a>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler"></a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <!-- 日期和天气 -->
+                <!--<li>-->
+                <!--<iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=7" width="220" height="64"-->
+                <!--frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>-->
+                <!--</li>-->
+
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" ng-click="reloadNotification()">
+                        <i class="icon-bell"></i>
+                        <span class="badge badge-default" id="notificationUnreadHeaderCountOne" ng-hide="getnotificationscount.unread==0" ng-bind="getnotificationscount.unread"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3>
+                                你有<span class="bold" id="notificationUnreadHeaderCountTwo" ng-bind="getnotificationscount.unread"></span>条通知</h3>
+                            <a href="#/notification">查看所有</a>
+                        </li>
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                <li ng-repeat="notification in notifications">
+                                    <!-- <a href="#/processDetail/{{notification.id}}"> -->
+                                    <a href="javascript:;" ng-click="goMessageDetail(notification)" style="clear:both;display:inline-block;width:100%;margin-bottom:-6px;">
+                                        <span class="details clearfix">
+                                            <img src="/suite/plugins/servlet/loadsource/3/{{notification.sender}}.png"  class="img-circle" style="width:35px;height:35px;float:left;">
+                                            <div style="float:left;width:200px;padding-left:8px;">
+                                                <span ng-hide="notification.type!='NEW_TASK_ME'" ng-bind="notification.taskName"></span>
+                                                <span ng-hide="notification.type!='SYSTEM'" ng-bind="notification.subject"></span>
+                                                <span ng-hide="notification.type!='NEW_PROCESS_NOTE_MESSAGE'">
+                                                    <span translate="notification.newMessage" ></span>：<span ng-bind-html="notification.processName"></span>，<span translate="notification.withNewInformation"></span>
+                                                </span>
+                                                <br>
+                                                <span ng-bind="notification.timesent"></span>
+                                            </div>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown dropdown-user dropdown-dark">
+                    <a href=":;" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown"
+                       data-close-others="true">
+                        <img alt="" class="img-circle" src="/suite/plugins/servlet/loadsource/3/{{userInfo.userName}}.png">
+                        <span class="username username-hide-mobile" ng-bind="userInfo.userName"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="#/profile/dashboard">
+                                <i class="icon-user"></i>
+                                <span translate="header.navbar.home.PERSONALHOME">个人主页</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-calendar"></i>
+                                <span translate="header.navbar.nav-bar-top.WORKCALENDAR">工作日历</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-envelope-open"></i>
+                                <span translate="header.navbar.nav-bar-top.MYEMAIL">我的邮件</span>
+                                <span class="badge badge-danger"> 3 </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/todo">
+                                <i class="icon-rocket"></i>
+                                <span translate="header.navbar.nav-bar-top.MYRODO">我的待办</span>
+                                <span class="badge badge-success" ng-bind="taskCount.statusall"> 7 </span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/suite/logout">
+                                <i class="icon-key"></i>
+                                <span translate="header.navbar.nav-bar-top.LOGOUT">退出</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown dropdown-language dropdown-dark">
+                    <a href class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown"
+                       data-close-others="true" ng-bind="selectLang" id="selecteLang">
+                        <!--<img alt="" src="/suite/plugins/servlet/loadsource/5/flag.png" style="width:30px;height:20px;"/>-->
+                        <b class="caret"></b>
+                    </a>
+                    <!-- dropdown -->
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li ng-repeat="(langKey, label) in langs">
+                            <a ng-click="setLang(langKey, $event)" href ng-bind="label"></a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+             <!--   <li class="dropdown dropdown-extended quick-sidebar-toggler">
+                    <span class="sr-only">Toggle Quick Sidebar</span>
+                    <i class="icon-logout"></i>
+                </li>-->
+                <!-- END QUICK SIDEBAR TOGGLER -->
+
+
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+</div>
+<!-- END HEADER TOP -->
+<!-- BEGIN HEADER MENU -->
+<div class="page-header-menu">
+    <div class="container-fluid">
+        <!-- BEGIN HEADER SEARCH BOX -->
+        <form class="search-form" action="extra_search.html" method="GET">
+            <div class="input-group">
+                <input id="searchInput" type="text" class="form-control" placeholder="搜索" name="query"
+                       style="color:#BCC2CB;">
+                <span class="input-group-btn">
+                    <a href="javascript:;" class="btn submit">
+                        <i class="icon-magnifier"></i>
+                    </a>
+                </span>
+            </div>
+        </form>
+        <!-- END HEADER SEARCH BOX -->
+        <!-- BEGIN MEGA MENU -->
+        <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
+        <!-- DOC: Remove dropdown-menu-hover and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
+        <div class="hor-menu">
+            <ul class="nav navbar-nav">
+                <li class="menu-dropdown classic-menu-dropdown">
+                    <a href="#/home" >
+                        <span translate="header.navbar.home.HOME">主页</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li>
+                            <a href="#/home">
+                                <i class="fa fa-group"></i>
+                                &nbsp;&nbsp;<span translate="header.navbar.home.PLATFORMHOME">平台主页</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/profile/dashboard">
+                                <i class="fa fa-mortar-board"></i>&nbsp;&nbsp;
+                                <span translate="header.navbar.home.PERSONALHOME">个人主页</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a href="javascript:;">
+                        <span translate="header.navbar.workingPlatform.WOKINGPLATFORM">工作平台</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li>
+                            <a href="#/processModelList">
+                                <i class="fa fa-edit"></i>
+                                &nbsp;&nbsp;<span translate="header.navbar.workingPlatform.PROCESSCENTER">流程中心</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/task/inbox/0">
+                                <i class="fa fa-tasks"></i>
+                                &nbsp;&nbsp;<span translate="header.navbar.workingPlatform.MYTASKS">我的任务</span>
+                                <span class="badge badge-success" ng-show="qtTaskData.qtTaskWait*1+qtTaskData.qtTaskOn*1!=0"
+                                      ng-bind="qtTaskData.qtTaskWait*1+qtTaskData.qtTaskOn*1"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/process/inbox/0">
+                                <i class="icon-list"></i>
+                                &nbsp;&nbsp;<span translate="header.navbar.workingPlatform.MYINITIATION">我的发起</span>
+                                <span class="badge badge-info" ng-show="qtProcessData.qtallNu!=0"
+                                      ng-bind="qtProcessData.qtallNu"></span>
+                            </a>
+                        </li>
+                      <!--  <li>
+                            <a href="#/documentRead/documentInbox/0">
+                                <i class="icon-share-alt"></i>
+                                &nbsp;&nbsp;<span
+                                    translate="header.navbar.workingPlatform.CIRCULATIONOFDOCUMENTS">文件传阅</span>
+                            </a>
+                        </li>-->
+                    </ul>
+                </li>
+                <li class="menu-dropdown classic-menu-dropdown ">
+                    <a href="javascript:;">
+                        <span translate="header.navbar.workingPlatform.PROCESSREPORT">流程报表</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li ng-repeat="application in applications" class="dropdown-submenu">
+                            <a href="javascript:;">
+                                <i ng-show="application.iconClass==null" class="icon-directions"></i>
+                                <i ng-show="application.iconClass!=null" class="{{application.iconClass}}"></i>
+                                <span ng-bind="application.name"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="nav in application.navs">
+                                    <a href="#/reportPage/{{nav.pageId}}">
+                                        <i class="icon-direction"></i>
+                                        <span ng-bind="nav.name"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#/accounmentRead/accounmentInbox">
+                        <span translate="header.navbar.ANNOUNCEMENT">通知公告</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/nonfometNews">
+                        <span translate="header.navbar.NEWS">新闻快讯</span>
+
+                    </a>
+                </li>
+           <!--     <li>
+                    <a href="#/knowledgeCenter/nodeInfoFa">
+                        <span translate="header.navbar.KNOWLEDGECENTER">知识中心</span>
+                    </a>
+                </li>-->
+                <li>
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
+                       href="#/userProfileList">
+                        <span translate="header.navbar.CONTACTS">通讯录</span>
+                    </a>
+                </li>
+                <li class="menu-dropdown classic-menu-dropdown">
+                    <a href="javascript:;" >
+                        <span translate="header.navbar.home.SYSMANAGE">资产管理</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li>
+                            <a href="#/sysmanage/categorys">
+                                <i class="fa fa-group"></i>
+                                &nbsp;&nbsp;<span translate="header.navbar.home.CATEGORY">分类管理</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/sysmanage/products">
+                                <i class="fa fa-mortar-board"></i>&nbsp;&nbsp;
+                                <span translate="header.navbar.home.PRODUCT">资产信息管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"
+                       href="#/notification">
+                        <span translate="header.navbar.NOTIFICATION">系统消息</span>
+                    </a>
+                </li>
+              <!--  <li class="menu-dropdown classic-menu-dropdown">
+                    <a href="javascript:;">
+                        <span translate="header.navbar.POINTLOGIN">单点登录</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-left">
+                        <li>
+                            <a href="http://oa.sphchina.com/login/Login.jsp/" target="_blank">
+                                <i class="fa fa-skype"></i>
+                                &nbsp;&nbsp;
+                                <span translate="header.navbar.POINTLOGIN.SAPSYSTEM">SAP系统</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://oa.sphchina.com/login/Login.jsp/" target="_blank">
+                                <i class="fa fa-font"></i>&nbsp;&nbsp;
+                                <span translate="header.navbar.POINTLOGIN.OAPSYSTEM">OA系统</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://oa.sphchina.com/login/Login.jsp/" target="_blank">
+                                <i class="fa fa-wikipedia-w"></i>&nbsp;&nbsp;
+                                <span translate="header.navbar.POINTLOGIN.WMSPSYSTEM">WMS系统</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+-->
+            </ul>
+        </div>
+    </div>
+
+    <!-- END MEGA MENU -->
+</div>
+</div>
+<!-- END HEADER MENU -->
+<script>
+
+    function isPlaceholer() {
+        var input = document.createElement("input");
+
+        return "placeholder" in input;
+
+    }
+    ;
+    function placeholder(input) {
+
+        var text = input.attr('placeholder'),
+                defaultValue = input.defaultValue;
+
+        if (!defaultValue) {
+
+            input.val(text).addClass("搜索");
+        }
+
+        input.focus(function () {
+
+            if (input.val() == text) {
+
+                $(this).val("");
+            }
+        });
+
+
+        input.blur(function () {
+
+            if (input.val() == "") {
+
+                $(this).val(text).addClass("搜索");
+            }
+        });
+
+//输入的字符不为灰色
+        input.keydown(function () {
+
+            $(this).removeClass("搜索");
+        });
+    }
+    ;
+
+    //当浏览器不支持placeholder属性时，调用placeholder函数
+    if (!isPlaceholer()) {
+
+        $('input').each(function () {
+
+            text = $(this).attr("placeholder");
+
+            if ($(this).attr("type") == "text") {
+
+                placeholder($(this));
+            }
+        });
+    }//结束
+</script>

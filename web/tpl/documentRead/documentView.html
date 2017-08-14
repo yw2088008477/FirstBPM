@@ -1,0 +1,65 @@
+<div>
+    <iframe id="taskContent" width="100%" frameborder="0" height="100%" src="" scrolling="no"></iframe>
+</div>
+<div class="portlet light ">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-bubble font-hide hide"></i>
+            <span class="caption-subject font-hide bold uppercase" translate="common.accessoriesAndComments"></span>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div id="notes">
+
+        </div>
+        <p>&nbsp;&nbsp;<b><span translate="process.participants" class="ng-scope"></span>：</b>
+            {{pp.participants}}&nbsp;&nbsp;&nbsp;
+            <script type="text/ng-template" id="selectUser.html">
+                <div ng-include="'userAndGroup/selectUser.html'"></div>
+            </script>
+            <button class="btn m-b-xs btn-sm btn-info btn-addon" ng-click="setProcessSecurityRole('selectUser.html')"><i
+                    class="fa fa-plus"></i><span translate="content.process.toolbar.addParticipants"></span></button>
+        </p>
+        <div class="clearfix">
+            <a class="pull-left thumb-sm avatar"><img src="/suite/plugins/servlet/loadsource/3/{{user.userName}}.png"
+                                                      width="30" height="46" alt="..."></a>
+            <div class="m-l-xxl">
+                <script type="text/ng-template" id="atUserList.html">
+                    <div ng-include="'userAndGroup/atUserList.html'"></div>
+                </script>
+                <input type="hidden" id="at" value="">
+                <div class="input-group">
+                    <input id="content" type="text" ng-keyup="setAt()" class="form-control input-lg"
+                           placeholder="{{'common.pleaseAddComments'|translate}}">
+						              <span class="input-group-btn">
+						                <button onclick="sendProcessNote()" class="btn btn-info btn-lg" type="button">
+                                            <span translate="common.send"></span></button>
+						              </span>
+                </div>
+                <div id="attach" style='margin-top:2px;'>
+
+                </div>
+                <div>
+                    <form id="uploadForm" name="uploadForm" action="/suite/plugins/servlet/UploadFile" method="post"
+                          enctype="multipart/form-data" target="ifm">
+                        <input type="hidden" name="processModelId" value="{{tp.processModelId}}">
+                        <a href="javascript:;" class="btn btn-info btn-addon"
+                           style="position: relative;display: inline-block;">
+                            <i class="fa fa-paperclip"></i><span translate="common.addAttachments"></span>
+                            <input name="upload" id="file"
+                                   style="position: absolute;font-size: 100px;right: 0;top: 0;opacity: 0;" type="file"
+                                   onchange="selectedFile(this)" style="width:206px;"/>
+                        </a>
+                    </form>
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#taskContent").load(function () {
+        var mainheight = $(this).contents().find("body").height() + 30;
+        $(this).height(mainheight);
+    });
+</script>

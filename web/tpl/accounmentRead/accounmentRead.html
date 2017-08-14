@@ -1,0 +1,34 @@
+<div class="inbox">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="inbox-sidebar">
+                <a ng-show="showAdd" ng-click="loadPageBy()" data-title="新建事项"
+                   class="btn red compose-btn btn-block">
+                    <i class="fa fa-edit"></i>
+                <span translate="content.announce.ANNOUNCE">发布公告</span>
+                </a>
+                <a ng-show="!showAdd" data-title="新建事项" class="btn red compose-btn btn-block">
+                    发文分类</a>
+                <ul class="inbox-nav">
+                    <li class="active">
+                        <a ng-click="loadPageFr('0',$event,'所有传阅')" data-type="inbox" data-title="待办事项">
+                            <span translate="content.announce.ALLANNOUNCEMENTS">所有公告</span>
+                        </a>
+                    </li>
+                    <li ng-repeat="forum in forums">
+                        <a  ng-click="loadPageFr(forum.forumId,$event,forum.forumName)" data-type="inbox"
+                           data-title="待办事项">{{forum.forumName}}
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="inbox-body">
+
+                <div ui-view class="inbox-content fade-in-up"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,137 @@
+.first-info-panel .first-info-body {
+    display: table;
+}
+.first-info-panel .first-info-body .first-info-picture {
+    display: table-cell;
+    height: 30px;
+}
+.first-info-panel .first-info-body .first-info-content {
+    display: table-cell;
+    padding-left: 10px;
+    padding-top: 0;
+}
+.first-info-panel .first-info-footer {
+    height: 12px;
+    padding-top: 13px;
+}
+
+.first-process-itemlist {
+   display: table;
+    width: 100%;
+}
+.first-process-item {
+    display: table-cell;
+    padding: 10px 15px;
+}
+.first-timeaxis{
+    display: table;
+}
+.first-timeaxis li{
+    display:table-cell ;
+}
+.first-archives-list{
+    display: block;
+}
+.first-archives-list .list-item{
+    display: block;
+    float: left;
+}
+
+.first-archives-list .list-item-main {
+    display: table;
+}
+
+.first-archives-list .list-item-icon {
+    display: table-row;
+    width: 100%;
+}
+
+.first-archives-list .list-item-text {
+    display: table-row;
+    width: 100%;
+}
+
+.first-archives-list .list-item-progress {
+    display: table-row;
+    width: 100%;
+}
+.first-row,.first-tabs-content,.first-tools{
+    display: table;
+}
+
+.col-half,.col-1,.col-2,.col-3{
+    display: table-cell;
+}
+.ie9-row{
+    display: block;
+    overflow: hidden;
+}
+.form-row label:first-child{
+    width: 21%;
+    text-align: right;
+    float: left;
+}
+.col-sm-6.form-row label:first-child,
+.col-sm-6>.col-full>.form-row label:first-child{
+    width: 43%;
+}
+.form-row .form-control{
+    float: right;
+    width: 78%;
+    vertical-align: middle;
+}
+
+.col-sm-6.form-row .form-control,
+.col-sm-6>.col-full>.form-row .form-control{
+    width: 56%;
+}
+
+.col-ie25{
+    width: 25%;
+}
+.col-ie50{
+    width: 50%;
+}
+.col-ie75{
+    width: 75%;
+}
+.col-ie66{
+    width: 66.6%;
+}
+.col-ie33{
+    width: 33.3%;
+}
+.col-ie40{
+    width: 40%;
+}
+.col-ie60{
+    width: 60%;
+}
+.radio-label{
+    width: 150px;min-width: inherit;
+}
+
+.first-footer{
+    display: block;
+    position: relative;
+}
+.first-footer input{
+    left: 0;
+    width: 70%;
+    float: left;
+}
+.first-footer .btn{
+    float: right;
+}
+.list-item-icon,.list-item-text{
+    display: block;
+}
+.first-tools .first-btn{
+   text-align: center;display: table-cell;
+}
+.first-tools .first-btns,.first-tools .first-spinner{
+    display: table-cell;
+}
+.first-spinner{
+    display: table;
+}

@@ -1,0 +1,103 @@
+
+<!-- BEGIN : USER CARDS -->
+<div class="blog-page blog-content-1">
+    <div class="row" ng-repeat="newsFast in newsFasts">
+        <div class="row">
+        <!--<div class="col-md-12" ng-show="newsFast.topics.length">-->
+            <div class="col-md-12">
+
+            <div class="portlet light portlet-fit ">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <!-- <i class=" icon-fire font-green"></i> -->
+                        <img alt="" src="/suite/plugins/servlet/loadsource/5/news.png" width="22" height="17" ng-show="newsFast.forum.forumName=='新闻资讯'">
+                        <img alt="" src="/suite/plugins/servlet/loadsource/5/dang-flag.jpg" width="22" height="17" ng-show="newsFast.forum.forumName=='企业党建'">
+                                        <span class="caption-subject font-green bold uppercase">
+                                            {{newsFast.forum.forumName}}
+                                        </span>
+                        <!-- <span class="caption-helper">{{newsFast.forum.forumCreator}}创建于{{newsFast.forum.forumCreateDate}}</span> -->
+                    </div>
+                    <div class="actions">
+                        <div class="btn-arrow-link pull-right">
+                            <!--<label class="btn btn-circle btn-transparent btn-info" ng-show="showAdd||adminFunc">-->
+
+                            <label class="btn btn-circle btn-transparent btn-info">
+                                <a href="#/newsStart/2172" style="color:#fff;">
+                                    <span translate="content.news.ADDNEWS">添加新闻</span>
+                                </a>
+                                <i class="fa fa-plus"></i>
+                            </label>
+                            &nbsp;&nbsp;
+                            <label class="btn btn-circle btn-transparent grey-salsa active">
+                                <span translate="content.news.NEWSNUMBER">新闻数量</span>
+                                &nbsp;{{newsFast.forum.threadCount}}</label>
+                            <label class="btn btn-circle btn-transparent grey-salsa">
+                                <span translate="content.news.HISTORYBROWS">历史浏览</span>
+                                &nbsp;{{newsFast.forum.messageCount}}</label>
+                            <label class="btn btn-circle btn-transparent grey-salsa">
+                                <span translate="content.news.BROWSETODAY">今日浏览</span>
+                                &nbsp;{{newsFast.forum.messageCountToday}}</label>
+                            <label class="btn btn-circle btn-transparent grey-salsa">
+                                <a href="#/nonfometNewsSearch/3 ">
+                                    <span translate="common.VIEWMORE">查看更多</span>
+                                    ...
+                                    <i class="icon-arrow-right"></i>
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="topic in newsFast.topics">
+
+                            <div class="blog-post-sm bordered blog-container">
+                                <div class="blog-img-thumb" style="border-bottom: 1px solid #e7ecf1;height:180px;">
+                                    <a href="javascript:;" ng-click="lookDetails(topic.threadId)">
+                                        <img src="{{getSrc(topic.attachments)}}" style="margin-bottom:5px;" />
+                                    </a>
+                                </div>
+                                <div class="blog-post-content" style="height:150px;">
+                                    <h4 class="blog-post-title">
+                                        <a href="javascript:;" ng-click="lookDetails(topic.threadId)" ng-show="!topic.isRead" style="font-weight:bold;">{{topic.subject.length>=21?topic.subject.substring(0,22):topic.subject}}</a>
+                                        <a href="javascript:;" ng-click="lookDetails(topic.threadId)" ng-show="topic.isRead">{{topic.subject.length>=21?topic.subject.substring(0,22):topic.subject}}</a>
+                                    </h4>
+                                    <div class="blog-post-foot">
+                                        <div class="blog-post-meta">
+                                            <i class="icon-calendar font-blue"></i>
+                                            <a href="javascript:;">{{topic.ThreadCreateDate}}</a>
+                                        </div>
+                                        <!-- <div class="blog-post-meta">
+                                            <i class="icon-bubble font-blue"></i>
+                                            <a href="javascript:;">{{topic.commentCount}}</a>
+                                        </div> -->
+                                        <div class="blog-post-meta">
+                                            <i class="icon-paper-clip font-blue"></i>
+                                            <!-- <a href="javascript:;">{{topic.attachments.length}}</a> -->
+                                            <a href="javascript:;">{{getAttachmentLength(topic)}}</a>
+                                        </div>
+                                        <div class="blog-post-meta">
+                                            <i class="icon-eye font-blue"></i>
+                                            <a href="javascript:;">{{topic.readCount}}</a>
+                                        </div>
+                                        <!-- <div class="blog-post-meta" ng-show="!topic.isRead">
+                                             <i class="icon-fire font-red"></i>
+                                            <a href="javascript:;"><span style="color:red">news</span></a>
+                                        </div> -->
+                                        <div class="blog-post-meta" ng-show="topic.ThreadCreator==userName||adminFunc||userName=='Administrator'">
+
+                                            <a href="javascript:;" ng-click="deleteThread(topic.threadId)"><i class="fa fa-times font-purple"></i></a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

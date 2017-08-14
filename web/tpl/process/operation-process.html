@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-ng-app="MaterialApp">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <base target="_self">
+    <title>FirstBPM</title>
+    <link href="assets/css/firststyle.css" rel="stylesheet" type="text/css" />
+    <!--ie9样式重置-->
+    <!--[if IE 9]>
+    <link href="assets/css/firststyle-ie9.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="first-warpper">
+        <div class="first-order">
+            <h4 class="first-order-title" ng-bind="orderTitle"></h4>
+            <form name="formName" class="first-form">
+                <fieldset>
+                    <legend>单据信息</legend>
+                    <div class="col-xs-12 row" ng-if="!isStart">
+                        <div class="form-group col-sm-6 col-xs-12 form-row">
+                            <label>申请人：</label>
+                            <input type="text" class="form-control" ng-model="processVeriables.applicant" disabled>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12 form-row">
+                            <label>申请部门：</label>
+                            <input type="text" class="form-control" ng-model="processVeriables.applyDept" disabled>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 row" ng-if="orderModelId==3181">
+                        <div class="form-group col-sm-12 form-row">
+                            <label>修改内容<span class="redstar">*</span>：</label>
+                            <textarea type="text" class="form-control" ng-model="processVeriables.content" ng-disabled="isShow('content')"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 row" ng-if="orderModelId==3184">
+                        <div class="form-group col-sm-12 form-row">
+                            <label>申请标题：</label>
+                            <input type="text" class="form-control" ng-model="processVeriables.title" ng-disabled="isShow('title')">
+                            </textarea>
+                        </div>
+                        <div class="form-group col-sm-12 form-row">
+                            <label>审批内容：</label>
+                            <textarea class="form-control" ng-model="processVeriables.content" ng-disabled="isShow('content')"></textarea>
+                        </div>
+                        <div class="form-group col-sm-12 form-row" ng-if="taskDetails.display == '营运部TA岗' ">
+                            <label>TA参数设置：</label>
+                            <div class="col-xs-4" ng-repeat="item in TAParameters track by $index">
+                                <input type="checkbox" name="tradeType" id="ck{{$index}}" ng-true-value="'true'" ng-disabled="isShow('p_TA')" ng-false-value="'false'" ng-model="processVeriables.p_TA[item.CATEGORY_NAME]">
+                                <label for="ck{{$index}}"></label>{{item.CATEGORY_NAME}}
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12 form-row" ng-if="taskDetails.display == '营运部交易岗' ">
+                            <label>O32参数设置：</label>
+                            <div class="col-xs-4" ng-repeat="item in O32Parameters track by $index">
+                                <input type="checkbox" name="tradeType" id="ck{{$index}}" ng-true-value="'true'" ng-disabled="isShow('p_O32')" ng-false-value="'false'" ng-model="processVeriables.p_O32[item.CATEGORY_NAME]">
+                                <label for="ck{{$index}}"></label>{{item.CATEGORY_NAME}}
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12 form-row" ng-if="taskDetails.display == '营运部估值岗GP3' ">
+                            <label>GP3参数设置：</label>
+                            <div class="col-xs-4" ng-repeat="item in GP3Parameters track by $index">
+                                <input type="checkbox" name="tradeType" id="ck{{$index}}" ng-true-value="'true'" ng-disabled="isShow('p_GP3')" ng-false-value="'false'" ng-model="processVeriables.p_GP3[item.CATEGORY_NAME]">
+                                <label for="ck{{$index}}"></label>{{item.CATEGORY_NAME}}
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12 form-row" ng-if="taskDetails.display == '营运部估值岗M5' ">
+                            <label>M5参数设置：</label>
+                            <div class="col-xs-4" ng-repeat="item in M5Parameters track by $index">
+                                <input type="checkbox" name="tradeType" id="ck{{$index}}" ng-true-value="'true'" ng-disabled="isShow('M5')" ng-false-value="'false'" ng-model="processVeriables.M5[item.CATEGORY_NAME]">
+                                <label for="ck{{$index}}"></label>{{item.CATEGORY_NAME}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-6 form-row">
+                        <label>申请时间：</label>
+                        <input type="text" class="form-control" value="2017-01-01" ng-model="processVeriables.applyDate" disabled>
+                    </div>
+                </fieldset>
+                <div style="position: relative">
+                    <ng-include src="'tpl/page/temp-upload.html'" data-ng-controller="ArchiveFileUpload"></ng-include>
+                </div>
+                <div class="first-footer first-row">
+                    <input class="form-control" id="note" ng-if="!isShow('note')" />
+                    <a class="btn btn-default" ng-click="submit('退回修改')" ng-if="!isShow('btn')">退回修改</a>
+                    <a class="btn btn-default" ng-click="submit('不同意')" ng-if="!isShow('btn1')">驳回</a>
+                    <a class="btn btn-primary" ng-click="submit('提交')" ng-if="!isShow('btn2')">提交</a>
+                </div>
+                <table class="table">
+                    <tr ng-repeat="note in notes">
+                        <td ng-bind="note.content.content"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-body" id="modal-body">
+            <ng-include src="'tpl/page/temp-archivemanager.html'"></ng-include>
+        </div>
+    </script>
+</body>
+
+</html>

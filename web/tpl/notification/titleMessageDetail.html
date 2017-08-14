@@ -1,0 +1,35 @@
+<div ng-controller="titleMessageDetailCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="todo-ui">
+                <!-- BEGIN TODO CONTENT -->
+                <div class="todo-content">
+                    <div class="portlet light">
+                        <!-- PROJECT HEAD -->
+                        <div class="portlet-title">
+                            <div class="tab-pane " id="buttons_metro">
+                                <a href="#/notification" class="btn btn-circle blue m-icon-big">
+                                    <i class="m-icon-swapleft m-icon-white"></i> 返回
+                                </a>
+                            </div>
+                        </div>
+                        <!-- end PROJECT HEAD -->
+                        <div class="portlet-body">
+                            <div class="scroller" style="height:600px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+                                <div class="note note-warning">
+                                    <p>由<a href="javascript:'" ng-bind="attribute.creator" style="text-decoration:none;"></a>创建的标题“ <a href="javascript:'" ng-bind="attribute.subject" style="text-decoration:none;"></a> ” ，有新的由<span ng-bind="attribute.author"></span>发布的关于<span ng-bind="attribute.postTime"></span>的消息。目前该标题有<span ng-bind="attribute.messageCount"></span>消息。</p>
+                                </div>
+                                <div class="note note-success">
+                                    <h4>消息内容</h4>
+                                    <p ng-bind="attribute.messageContent"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END TODO CONTENT -->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>

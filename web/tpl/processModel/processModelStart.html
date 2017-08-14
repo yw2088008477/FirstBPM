@@ -1,0 +1,24 @@
+<div class="portlet box">
+    <div class="portlet-title">
+        <div class="caption"><span ng-bind="processName" style="color:#9eacb4;"></span></div>
+    </div>
+    <div class="portlet-body form">
+        <iframe id="processModelContent" width="100%" frameborder="0" height="1500" src="{{src}}"  scrolling="no" ></iframe>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+	$('html,body', window.document).animate({
+    scrollTop:'100px'
+  }, 'fast');
+	var messageid = mini.loading("Loading, Please wait ...", "Loading");
+	
+	$("#processModelContent").load(function () {
+    var mainheight = $(this).contents().find("body").height() + 2000;
+    $(this).height(mainheight);
+	mini.hideMessageBox(messageid);
+});
+    });
+</script>
+
+

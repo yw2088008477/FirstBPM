@@ -1,0 +1,119 @@
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PROFILE SIDEBAR -->
+        <div class="profile-sidebar">
+            <!-- PORTLET MAIN -->
+            <div class="portlet light profile-sidebar-portlet">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
+                    <img src="/suite/plugins/servlet/loadsource/3/{{userInfo.userName}}.png" class="img-responsive" alt="">
+                </div>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name" ng-bind="userInfo.firstName ? userInfo.firstName : userInfo.userName"></div>
+                    <div class="profile-usertitle-job" ng-bind="userInfo.customField2"></div>
+                </div>
+                <!-- END SIDEBAR USER TITLE -->
+                <!-- SIDEBAR BUTTONS -->
+                <!--<div class="profile-userbuttons">-->
+                    <!--<a href="#/userProfileList" class="btn btn-circle green-haze btn-sm" translate="header.navbar.CONTACTS">-->
+                        <!--通讯录-->
+                    <!--</a>-->
+                    <!--<a href="#/tengxunEmail" class="btn btn-circle btn-danger btn-sm" translate="content.dashboard.EMAIL">-->
+                        <!--邮箱-->
+                    <!--</a>-->
+
+                <!--</div>-->
+                <!-- END SIDEBAR BUTTONS -->
+                <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li ng-class="{active: $state.includes('profile.dashboard')}">
+                            <a ui-sref="profile.dashboard">
+                                <i class="icon-home"></i>
+                                <span translate="header.navbar.home.PERSONALHOME">个人主页</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: $state.includes('profile.account')}">
+                            <a ui-sref="profile.account">
+                                <i class="icon-settings"></i>
+                                <span translate="content.profile.main.ACCOUNTSETTINGS">帐号设置</span>
+                                </a>
+                        </li>
+                        <li>
+                            <a href="#/processModelList">
+                                <i class="icon-check"></i>
+                                <span translate="header.navbar.workingPlatform.PROCESSCENTER">流程中心</span>
+                                </a>
+                        </li>
+                        <li>
+                            <a href="#/knowledgeCenter/nodeInfoFa">
+                                <i class="icon-check"></i>
+                                <span translate="header.navbar.KNOWLEDGECENTER">知识中心</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END MENU -->
+            </div>
+            <!-- END PORTLET MAIN -->
+            <!-- PORTLET MAIN -->
+                <!--<div class="portlet light">-->
+                    <!--&lt;!&ndash; STAT &ndash;&gt;-->
+                    <!--<div class="row list-separated profile-stat">-->
+                        <!--<div class="col-md-4 col-sm-4 col-xs-6">-->
+                            <!--<div class="uppercase profile-stat-title"> 37 </div>-->
+                            <!--<div class="uppercase profile-stat-text">-->
+                                <!--<span translate="header.navbar.workingPlatform.MYINITIATION">我的发起</span>-->
+                                <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4 col-sm-4 col-xs-6">-->
+                            <!--<div class="uppercase profile-stat-title"> 51 </div>-->
+                            <!--<div class="uppercase profile-stat-text">-->
+                                <!--<span translate="header.navbar.nav-bar-top.MYRODO">我的待办</span>-->
+                                <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4 col-sm-4 col-xs-6">-->
+                            <!--<div class="uppercase profile-stat-title"> 61 </div>-->
+                            <!--<div class="uppercase profile-stat-text">-->
+                                <!--<span translate="content.profile.main.HAVERED">我的待阅</span>-->
+                                <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; END STAT &ndash;&gt;-->
+                    <!--<div>-->
+                        <!--<h4 class="profile-desc-title">-->
+                            <!--<span translate="content.profile.main.COMMONLINKS">常用链接</span>-->
+                        <!--</h4>-->
+                        <!--<span class="profile-desc-text"></span>-->
+                        <!--<div class="margin-top-20 profile-desc-link">-->
+                            <!--<i class="fa fa-globe"></i>-->
+                            <!--<a href="http://www.keenthemes.com">-->
+                                <!--<span translate="content.profile.main.KINFDEE">金蝶OA</span>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                        <!--<div class="margin-top-20 profile-desc-link">-->
+                            <!--<i class="fa fa-twitter"></i>-->
+                            <!--<a href="http://www.twitter.com/keenthemes/">-->
+                                <!--<span translate="content.profile.main.BAOXING">宝兴ERP</span>-->
+                                <!--</a>-->
+                        <!--</div>-->
+                        <!--<div class="margin-top-20 profile-desc-link">-->
+                            <!--<i class="fa fa-facebook"></i>-->
+                            <!--<a href="http://www.facebook.com/keenthemes/">-->
+                                <!--<span translate="content.profile.main.SYSTEMHR">系统HR</span>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!-- END PORTLET MAIN -->
+        </div>
+        <!-- END BEGIN PROFILE SIDEBAR -->
+        <!-- BEGIN PROFILE CONTENT -->
+        <div ui-view class="profile-content fade-in-up"> </div>
+        <!-- END PROFILE CONTENT -->
+    </div>
+</div>
+<!-- END PAGE CONTENT-->

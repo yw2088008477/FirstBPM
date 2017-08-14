@@ -1,0 +1,10 @@
+cd - change directoru
+clear - clear the screen
+mkdir - make a directory
+cd .. -back to previous directory
+rm -remove a file
+rmdir - less myself
+./   - run a program
+screencapture -x -t jpg sample.jpg
+mv document-name.pdf ~/desktop/   - move or copy a file to desktop
+touch test - make file (attaches a file with name test in the directory)

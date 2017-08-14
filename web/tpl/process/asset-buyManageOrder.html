@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-ng-app="MaterialApp">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <base target="_self">
+    <link href="assets/css/firststyle.css" rel="stylesheet" type="text/css" />
+    <!--ie9样式重置-->
+    <!--[if IE 9]>
+    <link href="assets/css/firststyle-ie9.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="first-warpper" ng-show="!isStart">
+        <div class="first-order">
+            <h4 class="first-order-title">物品申购审批单</h4>
+            <form name="formName" class="first-form">
+                <fieldset>
+                    <legend>单据信息</legend>
+                    <div>
+                        <div class="form-group col-sm-6 col-xs-12 form-row">
+                            <label>申请人：</label>
+                            <input type="text" class="form-control" ng-model="getPurchaseInfo.PURCHASE_PEOP" disabled>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12 form-row">
+                            <label>申请部门：</label>
+                            <input type="text" class="form-control" ng-model="getPurchaseInfo.PURCHASE_DEPT" disabled>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 form-row">
+                            <label>申请日期：</label>
+                            <input type="text" class="form-control" ng-model="getPurchaseInfo.PRODUCT_PURCHASE_DATE" disabled>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 form-row">
+                            <label>采购总金额：</label>
+                            <input type="text" class="form-control" ng-model="getPurchaseInfo.PRODUCT_PURPRICE_TOTAL" disabled>
+                        </div>
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>物品编号</th>
+                                        <th>物品名称</th>
+                                        <th>物品规格</th>
+                                        <th>物品单价</th>
+                                        <th>采购数量</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="item in purchaseInfoDetails track by $index">
+                                        <td data-ng-bind="item.PRODUCT_ID">10001</td>
+                                        <td data-ng-bind="item.PRODUCT_NAME">PC</td>
+                                        <td data-ng-bind="item.PRODUCT_SPEC">PC</td>
+                                        <td data-ng-bind="item.PRODUCT_PURPRICE">PC</td>
+                                        <td data-ng-bind="item.PRODUCT_PURCHASE_NUM"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="first-footer first-row">
+                    <input class="form-control" id="note" ng-if="!isShow('note')" />
+                    <a class="btn btn-default" ng-click="submit('不同意')" ng-if="!isShow('btn1')">驳回</a>
+                    <a class="btn btn-primary" ng-click="submit('提交')" ng-if="!isShow('btn2')">提交</a>
+                </div>
+                <table class="table">
+                    <tr ng-repeat="note in notes">
+                        <td ng-bind="note.content.content"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="first-warpper accessory-table" ng-show="isStart || (taskDetails.display == '申请人')">
+        <div class="first-order">
+            <h4 class="first-order-title">物品申购审批单</h4>
+            <form name="formName" class="first-form">
+                <fieldset>
+                    <legend>单据信息</legend>
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" name="checkAll" id="checkAll">
+                                        <label for="checkAll" id="checkAll"></label>全选
+                                    </th>
+                                    <th>流程编号</th>
+                                    <th>申请人</th>
+                                    <th>申请时间</th>
+                                    <th>归属部门</th>
+                                    <th>期望到货日期</th>
+                                    <th>物品总金额</th>
+                                    <th>查看物品详情</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="item in productApplyInfo track by $index">
+                                    <td>
+                                        <input type="checkbox" name="ck{{item.PROCESSID}}" id="ck{{item.PROCESSID}}" ng-model="item.checked" ng-change="fnChecked(item)">
+                                        <label for="ck{{item.PROCESSID}}"></label>
+                                    </td>
+                                    <td data-ng-bind="item.PROCESSID">10001</td>
+                                    <td data-ng-bind="item.APPLY_PEOP">PC</td>
+                                    <td data-ng-bind="item.PRODUCT_APPLY_DATE">PC</td>
+                                    <td data-ng-bind="item.APPLY_DEPT">PC</td>
+                                    <td data-ng-bind="item.PRODUCT_EXPIRE_DATE"></td>
+                                    <td data-ng-bind="item.PRODUCT_PURPRICE_TOTAL">PC</td>
+                                    <td ng-click="showDetails(item.PROCESSID)"><a>查看详情</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                <div class="first-footer first-row">
+                    <input class="form-control" id="note" ng-if="!isShow('note')" />
+                    <a class="btn btn-primary" ng-click="submit('提交')" ng-if="!isShow('btn2')">提交</a>
+                </div>
+                <table class="table">
+                    <tr ng-repeat="note in notes">
+                        <td ng-bind="note.content.content"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h4>申请物品详细信息</h4></div>
+        <div class="modal-body first-warpper" id="modal-body3">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>物品名称</th>
+                        <th>物品单价</th>
+                        <th>申请数量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="item in productApplyDetails track by $index">
+                        <td data-ng-bind="item.PRODUCT_NAME">10001</td>
+                        <td data-ng-bind="item.PRODUCT_PURPRICE">PC</td>
+                        <td data-ng-bind="item.PRODUCT_APPLY_NUM">PC</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-default" ng-click="cancel()">关闭</a>
+        </div>
+    </script>
+    <style>
+    .modal-body {
+        /*  padding: 0 15px; */
+    }
+
+    .modal-footer {
+        width: 100%;
+        border: none;
+        border-radius: 0px;
+        -moz-box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.0784313725490196);
+        -webkit-box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.0784313725490196);
+        box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.0784313725490196);
+    }
+    </style>
+    <script>
+    $("#checkAll").click(function() {
+        $('.accessory-table input:checkbox').prop('checked', $(this).prop('checked'));
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<div>
+    <div class="inbox">
+        <div class="row">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <div class="inbox-sidebar">
+                    <a href="#/processModelList" data-title="Compose" class="btn red compose-btn btn-block">
+                        <i class="fa fa-edit"></i>
+                        <span translate="header.navbar.workingPlatform.PROCESSCENTER">流程中心</span>
+                    </a>
+                    <ul class="inbox-nav">
+                        <li>
+                            <a href="javascript:;" data-type="important" data-title=""
+                               ng-click="filterProcessstatus('-1',$event,'所有记录')">
+                                <span translate="content.initiated.ALLRECORDS">所有记录</span>
+                                <span ng-show="true"
+                                      class="badge badge-danger badge-active" ng-bind="qtProcessData.qtallNu"></span>
+                            </a>
+
+                        </li>
+                        <li class="divider"></li>
+                        <li class="active">
+                            <a href="javascript:;" data-type="important" data-title=""
+                               ng-click="filterProcessstatus('0',$event,'进行中的记录')">
+                                <span translate="content.task.PROCESSING">进行中</span>
+                                <span ng-show="qtProcessData.qtonNu>0" class="badge badge-success badge-active" ng-bind="qtProcessData.qtonNu"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-type="sent" data-title=""
+                               ng-click="filterProcessstatus(2,$event,'已暂停的记录')">
+                                <span translate="content.initiated.PAUSED">已暂停</span>
+                                <span ng-show="qtProcessData.qtStopNu>0" class="badge badge-warning badge-active" ng-bind="qtProcessData.qtStopNu"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-type="draft" data-title=""
+                               ng-click="filterProcessstatus(4,$event,'有问题的记录')">
+                                <span translate="content.task.PROBLEM">有问题</span>
+                                <span ng-show="qtProcessData.qtproNu>0" class="badge badge-inverse badge-active" ng-bind="qtProcessData.qtproNu"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="sbold uppercase" data-title=""
+                               ng-click="filterProcessstatus(3,$event,'已取消的记录')">
+                                <span translate="content.initiated.CANCELLED">已取消</span>
+                                <span ng-show="qtProcessData.qtcancelNu>0" class="badge badge-primary badge-active" ng-bind="qtProcessData.qtcancelNu"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-type="inbox" data-title=""
+                               ng-click="filterProcessstatus(1,$event,'已完成的记录')">
+                                <span translate="content.task.COMPLETED">已完成</span>
+                                <span ng-show="qtProcessData.qtendNu>0" class="badge badge-info badge-active" ng-bind="qtProcessData.qtendNu"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-type="inbox" data-title=""
+                               ng-click="filterPriority($event,'高优先级的记录')">
+                                <span translate="content.task.HIGHPRIORITY">高优先级</span>
+                                <span ng-show="qtProcessData.emergencyCount>0" class="badge badge-default badge-active" ng-bind="qtProcessData.emergencyCount"></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                <div class="inbox-body">
+                    <div class="inbox-header">
+                        <h1 class="pull-left" translate="content.initiated.ALLRECORDS">所有记录</h1>
+                        <form class="form-inline pull-right">
+                            <div class="input-group input-medium">
+                                <input type="text" id="processId" ng-show="false" class="form-control"  placeholder="{{common.add | translate}}">
+                                <span class="input-group-btn pull-right">
+                                    <button class="btn green" onclick="buttonClick()">
+                                        <i class="fa fa-plus-square"></i>
+                                        <span translate="content.process.toolbar.addParticipants">添加参与者</span>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="inbox-content">
+                        <iframe id="processReport" width="100%" frameborder="0" scrolling="no"
+                                src="/suite/plugins/servlet/ViewReportTasksAndProcess?reportId=3597"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

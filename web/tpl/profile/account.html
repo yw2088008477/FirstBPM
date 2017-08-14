@@ -1,0 +1,160 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title tabbable-line">
+                <div class="caption caption-md">
+                    <i class="icon-globe theme-font hide"></i>
+                   <span class="caption-subject font-blue-madison bold uppercase"
+                         translate="content.profile.account.PERSONALACCOUNT">
+                       个人帐号
+                    </span>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-target="#tab_1_1" data-toggle="tab">
+                            <span translate="content.profile.account.BASICINFORMATION">基本信息</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-target="#tab_1_2" data-toggle="tab"
+                           translate="content.profile.account.REPLACETHEPICTURE">
+                            更换头像
+                        </a>
+                    </li>
+                    <li>
+                        <a  data-target="#tab_1_3" data-toggle="tab"
+                           translate="content.profile.account.CHANGEPWD">
+                            修改密码
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <div class="tab-content">
+                    <!-- PERSONAL INFO TAB -->
+                    <div class="tab-pane active" id="tab_1_1">
+                        <form role="form" action="#">
+                            <div class="form-group">
+                                <label class="control-label" translate="content.profile.account.USERNAME">
+                                    用户名
+                                </label>
+                                <input type="text" placeholder="" class="form-control" readonly ng-model="userName"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" translate="content.profile.account.NAME">
+                                    姓名
+                                </label>
+                                <input type="text" placeholder="" class="form-control" ng-model="firstName"/></div>
+                            <div class="form-group">
+                                <label class="control-label" translate="content.dashboard.EMAIL">
+                                    邮箱
+                                </label>
+                                <input type="text" placeholder="" class="form-control" ng-model="email"/></div>
+                            <div class="form-group">
+                                <label class="control-label" translate="content.profile.account.PHONE">
+                                    电话
+                                </label>
+                                <input type="text" placeholder="" class="form-control" ng-model="phoneMobile"/></div>
+                            <div class="form-group">
+                                <label class="control-label" translate="content.profile.account.UNIT">
+                                    单位
+                                </label>
+                                <input type="text" placeholder="" class="form-control" ng-model="customField1"/></div>
+                            <div class="form-group">
+                                <label class="control-label" translate="content.profile.account.DEPARTMENT">
+                                    部门
+                                </label>
+                                <input ng-model="customField2" type="text" placeholder="" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" translate="content.profile.account.COMPANY">
+                                    公司
+                                </label>
+                                <textarea ng-model="customField3" class="form-control" rows="3"
+                                          placeholder=""></textarea>
+                            </div>
+                            <!--<div class="margiv-top-10">-->
+                                <!--<a href="#" class="btn green-haze" translate="content.profile.account.SAVECHANGES">-->
+                                    <!--保存更改-->
+                                <!--</a>-->
+                                <!--<a href="#" class="btn default" translate="common.CANCEL">-->
+                                    <!--取消-->
+                                <!--</a>-->
+                            <!--</div>-->
+                        </form>
+                    </div>
+                    <!-- END PERSONAL INFO TAB -->
+                    <!-- CHANGE AVATAR TAB -->
+                    <div class="tab-pane" id="tab_1_2">
+                        <form action="#"
+                              role="form">
+                            <div class="form-group">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"
+                                         style="width: 200px; height: 150px;"><img
+                                            src="/suite/plugins/servlet/loadsource/3/{{userInfo.userName}}.png"/>
+                                    </div>
+                                    <div>
+
+
+                                    </div>
+                                </div>
+                                <div class="clearfix margin-top-10">
+                                    <span class="label label-danger" translate="content.profile.account.NOTE">注意! </span>
+                                    <span translate="content.profile.account.UPDATEIMAGEPROMPT">只能上传图片格式文件</span>
+                                </div>
+                            </div>
+                            <div class="margin-top-10">
+                                <a ng-show="showSelect" href="javascript:;" ngf-select="uploadFile($file)"
+                                   class="btn red btn-outline" translate="content.profile.account.SELECTIMAGE">选择图片</a>
+                                <a ng-show="!showSelect" href="javascript:;" ngf-select="updateImage($file,file)"
+                                   class="btn red btn-outline" translate="content.profile.account.MODIFYIMAGE">修改图片</a>
+                                <a ng-show="!showSelect" href="javascript:;" ng-click="removeImage(file)"
+                                   class="btn red btn-outline" translate="content.profile.account.DELETEIMAGE">删除图片</a>
+                            </div>
+                            <!--<div class="margin-top-10">-->
+                                <!--<a href="#" class="btn green-haze" translate="common.SUBMIT">-->
+                                    <!--提交-->
+                                <!--</a>-->
+                                <!--<a href="#" class="btn default" translate="common.CANCEL">-->
+                                    <!--取消-->
+                                <!--</a>-->
+                            <!--</div>-->
+                        </form>
+                    </div>
+                    <!-- END CHANGE AVATAR TAB -->
+                    <!-- CHANGE PASSWORD TAB -->
+                    <div class="tab-pane" id="tab_1_3">
+                        <form action="#">
+                            <div class="form-group">
+                                <label class="control-label" translate="content.profile.account.CURRENTPWD">
+                                    当前密码
+                                </label>
+                                <input type="password" class="form-control"/></div>
+                            <div class="form-group">
+                                <label class="control-label" translate="content.profile.account.NEWPWD">
+                                    新密码
+                                </label>
+                                <input type="password" class="form-control"/></div>
+                            <div class="form-group">
+                                <label class="control-label" translate="content.profile.account.CONFIRMNEWPWD">
+                                    确认新密码
+                                </label>
+                                <input type="password" class="form-control"/></div>
+                            <div class="margin-top-10">
+                                <a  class="btn green-haze" translate="content.profile.account.MODIFY" ng-click="updatePass()">
+                                    修改
+                                </a>
+                                <a class="btn default" translate="common.CANCEL" ng-click="cancelUpdatePass()">
+                                    取消
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- END CHANGE PASSWORD TAB -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

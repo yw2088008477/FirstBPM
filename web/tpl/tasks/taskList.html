@@ -1,0 +1,125 @@
+<div class="inbox" ng-controller="TaskCtrl">
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <div class="inbox-sidebar">
+                <a href="#/processModelList" data-title="Compose" class="btn red compose-btn btn-block">
+                    <i class="fa fa-edit" ></i>
+                <span translate="header.navbar.workingPlatform.PROCESSCENTER">流程中心</span>
+                </a>
+                <input type="hidden" id="taskStatusId" value="" />
+                <input type="hidden" id="processStatusId" value="" />
+                <input type="hidden" id="processModelName" value="" />
+                <ul class="inbox-nav">
+                    <li>
+                        <a href="javascript:;" data-type="important" data-title="" ng-click="filterTaskstatus('-1','所有任务')">
+                            <span translate="content.task.ALLTASKS">所有任务</span>
+                            <span ng-show="true" class="badge badge-danger badge-active">{{qtTaskData.qtTaskAll}}</span>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="active">
+                        <a ng-click="filterTaskstatus('0','待接收的任务')" >
+                            <span translate="content.task.WAITTASKS">待接收</span>
+                            <span ng-show="qtTaskData.qtTaskWait>0"  class="badge badge-primary">{{qtTaskData.qtTaskWait}}</span>
+                            </a>
+                    </li>
+                    <li>
+                        <a ng-click="filterTaskstatus(1,'进行中的任务')"  >
+                            <span translate="content.task.PROCESSING">进行中</span>
+                            <span ng-show="qtTaskData.qtTaskOn>0" class="badge badge-info">{{qtTaskData.qtTaskOn}}</span>
+                            </a>
+                    </li>
+                    <li >
+                        <a ng-click="filterTaskstatus(2,'已完成的任务')" >
+                            <span translate="content.task.COMPLETED">已完成</span>
+                            <span ng-show="qtTaskData.qtTaskEnd>0" class="badge badge-success badge-active">{{qtTaskData.qtTaskEnd}}</span>
+                            </a>
+                    </li>
+                    <li >
+                        <a ng-click="filterTaskstatus(5,'有问题的任务')" >
+                            <span ng-show="qtTaskData.qtTaskPro>0" class="badge badge-warning badge-active">{{qtTaskData.qtTaskPro}}</span>
+                            <span translate="content.task.PROBLEM">有问题</span></a>
+                    </li>
+                    <li>
+                        <a ng-click="handoverReport('atStatus','@消息流程')">
+                            <span  ng-show="atTaskData.atTaskAll>0" class="badge badge-success">{{atTaskData.atTaskAll}}</span>
+                            &nbsp;@&nbsp;<span translate="content.task.TASK">任务</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- END TODO SIDEBAR -->
+        <!-- BEGIN TODO CONTENT -->
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+            <div class="inbox-body">
+                <div class="portlet light">
+                    <!-- PROJECT HEAD -->
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-bar-chart font-green hide"></i>
+                            <!-- <span class="caption-helper">我的待办:</span> &nbsp; -->
+                            <span id="titleTest" class="caption-subject font-green bold uppercase">{{filterName}}</span>
+                        </div>
+                        <div class="actions">
+                            <div class="btn-group">
+                                <input type="text" id="taskId" ng-show="false" class="form-control"  placeholder="添加">
+                                <a class="btn green btn-circle btn-sm" data-toggle="dropdown" dropdown-menu-hover data-close-others="true"> 任务管理
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li>
+                                        <a onclick="buttonClick()" >
+                                            <span translate="content.task.TASKTRANSFER">任务转办 </span>
+                                            <i class="i"></i></a>
+                                    </li>
+                                    <li class="divider"> </li>
+                                    <li>
+                                        <a onclick="buttonPriory(2)" >
+                                            <span translate="content.task.HIGHPRIORITY">高优先级 </span>
+                                            <span class="badge badge-danger">H</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="buttonPriory(1)" >
+                                            <span translate="content.task.INPRIORITY">中优先级 </span>
+                                            <span class="badge badge-success">M</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onclick="buttonPriory(0)" >
+                                            <span translate="content.task.LOWPRIORITY">低优先级 </span>
+                                            <span class="badge badge-warning">L</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end PROJECT HEAD -->
+                    <div class="portlet-body">
+                        <iframe id="taskReport"  width="100%" frameborder="0"  scrolling="no"  src="/suite/plugins/servlet/ViewReportTasksAndProcess?reportId=39"></iframe>
+                    </div>
+                </div>
+            </div>
+            <!-- END TODO CONTENT -->
+        </div>
+    </div>
+</div>
+<!-- END PAGE CONTENT-->
+
+<!-- END PAGE CONTENT-->
+<script>
+    $(function() {
+        $("li").click(function() {
+            //          第一种方法
+            //          $("li").removeClass("active");//删除指定的 class 属性
+            //          $(this).addClass("active");//向被选元素添加一个或多个类
+            // $(this).toggleClass("active");//该函数会对被选元素进行添加/删除类的切换操作
+            var text = $(this).text();//获取当前选中的文本
+            //或者使用第二种方法
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    });
+</script>
+<script type="text/javascript" src="js/apps/tasks/task.js"></script>

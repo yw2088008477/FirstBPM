@@ -1,0 +1,201 @@
+<script>
+    $("#modal-body2").parent().parent().css({'width':'100%','margin':'0','height':$(window).height()});
+    $("#modal-body2").parent().css({'width':'100%','margin':'0','borderRadius':'0','height':$(window).height()});
+</script>
+<div class="container-fluid  accessory-table">
+    <div class="page-content">
+        <h2>待用印流程信息列表</h2>
+        <table class="table progress-list">
+            <thead>
+            <tr>
+                <th><input type="checkbox" id="checkAll"></th>
+                <th></th>
+                <th>流程名称</th>
+                <th>发起人</th>
+                <th>部门</th>
+                <th>发起时间</th>
+                <th>状态</th>
+                <th>最后操作时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td class="project-name"><i class="fa fa-plus-square-o" aria-hidden="true"></i></td>
+                <td>
+                    TradeCode21 </td>
+                <td>小明</td>
+                <td>财务部 </td>
+                <td> 2017-03-01 18:00:03</td>
+                <td> <span class="idiot success-state">●</span>运行中</td>
+                <td>2017-03-05 18:00:03 </td>
+            </tr>
+            <tr class="accessory-list">
+                <td colspan="2"></td>
+                <td colspan="6">
+                    <table class="inner-table">
+                        <thead>
+                        <th>附件ID</th>
+                        <th>附件名称</th>
+                        <th>附件类型</th>
+                        <th> 附件大小</th>
+                        </thead>
+                        <tr>
+                            <td>00123145</td>
+                            <td>报销表单 </td>
+                            <td>word </td>
+                            <td>22.4kb </td>
+                        </tr>
+                        <tr>
+                            <td>00123145</td>
+                            <td>报销表单 </td>
+                            <td>word </td>
+                            <td>22.4kb </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td class="project-name"><i class="fa fa-plus-square-o" aria-hidden="true"></i></td>
+                <td >
+                    TradeCode21 </td>
+                <td>小红</td>
+                <td>综合部 </td>
+                <td> 2017-03-01 18:00:03</td>
+                <td> <span class="idiot error-state">●</span>审批未通过</td>
+                <td>2017-03-05 18:00:03 </td>
+            </tr>
+            <tr class="accessory-list">
+                <td colspan="2"></td>
+                <td colspan="6">
+                    <table class="inner-table">
+                        <thead>
+                        <th>附件ID</th>
+                        <th>附件名称</th>
+                        <th>附件类型</th>
+                        <th> 附件大小</th>
+                        </thead>
+                        <tr>
+                            <td>00123145</td>
+                            <td>报销表单 </td>
+                            <td>word </td>
+                            <td>22.4kb </td>
+                        </tr>
+                        <tr>
+                            <td>00123145</td>
+                            <td>报销表单 </td>
+                            <td>word </td>
+                            <td>22.4kb </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td class="project-name"><i class="fa fa-plus-square-o" aria-hidden="true"></i></td>
+                <td>
+                    TradeCode21 </td>
+                <td>小红</td>
+                <td>综合部 </td>
+                <td> 2017-03-01 18:00:03</td>
+                <td> <span class="idiot error-state">●</span>审批未通过</td>
+                <td>2017-03-05 18:00:03 </td>
+            </tr>
+            <tr class="accessory-list">
+                <td colspan="2"></td>
+                <td colspan="6">
+                    <table class="inner-table">
+                        <thead>
+                        <th>附件ID</th>
+                        <th>附件名称</th>
+                        <th>附件类型</th>
+                        <th> 附件大小</th>
+                        </thead>
+                        <tr>
+                            <td>00123145</td>
+                            <td>报销表单 </td>
+                            <td>word </td>
+                            <td>22.4kb </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation" class="progress-page">
+            <div class="form-inline page-turn pull-right">
+                <select class="form-control">
+                    <option>10条/页</option>
+                </select>
+                跳至
+                <input type="text" class="form-control"/>页
+            </div>
+            <ul class="pagination pull-right">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </li>
+                <li><a class="active" href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&gt;</span>
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn btn-default" ng-click="cancel()">关闭</a>
+    <a class="btn btn-primary" ng-click="ok()">提交</a>
+</div>
+<script>
+    $(".accessory-list").hide();
+    $(".project-name").each(function (i) {
+        $(this).click(function () {
+            $(this).parent().next().toggle();
+            if( $(this).children().hasClass("fa-plus-square-o")) {
+                $(this).children().removeClass("fa-plus-square-o").addClass("fa-minus-square-o");
+            }else{
+                $(this).children().removeClass("fa-minus-square-o").addClass("fa-plus-square-o");
+            }
+        })
+    })
+   $("#checkAll").click(function(){
+       $('.accessory-table input:checkbox').prop('checked', $(this).prop('checked'));
+   });
+</script>
+<style>
+    .modal-body{
+        padding: 0;
+    }
+    .modal-footer{
+        position: fixed;
+        z-index: 99999;
+        left:0;
+        bottom: 0;
+        background-color: #ffffff;
+        height: 60px;
+        width: 100%;
+        border: none;
+        border-radius: 0px;
+        -moz-box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.0784313725490196);
+        -webkit-box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.0784313725490196);
+        box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.0784313725490196);
+    }
+</style>
+
+
+
+
+
+
+
+

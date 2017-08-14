@@ -1,0 +1,41 @@
+<div class="process-timearea-info" style="position: relative;">
+    <div id="tooltip" class="tooltip top" role="tooltip">
+        <div class="tooltip-inner">
+          <h5 ng-bind="processCurrentInfo.users"> </h5>
+            <span ng-bind="taskDetails.statusName"> </span>
+        </div>
+    </div>
+    <div class="first-timeaxis-warpper" style="position: relative;">
+        <ul class="first-timeaxis">
+            <li ng-repeat="item in wizardList" ng-class="{'active':item.id<=processWizardData.selectIndex,'focus':item.id==processWizardData.selectIndex,'end':item.id==wizardList.length-1}">
+                <div class="first-timeaxis-point"></div>
+                <div class="first-timeaxis-panel">
+                    <h5 ng-bind="::item.name"></h5>
+                    <span ng-if="item.id==0">{{::item.initiatorName}}</span>
+                    <span ng-if="item.id!=0">
+                        <span ng-bind="getUsers(item.lanesNodelist[0].taskInfo)"></span>
+                    </span>
+                    <div ng-bind="::item.startTime">2016-12-12</div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<h4>处理进度</h4>
+<script>
+    var baseLeft,baseWidth = $(".first-timeaxis-warpper").innerWidth();
+    $(".first-timeaxis-warpper").scroll(function(){
+        if(baseLeft-$(".first-timeaxis-warpper").scrollLeft()>0){
+            $("#tooltip").show();
+            $("#tooltip").css("left",baseLeft-$(".first-timeaxis-warpper").scrollLeft());
+            if(baseLeft-$(".first-timeaxis-warpper").scrollLeft()>= (baseWidth-30)){
+                $("#tooltip").hide();
+            }
+        }
+        else {
+            $("#tooltip").hide();
+        }
+
+    });
+</script>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-ng-app="MetronicApp1">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <base target="_self">
+    <title>FirstBPM</title>
+
+    <link rel="stylesheet" href="/suite/plugins/processAndTasks/miniui3.6/themes/default/miniui.css" type="text/css"/>
+    <link rel="stylesheet" href="/suite/plugins/processAndTasks/miniui3.6/themes/icons.css" type="text/css"/>
+    <link rel="stylesheet" href="/suite/plugins/processAndTasks/miniui3.6/themes/default/large-mode.css"
+          type="text/css"/>
+    <link rel="stylesheet" href="/suite/plugins/processAndTasks/miniui3.6/themes/bootstrap/skin.css" type="text/css"/>
+    <link href="/suite/plugins/metronic/theme/assets/global/plugins/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css"/>
+    <link href="/suite/plugins/metronic/theme/assets/global/plugins/simple-line-icons/simple-line-icons.min.css"
+          rel="stylesheet" type="text/css"/>
+    <link href="/suite/plugins/metronic/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="/suite/plugins/metronic/theme/assets/apps/css/inbox.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/suite/plugins/metronic/theme/assets/global/css/components-rounded.css" id="style_components"
+          rel="stylesheet" type="text/css"/>
+    <link href="/suite/plugins/metronic/theme/assets/layouts/layout2/css/custom.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="/suite/plugins/metronic/theme/assets/global/plugins/bootstrap-summernote/summernote.css"
+          rel="stylesheet" type="text/css"/>
+
+
+    <style type="text/css">
+        .tabbable-line > .nav-tabs > li.active {
+            background: none;
+            border-bottom: 4px solid #36c6d3;
+            position: relative;
+        }
+
+        .tabbable-line > .tab-content {
+            margin-top: 0;
+            border: 0;
+            border-top: 1px solid #eef1f5;
+            padding: 30px 0;
+        }
+
+        .tabbable-line > .nav-tabs > li > a, .tabbable-line > .nav-tabs > li.active > a {
+            border: 0px;
+        }
+
+        .tabbable-line > .nav-tabs > li:hover > a {
+            background-color: #fff;
+        }
+    </style>
+
+
+    <script src="/suite/forms/scripts/boot.js" type="text/javascript"></script>
+</head>
+<body>
+<div ng-controller="newsAddController">
+    <!-- BEGIN REGIONAL STATS PORTLET-->
+    <div class="portlet light" ng-show="!showFlag">
+        <div class="portlet-title tabbable-line">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-target="#tab_1_1" data-toggle="tab"> 传阅正文 </a>
+                </li>
+                <li>
+                    <a data-target="#tab_2_1" data-toggle="tab"> 传阅附件 </a>
+                </li>
+            </ul>
+        </div>
+        <div class="portlet-body">
+            <div data-always-visible="1" data-rail-visible="0">
+                <div class="tab-content">
+                    <!-- tab_1_1开始 -->
+                    <div class="tab-pane fade active in" id="tab_1_1">
+                        <div ng-hide="showFlag">
+                            <div class="inbox-view-header">
+                                <h1>{{pv.subject}}
+                                    <!-- <a href="javascript:;">待阅</a> -->
+                                </h1>
+                            </div>
+                            <hr>
+                            <div class="inbox-view-info">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+                                        <img src="/suite/plugins/servlet/loadsource/3/{{tp.initiator}}.png"
+                                             class="inbox-author">
+                                        <span class="sbold">{{pv.giveUserName}}</span>
+                                        <span></span> to
+                                        <span class="sbold"> me </span> on {{tp.assignedtime}}
+                                    </div>
+                                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 inbox-info-btn">
+                                        <div class="pull-right">
+                                            <button class="btn green reply-btn">
+                                                <i class="fa fa-mail-forward" onclick="submitF()"></i> 完成
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="inbox-view" id="viewContent">
+
+                            </div>
+                            <hr>
+
+                            <!-- 已阅人员&未阅人员 -->
+                            <div class="tabbable-line">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a data-target="#tab_11" data-toggle="tab">已阅人员
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-target="#tab_22" data-toggle="tab"> 未阅人员
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content scroller" style="height:205px;border-top: 1px solid #dae2ea;"
+                                     data-rail-visible="1" data-rail-color="red" data-handle-color="green">
+                                    <div class="tab-pane active" id="tab_11">
+                                        <ul class="todo-tasklist">
+                                            <li class="todo-tasklist-item todo-tasklist-item-border-green"
+                                                ng-repeat="dataRead in dataReads">
+                                                <img class="todo-userpic pull-left"
+                                                     src="/suite/plugins/servlet/loadsource/3/{{dataRead.userName}}.png"
+                                                     width="30px" height="30px">
+                                                <div class="todo-tasklist-item-title">
+                                                    {{dataRead.chineseName}} &nbsp;
+                                                    <span class="todo-tasklist-badge badge badge-roundless">已阅</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane" id="tab_22">
+                                        <ul class="todo-tasklist">
+                                            <li class="todo-tasklist-item todo-tasklist-item-border-red"
+                                                ng-repeat="dataUnread in dataUnreads">
+                                                <img class="todo-userpic pull-left"
+                                                     src="/suite/plugins/servlet/loadsource/3/{{dataUnread.userName}}.png"
+                                                     width="30px" height="30px">
+                                                <div class="todo-tasklist-item-title">
+                                                    {{dataUnread.chineseName}} &nbsp;
+                                                    <span class="todo-tasklist-badge badge badge-roundless badge-danger">未阅</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 已阅未阅结束 -->
+                        </div>
+                    </div>
+                    <!-- tab_1_1结束 -->
+                    <!-- tab_1_2开始 -->
+                    <div class="tab-pane fade" id="tab_2_1">
+                        <div ng-show="files.length" class="portlet light portlet-fit ">
+                            <div class="portlet-body">
+                                <div class="table-scrollable table-scrollable-borderless">
+                                    <table class="table table-hover table-light">
+                                        <thead>
+                                        <tr class="uppercase">
+                                            <th> 附件名称</th>
+                                            <th> 大小</th>
+                                            <th> 版本</th>
+                                            <th> 状态</th>
+                                            <th> 操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="item in files">
+                                            <td>
+                                                <a href="/suite/doc/{{item.field}}">
+                                                    <strong ng-bind="item.name"></strong>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span ng-bind="item.size/1024/1024|number:2"></span>MB
+                                            </td>
+                                            <td>
+                                                <span ng-bind="item.version"></span>
+                                            </td>
+                                            <td>
+                                                    <span ng-show="item.status==200" class="text-success">
+                                                        <i class="glyphicon glyphicon-ok"></i>
+                                                    </span>
+                                                    <span ng-show="item.status!=200" class="text-danger">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </span>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-circle btn-danger" href="javascript:;"
+                                                   ng-click="download(item)">
+                                                    下载
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="files.length==0" class="wrapper-xs lt"
+                             style="width:100%;height:200px;text-align:center;">
+                            <img src="/suite/plugins/img/attach/attach.png" width="100px" height="100px">
+                            <br>
+                            <br>
+                            <span style="font-size:20px;font-family:'黑体';">没有附件</span>！
+                        </div>
+                    </div>
+                    <!-- tab_1_2结束 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/suite/plugins/metronic/theme/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="/suite/plugins/ntkodemo_js/js/jquery-ui-1.10.4.min.js"></script>
+<script src="/suite/plugins/angulr/vendor/angular/angular.js"></script>
+<script src="/suite/plugins/processAndTasks/miniui3.6/miniui.js"></script>
+<script src="/suite/plugins/processAndTasks/miniui3.6/fixheight.js"></script>
+<script src="/suite/plugins/processAndTasks/js/common.js"></script>
+<script src="/suite/plugins/processAndTasks/js/processTask.js"></script>
+<script src="/suite/plugins/metronic/theme/assets/global/plugins/angularjs/plugins/js/ng-file-upload-shim.min.js"
+        type="text/javascript"></script>
+<script src="/suite/plugins/metronic/theme/assets/global/plugins/angularjs/plugins/js/ng-file-upload.min.js"
+        type="text/javascript"></script>
+<script src="/suite/plugins/metronic/theme/assets/global/plugins/bootstrap/js/bootstrap.min.js"
+        type="text/javascript"></script>
+<script src="/suite/plugins/metronic/theme/assets/global/plugins/bootstrap-summernote/summernote.min.js"
+        type="text/javascript"></script>
+<script src="/suite/plugins/metronic/theme/assets/global/plugins/bootstrap-summernote/lang/summernote-zh-CN.min.js"
+        type="text/javascript"></script>
+<script src="/suite/plugins/metronic/theme/assets/global/scripts/app.min.js" type="text/javascript"></script>
+<script src="js/apps/documentRead/documentComposeTaskTask.js" type="text/javascript"></script>
+</body>
+</html>

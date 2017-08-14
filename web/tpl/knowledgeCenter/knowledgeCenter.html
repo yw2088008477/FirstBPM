@@ -1,0 +1,108 @@
+<div ng-controller="TabsDemoCtrl">
+    <div class="page-bar">
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="#home">
+                    <span translate="header.navbar.home.HOME">主页</span>
+                </a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="active">
+                <span translate="header.navbar.KNOWLEDGECENTER">知识中心</span>
+            </li>
+            <li class="active" style="cursor: pointer;" ng-click="reloadPage()">
+                &nbsp;&nbsp;<span translate="common.REFRESH">刷新</span>&nbsp;
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN TODO SIDEBAR -->
+            <div class="todo-ui">
+                <div class="todo-sidebar">
+                    <div class="portlet light ">
+                        <div class="portlet-title">
+                            <div class="caption" data-toggle="collapse" data-target=".todo-project-list-content">
+                                <span class="caption-subject font-green-sharp bold uppercase" translate="content.knowledge.DOCUMENTMANAGEMENT">文档管理</span>
+                                <span class="caption-helper visible-sm-inline-block visible-xs-inline-block">click to view project list</span>
+                            </div>
+                            <div class="actions">
+                                <div class="btn-group">
+                                    <a class="btn green btn-circle btn-outline btn-sm todo-projects-config" href="javascript:;" data-close-others="true">
+                                        <i class="icon-settings"></i>
+                                        <span translate="content.knowledge.UPLOADFILE">上传文件</span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body todo-project-list-content">
+                            <div class="todo-project-list">
+                                <ul class="nav nav-stacked">
+                                    <li>
+                                        <a href="javascript:;" ng-click="lookPage($event)">
+                                            <span translate="content.knowledge.MYCOLLECTION">我的收藏</span>
+                                            </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span translate="content.knowledge.MYAPPROVAL">我的审批</span>
+                                        </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="javascript:;">
+                                            <span translate="content.knowledge.MYSETTINGS">我的设置</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span translate="content.knowledge.USEREPORT">使用报表</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portlet light ">
+                        <div class="portlet-title">
+                            <div class="caption" data-toggle="collapse" data-target=".todo-project-list-content-tags">
+                                <span class="caption-subject font-red bold uppercase" translate="header.navbar.KNOWLEDGECENTER">知识中心</span>
+                                <span class="caption-helper visible-sm-inline-block visible-xs-inline-block">click to view</span>
+                            </div>
+                            <div class="actions">
+                                <div class="actions">
+                                    <a class="btn btn-circle grey-salsa btn-outline btn-sm" href="javascript:;">
+                                        <i class="fa fa-plus"></i>
+                                        <span translate="content.knowledge.UPLOADDOCUMENT">上传文档</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="scroller" style="_height:400px; min-height:400px;">
+                                <ul id="tree1" class="mini-tree" url="/suite/plugins/servlet/query/GM_GetKnowledgeCenter" style="_height:400px; min-height:400px;"
+                                    showTreeIcon="true" textField="name" expandOnLoad="false" allowDrag="true" allowDrop="true" allowLeafDropIn="true"
+                                    idField="id" parentField="pid" resultAsTree="false"
+                                >
+                                </ul>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END TODO SIDEBAR -->
+                <!-- BEGIN TODO CONTENT -->
+                <div class="todo-content">
+                    <div ui-view class="fade-in-up"> </div>
+
+                </div>
+                <!-- END TODO CONTENT -->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+<script type="text/javascript" src="js/apps/knowledgeCenter/TabsDemoCtrl.js"></script>

@@ -1,0 +1,132 @@
+
+<!-- END PAGE HEADER-->
+<div class="blog-page blog-content-1" ng-controller="newsSearchController">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light portlet-fit ">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-microphone font-purple-plum"></i>
+                        <span class="caption-subject bold font-purple-plum uppercase"
+                              translate="content.news.NEWSINQUIR">新闻查询</span>
+                        <!-- <span class="caption-helper">更多新闻...</span> -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control input-circle-left" ng-model="formVal"
+                                   placeholder="搜索...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-circle-right btn-default" ng-click="searchThread(formVal)" type="submit">查询
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group">
+                            <a class="btn btn-circle btn-default " href="javascript:;" data-toggle="dropdown">
+                                <i class="fa fa-diamond"></i>
+                                <span translate="content.news.NEWSCATEGORIES">新闻分类</span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li ng-repeat="forum in forums">
+                                    <a href="javascript:;" ng-click="changeForum(forum.forumId)">
+                                        <i class="fa fa-eyedropper"></i>{{forum.forumName}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn btn-circle btn-default " href="javascript:;" data-toggle="dropdown">
+                                <i class="fa fa-sort-alpha-asc"></i>
+                                <span translate="content.news.NEWSSORT">新闻排序</span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="javascript:;" ng-click="change(3)">
+                                        <i class="fa fa-clock-o"></i>
+                                        <span translate="content.news.CREATETIME">创建时间</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" ng-click="change(2)">
+                                        <i class="fa fa-eye"></i>
+                                        <span translate="content.news.READNUMBER">阅读数量</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" ng-click="change(4)">
+                                        <i class="fa fa-user"></i>
+                                        <span translate="content.news.FOUNDER">创建人</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" ng-click="change(0)">
+                                        <i class="fa fa-pencil"></i>
+                                        <span translate="content.news.NEWSNUMBER">新闻编号</span>
+
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"> </a>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+                             ng-repeat="forumThread in forumThreads | filter:{subject:formVal}">
+
+                            <div class="blog-post-sm bordered blog-container">
+                                <div class="blog-img-thumb" style="border-bottom: 1px solid #e7ecf1;height:180px;">
+                                    <a href="javascript:;">
+                                        <img src="{{getSrc(forumThread.attachments)}}" style="margin-bottom:5px;"/>
+                                    </a>
+                                </div>
+                                <div class="blog-post-content" style="height:150px;">
+                                    <h4 class="blog-post-title">
+                                        <a href="javascript:;" ng-click="lookDetails(forumThread.threadId)">{{forumThread.subject.length>=21?forumThread.subject.substring(0,22):forumThread.subject}}</a>
+                                    </h4>
+                                    <div class="blog-post-foot">
+                                        <div class="blog-post-meta">
+                                            <i class="icon-calendar font-blue"></i>
+                                            <a href="javascript:;">{{forumThread.ThreadCreateDate}}</a>
+                                        </div>
+                                        <div class="blog-post-meta">
+                                            <i class="icon-bubble font-blue"></i>
+                                            <a href="javascript:;">{{forumThread.commentCount}}</a>
+                                        </div>
+                                        <div class="blog-post-meta">
+                                            <i class="icon-paper-clip font-blue"></i>
+                                            <a href="javascript:;">{{forumThread.attachments.length-1}}</a>
+                                        </div>
+                                        <div class="blog-post-meta">
+                                            <i class="icon-eye font-blue"></i>
+                                            <a href="javascript:;">{{forumThread.readCount}}</a>
+                                        </div>
+                                        <div class="blog-post-meta"
+                                             ng-show="topic.ThreadCreator==userName||adminFunc||userName=='Administrator'">
+
+                                            <a href="javascript:;" ng-click="deleteThread(forumThread.threadId)"><i
+                                                    class="fa fa-times font-purple"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="search-pagination pagination-rounded">
+                        <ul class="pagination">
+                            <li ng-repeat="pageInfo in pageData">
+                                <a href="javascript:;" ng-click="updatePageSource(pageInfo)">{{pageInfo.page}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

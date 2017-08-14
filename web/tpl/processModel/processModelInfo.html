@@ -1,0 +1,148 @@
+<style>
+    .tabbable-line > .tab-content {
+        margin-top: 0;
+        border: 0;
+        padding: 30px 0;
+    }
+
+    .tabbable-line > .nav-tabs > li {
+        margin: 0;
+        border-bottom: 4px solid transparent;
+    }
+
+    .tabbable-line > .nav-tabs > li.active {
+        background: 0 0;
+        border-bottom: 4px solid #36c6d3;
+        position: relative;
+        -ms-box-sizing: border-box;
+    }
+
+    .tabbable-line > .nav-tabs > li.active > a {
+        border: 0px;
+    }
+
+    .tabbable-line > .nav-tabs > li > a {
+        background: 0 0 !important;
+        border: 0;
+        margin: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .nav > li > a {
+        padding: 10px 15px;
+    }
+
+</style>
+<div class="page-bar">
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#home">
+                <span translate="header.navbar.home.HOME">主页</span>
+            </a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li class="active">
+            <span translate="content.process.PROCESSDETAIL">流程详情</span>
+        </li>
+        <li class="active" style="cursor: pointer;" ng-click="reloadPage()">
+            &nbsp;&nbsp;<span translate="common.REFRESH">刷新</span>&nbsp;
+        </li>
+    </ul>
+</div>
+<div class="portlet light bordered">
+    <div class="portlet-title tabbable-line">
+        <div class="caption">
+            <span class="caption-subject font-blue bold uppercase" ng-bind="pm.name"></span>
+            <!-- <span class="caption-helper">{{pm.creatorName?pm.creatorName:pm.creator}}在{{pm.creatorTime}}创建了这个流程模型。最后通过{{pm.updatePeoName?pm.updatePeoName:pm.updatePeo}}在{{pm.updateTime}}修改了该流程模型。  </span> -->
+            &nbsp;&nbsp;
+            <!--<div class="btn-group">-->
+            <!--<button type="button" class="btn btn-default">启动流程模型</button>-->
+            <!--</div>-->
+        </div>
+        <ul class="nav nav-tabs ">
+            <li class="active">
+                <a data-target="#tab_1" data-toggle="tab">
+                    <span translate="content.process.PROCESSMODEL">流程模型</span>
+                </a>
+            </li>
+            <li>
+                <a data-target="#tab_2" data-toggle="tab">
+                    <span translate="content.process.PROCESSNODE">流程节点</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="portlet-body">
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+
+                <div id="wizard">
+                    <ol>
+
+                    </ol>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa  fa-sitemap icon text-info-dker"></i>&nbsp;&nbsp;{{pm.name}}
+                    </div>
+
+                    <iframe id="processContent" width="100%" frameborder="0" height="550" src="{{src}}"
+                            scrolling="no"></iframe>
+
+                </div>
+            </div>
+            <div class="tab-pane " id="tab_2">
+                <div class="table-responsive">
+                    <h3 translate="content.process.PROCESSNODE">流程节点</h3>
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                        <tr class="uppercase">
+                            <th translate="content.process.NUMBER">编号</th>
+                            <th translate="content.process.NAME">名称</th>
+                            <th translate="content.process.LINE">线道</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="node in nodeList">
+                            <td ng-bind="node.guiId"></td>
+                            <td ng-bind="node.type=='task' ? node.taskInfo[0].name:node.processInfo[0].name">
+                            </td>
+                            <td ng-bind="node.laneName">
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <h3 translate="content.process.PROCESSVARIABLE">流程变量</h3>
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th translate="content.process.NAME">名称</th>
+                            <th translate="content.process.TYPE">类型</th>
+                            <th translate="content.process.MULTIPLE">多个</th>
+                            <th translate="content.process.PARAMETER">参数</th>
+                            <th translate="content.process.HAVETO">必须</th>
+                            <th translate="content.process.HIDE">隐藏</th>
+                            <th translate="content.process.DEFAULTE">默认值</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="proVar in pm.processVar">
+                            <td ng-bind="proVar.varKey"></td>
+                            <td ng-bind="proVar.varKeyType"></td>
+                            <td ng-bind="proVar.varMuiltype"></td>
+                            <td ng-bind="proVar.varParameter"></td>
+                            <td ng-bind="proVar.varRequired"></td>
+                            <td ng-bind="proVar.varHidden"></td>
+                            <td ng-bind="proVar.varDefault"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

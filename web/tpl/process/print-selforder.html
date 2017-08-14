@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-ng-app="MaterialApp">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <base target="_self">
+    <title>FirstBPM</title>
+    <link href="assets/css/firststyle.css" rel="stylesheet" type="text/css"/>
+    <!--ie9样式重置-->
+    <!--[if IE 9]>
+    <link href="assets/css/firststyle-ie9.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+</head>
+<body>
+<div class="first-warpper">
+    <div class="first-print">
+        <div class="col-full right">
+            <button onclick="firstPrint()">打印</button>
+        </div>
+    </div>
+    <div id="print" class="first-print">
+        <div class="first-print-logo"><img src="/suite/contents/GetContent.do?id=4170&version=3" alt="PICP" ></div>
+        <div class="first-row">
+            <div class="col-full center"><h2 data-ng-bind="orderTitle"></h2></div>
+        </div>
+        <div class="first-row">
+            <div class="col-half">编号：</div>
+            <div class="col-half right"><span data-ng-cloak>日期：{{processVeriables.applyDate | date:'yyyy-MM-dd'}}</span></div>
+        </div>
+        <div ng-if="orderModelId==3151">
+            <div class="first-row base-box">
+                <div class="col-full">
+                    <h4>关联交易品种</h4>
+                    <div data-ng-repeat="item in tradeTypeList track by $index" data-ng-class="{'col-sm-3':item.type=='base','col-sm-6':item.type=='long'}" ><h5><i class="fa" data-ng-class="{'fa-check-square-o':processVeriables.tradeType[item.text]=='true','fa-square-o':processVeriables.tradeType[item.text]!='true'}" aria-hidden="true"></i>{{item.text}}</h5></div>
+                </div>
+            </div>
+            <div class="first-row base-box">
+                <div class="col-full">
+                    <h4>关联交易要素</h4>
+                    <h5>资金账户名称：</h5>
+                    <h5>交易对手（或基础资产涉及关联方）名称：</h5>
+                    <h5>投资品种名称：</h5>
+                    <h5>关联交易金额：</h5>
+                    <h5>协议签署日期（若无协议，则为事项发生日期）：</h5>
+                    <h5>其他：<br />
+                        &nbsp;
+
+                    </h5>
+
+                </div>
+            </div>
+            <div class="first-row base-box">
+                <div class="col-half row-base inline-right-border">
+                    <h5>经办人：</h5>
+                </div>
+                <div class="col-half row-base">
+                    <h5>部门负责人：</h5>
+                </div>
+            </div>
+            <div class="first-row row-base base-box">
+                <div class="col-full">
+                    <h5>合规与风险管理部意见：</h5>
+                </div>
+            </div>
+            <div class="first-row base-box">
+                <div class="col-2 inline-right-border">
+                    <h5>关联交易性质</h5>
+                </div>
+                <div class="col-3">
+                    <h5><i class="fa fa-square-o" aria-hidden="true"></i>重大  <i class="fa fa-check-square-o" aria-hidden="true"></i>一般</h5>
+                </div>
+            </div>
+            <div class="first-row base-box">
+                <div class="col-2 inline-right-border">
+                    <h5>董事会/股东大会审议</h5>
+                </div>
+                <div class="col-3">
+                    <h5><i class="fa fa-square-o" aria-hidden="true"></i>否    <i class="fa fa-check-square-o" aria-hidden="true"></i>是（<i class="fa fa-check-square-o" aria-hidden="true"></i>股东大会/<i class="fa fa-square-o" aria-hidden="true"></i>董事会）</h5>
+                </div>
+            </div>
+            <div class="first-row base-box">
+                <div class="col-2 inline-right-border">
+                    <h5> 信息披露</h5>
+                </div>
+                <div class="col-3">
+                    <h5>	<i class="fa fa-check-square-o" aria-hidden="true"></i>否    <i class="fa fa-square-o" aria-hidden="true"></i>是（<i class="fa fa-square-o" aria-hidden="true"></i>逐笔/<i class="fa fa-square-o" aria-hidden="true"></i>分类合并）</h5>
+                </div>
+            </div>
+            <div class="first-row base-box">
+                <div class="col-2  inline-right-border">
+                    <h5>报告</h5>
+                </div>
+                <div class="col-3">
+                    <h5>	<i class="fa fa-square-o" aria-hidden="true"></i>否    <i class="fa fa-check-square-o" aria-hidden="true"></i>是（<i class="fa fa-check-square-o" aria-hidden="true"></i>逐笔/<i class="fa fa-square-o" aria-hidden="true"></i>重大）</h5>
+                </div>
+            </div>
+            <div class="first-row row-base base-box">
+                <div class="col-full">
+                    <h5>合规负责人意见：</h5>
+                </div>
+            </div>
+            <div class="first-row row-base base-box base-box-bottomline">
+                <div class="col-full">
+                    <h5>董事会/股东大会签批： </h5>
+                    <p>（或附大会决议）</p>
+                </div>
+            </div>
+        </div>
+        <div ng-if="orderModelId==1053">
+            <div class="first-row row-5X base-box">
+                <div class="col-full">
+                    <h5>申请事项：</h5>
+                    <p ng-bind="processVeriables.applyItem"> </p>
+                </div>
+                <div class="col-full base-bottom">
+                    <div class="first-row">
+                        <div class="col-half">
+
+                        </div>
+                        <div class="col-half ">
+                            <div class="first-row">
+                                <div class="col-half">
+                                    <h5 ng-cloak>申请人：{{ processVeriables.applicant }}</h5>
+                                </div>
+                                <div class="col-half">
+                                    <h5 ng-cloak>日期：{{ processVeriables.applyDate }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="first-row row-1X5 base-box">
+                <div class="col-full">
+                    <h5>审批人意见：</h5>
+                    <div class="first-row">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                </div>
+            </div>
+            <div class="first-row row-2X5 base-box">
+                <div class="col-full">
+                    <h5>执行情况：</h5>
+
+                </div>
+                <div class="col-full base-bottom">
+                    <h5>已按审批内容执行。</h5>
+                    <div class="first-row">
+                        <div class="col-half">
+                            <h5>复核人： 张灯结彩</h5>
+                        </div>
+                        <div class="col-half ">
+                            <h5>日期：2017-01-01</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="first-row base-box base-box-bottomline">
+                <div class="col-full">
+                    <h5>&nbsp;</h5>
+                    <h5>已抄送分管领导阅知。</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function firstPrint() {
+        $("#print").jqprint({
+            debug: false, //如果是true则可以显示iframe查看效果（iframe默认高和宽都很小，可以再源码中调大），默认是false
+            importCSS: true, //true表示引进原来的页面的css，默认是true。（如果是true，先会找$("link[media=print]")，若没有会去找$("link")中的css文件）
+            printContainer: true, //表示如果原来选择的对象必须被纳入打印（注意：设置为false可能会打破你的CSS规则）。
+            operaSupport: true//表示如果插件也必须支持歌opera浏览器，在这种情况下，它提供了建立一个临时的打印选项卡。默认是true
+        });
+    }
+</script>
+</body>
+</html>

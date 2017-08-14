@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-ng-app="MaterialApp">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <base target="_self">
+    <title>FirstBPM</title>
+    <link href="assets/css/firststyle.css" rel="stylesheet" type="text/css"/>
+    <!--ie9样式重置-->
+    <!--[if IE 9]>
+    <link href="assets/css/firststyle-ie9.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+</head>
+<body>
+<div class="first-warpper">
+    <div class="first-info-panel">
+        <div class="first-info-body">
+            <div class="first-info-picture">
+                图片
+            </div>
+            <div class="first-info-content">
+                <div ><span ng-bind="processDetails.processModelName"
+                            class="info-content-name">项目名称</span>
+                    <span ng-switch="taskDetails.status">
+                                <span ng-switch-when="0" class="first-bagde first-bagde-yellow" ng-bind="taskDetails.statusName"></span>
+                                <span ng-switch-when="2" class="first-bagde first-bagde-success" ng-bind="taskDetails.statusName"></span>
+                                <span ng-switch-when="1" class="first-bagde first-bagde-blue" ng-bind="taskDetails.statusName"></span>
+                        <span ng-switch-when="5" class="first-bagde first-bagde-waring" ng-bind="taskDetails.statusName"></span>
+                       <span ng-switch-default  class="first-bagde first-bagde-danger" ng-bind="taskDetails.statusName"></span>
+                   </span>
+                </div>
+                <span class="process-info-item">
+                <span class="item-label">发起人：</span>
+                <span class="item-value" ng-bind="processDetails.initiatorName">倚天剑</span>
+                </span>
+                <span class="process-info-item">
+                <span class="item-label">创建时间：</span>
+                <span class="item-value" ng-bind="processDetails.starttime">2016-12-12</span>
+                </span>
+
+
+            </div>
+        </div>
+        <div class="first-info-footer">
+            <span class="first-tabs-item">
+                基本信息
+            </span>
+        </div>
+    </div>
+    <div class="first-process-content">
+        <div style="position: relative">
+            <ng-include
+                    src="'tpl/page/temp-timeaxis.html'"
+                    data-ng-controller="ProcessDetailsCtrl"></ng-include>
+        </div>
+        <div class="first-process-details">
+            <h4>详细信息</h4>
+            <div class="first-process-itemlist">
+                <span class="first-process-item">
+                    <span class="process-item-label">负责人：</span>
+                <span class="process-item-value" ng-bind="processDetails.initiatorName"></span>
+                </span>
+                <span class="first-process-item">
+                    <span class="process-item-label">产品名称：</span>
+                <span class="process-item-value" ng-bind="processVeriables.productName">xx公司-信息部</span>
+                </span>
+                <span class="first-process-item ">
+                <span class="process-item-label">流程名称：</span>
+                <span class="process-item-value" ng-bind="processVeriables.processName">2016-10-26</span>
+                </span>
+            </div>
+            <div class="first-process-itemlist">
+                <span class="process-item-label">申请说明：</span>
+                <textarea class="form-control" ng-model="processVeriables.description" ng-disabled="isShow('description')"></textarea>
+            </div>
+        </div>
+        <div style="position: relative">
+            <ng-include
+                    src="'tpl/page/temp-upload.html'"
+                    data-ng-controller="ArchiveFileUpload"></ng-include>
+        </div>
+    </div>
+    <div class="first-footer first-row">
+        <input class="form-control" id="note" ng-if="!isShow('note')"/>
+        <a class="btn btn-default" ng-click="submit('退回修改')" ng-if="!isShow('btn')">退回修改</a>
+        <a class="btn btn-default" ng-click="submit('不同意')" ng-if="!isShow('btn1')">驳回</a>
+        <a class="btn btn-primary" ng-click="submit('提交')" ng-if="!isShow('btn2')">提交</a>
+    </div>
+    <table class="table">
+        <tr ng-repeat="note in notes">
+            <td ng-bind="note.content.content"></td>
+        </tr>
+    </table>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-body" id="modal-body">
+            <ng-include
+                    src="'tpl/page/temp-archivemanager.html'"></ng-include>
+        </div>
+    </script>
+</div>
+</body>
+</html>

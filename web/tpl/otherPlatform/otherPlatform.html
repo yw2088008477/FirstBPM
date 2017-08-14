@@ -1,0 +1,46 @@
+
+<div class="page-bar">
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#home">
+                <span translate="header.navbar.home.HOME">主页</span>
+            </a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li class="active">
+            <span ng-bind="title"></span>
+        </li>
+        <li class="active" style="cursor: pointer;" ng-click="reloadPage()">
+            <span translate="common.REFRESH">刷新</span>&nbsp;
+        </li>
+    </ul>
+</div>
+
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption font-green-sharp">
+            <span class="caption-subject bold font-blue uppercase" ng-bind="title"></span>
+            <span class="caption-helper"></span>
+        </div>
+        <div class="actions">
+            <!-- <a href="javascript:;" ng-click="reloadPage()" class="btn purple mt-ladda-btn ladda-button btn-outline">
+                <i class="icon-reload"></i></a> -->
+            <a href="javascript:;" class="btn blue mt-ladda-btn ladda-button btn-outline fullscreen">
+                <i class="icon-size-fullscreen"></i>
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <iframe id="otherPlatform" width="100%" frameborder="0" height="100%" ng-src="{{src}}" style="min-height: 500px;" scrolling="no" ></iframe>
+    </div>
+</div>
+
+<script>
+    $("#otherPlatform").load(function () {
+        var mainheight = $(this).contents().find("body").height() + 30;
+        console.log(mainheight);
+        $(this).height(mainheight);
+    });
+</script>
+

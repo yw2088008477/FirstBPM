@@ -1,0 +1,234 @@
+<div class="blog-page blog-content-2">
+    <div class="row">
+        <!-- BEGIN REGIONAL STATS PORTLET-->
+        <div class="portlet light">
+            <div class="portlet-title tabbable-line">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-target="#tab_1_1" data-toggle="tab">
+                            <span translate="content.announce.TEXT">正文</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-target="#tab_2_1" data-toggle="tab">
+                            <span translate="content.announce.ANNEX">附件</span>
+                             </a>
+                    </li>
+                    <li>
+                        <a data-target="#tab_3_1" data-toggle="tab">
+                            <span translate="content.announce.BEENREAD">已阅人员</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-target="#tab_4_1" data-toggle="tab">
+                            <span translate="content.announce.NOSTAFF">未阅人员</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <div data-always-visible="1" data-rail-visible="0">
+                    <div class="tab-content scroller">
+                        <div class="tab-pane fade active in" id="tab_1_1">
+                            <div class="blog-single-content blog-container">
+                                <div class="blog-single-desc">
+                                    <div class="portlet light">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class="icon-speech"></i>
+                                                <span class="caption-subject bold uppercase">{{threadSummry.subject}}</span>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <div class="actions">
+
+                                                <span translate="content.announce.PUBLISHER">发布人</span>
+
+                                                <a href="{{openUserInofUrl}}">
+                                                    {{threadSummry.ThreadCreatorName == "" ?
+                                                    threadSummry.creator : threadSummry.ThreadCreatorName}}</a>&nbsp;
+                                                <i class="icon-calendar font-blue"></i>
+                                                <a href="javascript:;">{{threadSummry.createDate}}</a>
+                                                &nbsp;
+                                                <!-- <i class="icon-bubble font-blue"></i>
+                                                <a href="javascript:;">{{threadSummry.commentCount}} 评论</a> -->
+                                                <i class="icon-eye font-blue"></i>
+                                                <a href="javascript:;">{{threadSummry.readCount}} 浏览</a>
+                                                &nbsp;
+                                                <a class="btn btn-circle btn-icon-only btn-default fullscreen"
+                                                   href="javascript:;"> </a>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+
+                                            <iframe id="mainFrame" name="mainFrame"
+                                                    src="{{getIframSrc(threadSummry.attachments)}}" scrolling="no"
+                                                    frameborder="0" style="padding: 0px; width: 100%;">
+                                            </iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="blog-single-foot" ng-show="threadSummry.attachments.length">
+                                   <h3 class="sbold blog-comments-title">附件({{threadSummry.attachments.length-1}})</h3>
+                                    <ul class="blog-post-tags">
+                                        <li class="uppercase" ng-repeat="attach in threadSummry.attachments">
+                                            <a href="/suite/doc/{{attach.attachmentId}}">{{attach.fileName}}</a>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab_2_1">
+                            <div ng-show="getAttachmentLength(threadSummry)>0" class="portlet light portlet-fit ">
+
+                                <div class="portlet-body">
+                                    <div class="table-scrollable table-scrollable-borderless">
+                                        <table class="table table-hover table-light">
+                                            <thead>
+                                            <tr class="uppercase">
+                                                <th translate="content.announce.IMAGE"> 图片</th>
+                                                <th translate="content.announce.ATTACHNAME"> 附件名</th>
+                                                <th translate="content.announce.TYPE"> 类型</th>
+                                                <th translate="content.announce.UPLOADNAME"> 上传人</th>
+                                                <th translate="content.announce.OPERAT"> 操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="attach in threadSummry.attachments"
+                                                ng-if="attach.attachmentId != 'null' &&  attach.fileName.indexOf('公告附件(') < 0">
+                                                <td>
+                                                    <img class="img-circle" width="60" height="60"
+                                                         ng-show="attach.attachmentImage=='no'"
+                                                         src="/suite/plugins/img/attach/attach.png">
+                                                    <img class="img-circle" width="60" height="60"
+                                                         ng-show="attach.attachmentImage=='yes'"
+                                                         src="/suite/plugins/servlet/loadsource/3767/{{attach.fileName + '.' + attach.suffix}}">
+                                                </td>
+                                                <td>
+                                                    <a href="/suite/doc/{{attach.attachmentId}}">
+                                                        {{attach.fileName}}
+                                                    </a>
+                                                </td>
+                                                <td> {{attach.suffix}}</td>
+                                                <td>
+                                                    <a href="{{openUserInofUrl}}">
+                                                        {{threadSummry.ThreadCreatorName == "" ?
+                                                        threadSummry.creator : threadSummry.ThreadCreatorName}}</a>
+                                                    <!-- <td ng-bind="(userInfo.userName == 'Administrator') ? userInfo.userName : userInfo.firstName"> -->
+                                                    <!-- <img class="img-circle" width="40" height="40" src="/suite/plugins/servlet/loadsource/3/{{userInfo.userName}}.png"> -->
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-circle btn-danger"
+                                                       href="/suite/doc/{{attach.attachmentId}}">
+                                                        下载
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="getAttachmentLength(threadSummry)==0" class="wrapper-xs lt"
+                                 style="width:100%;height:200px;text-align:center;">
+                                <img src="/suite/plugins/img/attach/attach.png" width="100px" height="100px">
+                                <br>
+                                <br>
+                                <span style="font-size:20px;font-family:'黑体';" translate="content.announce.NOATTACH">没有附件</span>！
+                            </div>
+                            <!-- </div> -->
+
+                        </div>
+                        <div class="tab-pane fade" id="tab_3_1">
+                            <div ng-show="dataReads.length>0"
+                                 class="table-scrollable table-scrollable-borderless">
+                                <table class="table table-hover table-light">
+                                    <thead>
+                                    <tr class="uppercase">
+                                        <th class="col-md-3" translate="content.profile.account.NAME"> 姓名</th>
+                                        <th class="col-md-3" translate="content.announce.DEPARTMENT"> 部门</th>
+                                        <th class="col-md-3" translate="content.announce.POSITION"> 职位</th>
+                                        <th class="col-md-3" translate="content.announce.STATUS"> 状态</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="dataRead in dataReads">
+                                        <td style="text-align: left;">
+                                            <img class="img-circle" width="30" height="30"
+                                                 src="/suite/plugins/servlet/loadsource/3/{{dataRead.userName}}.png">
+                                            <a ng-click="goToUserInfo(dataRead.userName)">{{dataRead.firstName == "" ?
+                                                dataRead.userName : dataRead.firstName}}</a>
+                                        </td>
+                                        <td>
+                                            <span>{{dataRead.customField2}}</span>
+                                        </td>
+                                        <td><span>{{dataRead.customField1}}</span></td>
+                                        <td>
+                                            <span class="label label-sm label-info">已阅</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div ng-show="dataReads.length==0" class="wrapper-xs lt"
+                                 style="width:100%;height:200px;text-align:center;">
+                                <img src="/suite/plugins/img/attach/defalutAvatar.jpg" width="100px" height="100px"
+                                     style="border-radius:50%;">
+                                <br>
+                                <br>
+                                <span style="font-size:20px;font-family:'黑体';" translate="content.announce.NOREAD">没有人阅读</span>！
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab_4_1">
+                            <div ng-show="dataUnreads.length>0"
+                                 class="table-scrollable table-scrollable-borderless">
+                                <table class="table table-hover table-light">
+                                    <thead>
+                                    <tr class="uppercase">
+                                        <th class="col-md-3" translate="content.profile.account.NAME"> 姓名</th>
+                                        <th class="col-md-3" translate="content.announce.DEPARTMENT"> 部门</th>
+                                        <th class="col-md-3" translate="content.announce.POSITION"> 职位</th>
+                                        <th class="col-md-3" translate="content.announce.STATUS"> 状态</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="dataUnreads in dataUnreads">
+                                        <td style="text-align: left;">
+                                            <img class="img-circle" width="30" height="30"
+                                                 src="/suite/plugins/servlet/loadsource/3/{{dataUnreads.userName}}.png">
+                                            <a ng-click="goToUserInfo(dataUnreads.userName)">{{dataUnreads.firstName ==
+                                                "" ?
+                                                dataUnreads.userName : dataUnreads.firstName}}</a>
+                                        </td>
+                                        <td>
+                                            <span>{{dataUnreads.customField2}}</span>
+                                        </td>
+                                        <td><span>{{dataUnreads.customField1}}</span></td>
+                                        <td>
+                                            <span class="label label-sm label-danger" translate="content.announce.NOTREAD">未阅</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div ng-show="dataUnreads.length==0" class="wrapper-xs lt"
+                                 style="width:100%;height:200px;text-align:center;">
+                                <img src="/suite/plugins/img/attach/defalutAvatar.jpg" width="100px" height="100px"
+                                     style="border-radius:50%;">
+                                <br>
+                                <br>
+                                <span style="font-size:20px;font-family:'黑体';" translate="content.announce.EVERYONEREAD">所有人都已阅</span>！
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END REGIONAL STATS PORTLET-->
+
+    </div>
+</div>
+

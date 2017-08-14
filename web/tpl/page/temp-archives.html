@@ -1,0 +1,46 @@
+<h4>附件列表</h4>
+<div class="tables">
+    <table class="table">
+        <thead>
+        <tr>
+            <th width="40%">附件名称</th>
+            <th>附件类型</th>
+            <th>操作时间</th>
+            <th>操作列表</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="file in fileList track by $index">
+            <td>
+                <strong data-ng-bind="file.name" ng-if="!attach.hasDownload"></strong>
+                <a href="/suite/doc/{{file.field}}" data-ng-bind="file.name" ng-if="attach.hasDownload"></a>
+            </td>
+            <td nowrap data-ng-bind="file.suffix"></td>
+            <td class="text-center">
+                <span data-ng-cloak>{{ file.lastModified | date:'yyyy-MM-dd hh:mm:ss' }}</span>
+            </td>
+            <td nowrap>
+                <a ng-click="open(file,'view')" ng-if="attach.hasView">
+                    查看
+                </a>
+                &nbsp;
+                <a ng-click="remove()" ng-if="attach.hasRemove">
+                    删除
+                </a>
+            </td>
+        </tr>
+        <tr ng-if="fileList.length<1">
+            <td colspan="4" class="center">
+                暂无附件
+            </td>
+        </tr>
+        <tr ng-if="attach.hasNew">
+            <td colspan="4">
+                <div class="table-item-operation pull-right">
+                    <a ng-click="getArchive()" >获取附件</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

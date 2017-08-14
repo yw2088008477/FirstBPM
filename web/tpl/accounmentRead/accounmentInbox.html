@@ -1,0 +1,53 @@
+<div class="portlet light" ng-controller="documentCtr">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-speech"></i>
+            <span id="headText" class="caption-subject bold uppercase">所有公告</span>
+            <!-- <span class="caption-helper">条件查询</span> -->
+        </div>
+        <div class="inputs">
+            <div class="portlet-input input-inline input-medium">
+                <div class="input-group">
+                    <input type="text" id="searchBox" class="form-control" style="border-radius: 25px 0 0 25px !important;" placeholder="搜索...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-circle-right btn-default"
+                                onclick="doFilter1()" type="submit">查询
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div style="height:500px;">
+            <!--撑满页面-->
+
+
+            <div id="datagrid1" class="mini-datagrid" style="width:100%;height:100%;"
+                 url="" idField="id" allowCellWrap="true" allowResize="true" allowAlternating="true"
+                 showPagerButtonText="true"
+            >
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div field="isRead" headerAlign="center" visible="false">公告名称</div>
+                    <div field="threadId" headerAlign="center" visible="false">公告名称</div>
+                    <div field="forumId" headerAlign="center" visible="false">公告名称</div>
+                    <div field="subject" width="150" headerAlign="center">公告名称</div>
+                    <div field="forumName" headerAlign="center">分类</div>
+                    <div field="customField3" width="200" headerAlign="center">单位</div>
+                    <div field="ThreadCreator" align="center" headerAlign="false" visible="false">发布人账号</div>
+                    <div field="ThreadCreatorName" width="130" headerAlign="center">发布人</div>
+                    <div field="readCount" headerAlign="center">阅读数量</div>
+                    <div field="ThreadCreateDate" headerAlign="center" dateFormat="yyyy-MM-dd">发布日期</div>
+                        <div field="body" headerAlign="center" dateFormat="yyyy-MM-dd">失效日期</div>
+                    <div name="action" headerAlign="center" align="center" renderer="onActionRenderer"
+                         cellStyle="padding:0;">操作
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="js/apps/accounmentRead/accounmentInbox.js"></script>

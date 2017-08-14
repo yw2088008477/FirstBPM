@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-ng-app="MaterialApp">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <base target="_self">
+    <title>FirstBPM</title>
+    <link href="assets/css/firststyle.css" rel="stylesheet" type="text/css"/>
+    <!--ie9样式重置-->
+    <!--[if IE 9]>
+    <link href="assets/css/firststyle-ie9.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+</head>
+<body>
+<div class="first-warpper">
+    <div class="first-order">
+        <h4 class="first-order-title" data-ng-bind="orderTitle"></h4>
+        <form name="formName" class="first-form">
+            <fieldset>
+                <legend>基本信息</legend>
+                <div class="form-group form-row  col-sm-6 " data-ng-if="!isStart">
+                    <label>申请部门：</label>
+                    <input class="form-control" data-ng-model="processVeriables.applyDept" disabled/>
+                </div>
+                <div class="form-group form-row  col-sm-6 " data-ng-if="!isStart">
+                    <label>申请人：</label>
+                    <input class="form-control" data-ng-model="processVeriables.applicant" disabled/>
+                </div>
+                <div class="form-group col-sm-12 form-row">
+                    <label>文件名称<span class="redstar">*</span>：</label>
+                    <textarea class="form-control" data-ng-model="processVeriables.fileName"
+                              data-ng-disabled="isShow('fileName')"></textarea>
+                </div>
+                <div class="form-group col-sm-6 form-row">
+                    <label>文件份数：</label>
+                    <input type="number" class="form-control" data-ng-model="processVeriables.fileNum"
+                           data-ng-disabled="isShow('fileNum')">
+                </div>
+                <div class="form-group col-sm-6 form-row">
+                    <label>合同编号：</label>
+                    <input type="text" class="form-control" data-ng-model="processVeriables.contractNO"
+                           data-ng-disabled="isShow('contractNO')">
+                </div>
+                <div class="form-group col-sm-6 form-row">
+                    <label>发往单位：</label>
+                    <input type="text" class="form-control" data-ng-model="processVeriables.sendUnit"
+                           data-ng-disabled="isShow('sendUnit')">
+                </div>
+                <div class="form-group col-sm-6 form-row" data-ng-if="orderModelId==3180">
+                    <label>是否需分管总审批：</label>
+                    <select data-ng-model="processVeriables.isApprove" data-ng-disabled="isShow('isApprove')"
+                            class="form-control">
+                        <option>是</option>
+                        <option>否</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-12 form-row">
+                    <label>备注：</label>
+                    <textarea class="form-control" rows="4" data-ng-model="processVeriables.remark"
+                              data-ng-disabled="isShow('remark')"></textarea>
+                </div>
+                <div class="form-group form-row  col-sm-6 ">
+                    <label>申请日期：</label>
+                    <input type="text" class="form-control" data-ng-model="processVeriables.applyDate" disabled>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>用印数</legend>
+                <div class="form-group col-sm-12 form-row">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6" data-ng-repeat="item in sealType">
+                            <input type="checkbox" name="sealType" id="ck{{item.ID}}"
+                                   data-ng-model="processVeriables.sealType[item.CATEGORY_NAME]"
+                                   data-ng-true-value="'1'"
+                                   data-ng-false-value="'0'"
+                                   data-ng-change="ckchange(item.CATEGORY_NAME)" data-ng-disabled="isShow('sealType')">
+                            <label for="ck{{item.ID}}"></label>{{item.CATEGORY_NAME}} <input type="text"
+                                                                                             data-ng-model="processVeriables.sealNum[item.CATEGORY_NAME]"
+                                                                                             class="line-input noback"
+                                                                                             style="width:40px"
+                                                                                             data-ng-disabled="!processVeriables.sealType[item.CATEGORY_NAME]">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div style="position: relative" data-ng-if="orderModelId!=3180">
+                <data-ng-include
+                        src="'tpl/page/temp-upload.html'"
+                        data-ng-controller="ArchiveFileUpload"></data-ng-include>
+            </div>
+            <div style="position: relative" data-ng-if="orderModelId==3180">
+                <data-ng-include
+                        src="'tpl/page/temp-archives.html'"
+                        data-ng-controller="ArchiveFileList"></data-ng-include>
+            </div>
+            <div class="first-footer first-row">
+                <input class="form-control" id="note" data-ng-if="!isShow('note')"/>
+                <a class="btn btn-default" data-ng-click="submit('退回修改')" data-ng-if="!isShow('btn')">退回修改</a>
+                <a class="btn btn-default" data-ng-click="submit('不同意')" data-ng-if="!isShow('btn1')">驳回</a>
+                <a class="btn btn-primary" data-ng-click="submit('提交')" data-ng-if="!isShow('btn2')">提交</a>
+            </div>
+            <table class="table">
+                <tr data-ng-repeat="note in notes">
+                    <td data-ng-bind="note.content.content"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-body" id="modal-body">
+        <data-ng-include
+                src="'tpl/page/temp-archivemanager.html'"></data-ng-include>
+    </div>
+</script>
+<script type="text/ng-template" id="sealModalContent.html" data-ng-if="orderModelId==3180">
+    <div class="modal-body" id="modal-body2">
+        <data-ng-include
+                src="'tpl/page/temp-processlist.html'"></data-ng-include>
+    </div>
+</script>
+</body>
+</html>

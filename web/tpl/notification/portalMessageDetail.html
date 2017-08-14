@@ -1,0 +1,37 @@
+<div ng-controller="portalMessageDetailCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="todo-ui">
+                <!-- BEGIN TODO CONTENT -->
+                <div class="todo-content">
+                    <div class="portlet light">
+                        <!-- PROJECT HEAD -->
+                        <div class="portlet-title">
+                            <div class="tab-pane " id="buttons_metro">
+                                <a href="#/notification" class="btn btn-circle blue m-icon-big">
+                                    <i class="m-icon-swapleft m-icon-white"></i> 返回
+                                </a>
+                            </div>
+                        </div>
+                        <!-- end PROJECT HEAD -->
+                        <div class="portlet-body">
+                            <div class="scroller" style="height:600px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+                                 <div class="note note-warning">
+                                    <p><a href="javascript:'" style="text-decoration:none;" ng-bind="attribute.sender"></a> 向您发送了一个讯息。</p>
+                                </div>
+                                <div class="note note-danger">
+                                    <h4>提示</h4>
+                                    <span ng-bind="attribute.message.substring(0,attribute.message.indexOf('<'))"></span>
+                                    <br>
+                                    <span ng-bind="attribute.message.substring(attribute.message.indexOf('来'))"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END TODO CONTENT -->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>

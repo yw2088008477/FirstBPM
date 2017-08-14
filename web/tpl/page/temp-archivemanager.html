@@ -1,0 +1,133 @@
+<script>
+    $("#modal-body").parent().parent().css({'width':'100%','margin':'0','height':$(window).height()});
+    $("#modal-body").parent().css({'width':'100%','margin':'0','borderRadius':'0','height':$(window).height()});
+    $("#modal-body iframe").css({'width':'100%','height':$(window).height()});
+    var data_info = [];
+    function OnSaveToURL(type, code, html) {
+        data_info = [];
+        data_info = eval("(" + html + ")");
+    }
+</script>
+<div ng-show="typeView=='img'">
+    <link href="/suite/plugins/viewerjs/dist/viewer.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .viewer-container{
+            background-color: #ffffff;
+        }
+    </style>
+    <div class="data-img">
+        <img data-original="{{filePath}}"  ng-src="{{filePath}}" target="_blank"  />
+    </div>
+    <script type="text/javascript" src="/suite/plugins/viewerjs/dist/viewer.min.js"></script>
+    <script>
+        var options = {
+            url: 'data-original',
+            build: function (e) {
+                //console.log(e.type);
+            },
+            built: function (e) {
+                //console.log(e.type);
+            },
+            show: function (e) {
+                //console.log(e.type);
+                $('.viewer-prev').hide();
+                $('.viewer-next').hide();
+            },
+            shown: function (e) {
+                //console.log(e.type);
+            },
+            hide: function (e) {
+                //console.log(e.type);
+            },
+            hidden: function (e) {
+                //console.log(e.type);
+            },
+            view: function (e) {
+                //console.log(e.type);
+            },
+            viewed: function (e) {
+                //console.log(e.type);
+            }
+        };
+        $('.data-img').on({
+            'build.viewer': function (e) {
+                //console.log(e.type);
+            },
+            'built.viewer':  function (e) {
+                //console.log(e.type);
+            },
+            'show.viewer':  function (e) {
+                //console.log(e.type);
+            },
+            'shown.viewer':  function (e) {
+                //console.log(e.type);
+            },
+            'hide.viewer':  function (e) {
+                //console.log(e.type);
+            },
+            'hidden.viewer': function (e) {
+                //console.log(e.type);
+            },
+            'view.viewer':  function (e) {
+                //console.log(e.type);
+            },
+            'viewed.viewer': function (e) {
+                //console.log(e.type);
+            }
+        }).viewer(options);
+    </script>
+</div>
+<div ng-show="typeView=='pdf'">
+    <iframe ng-src="{{filePath}}" style="width: 100%"></iframe>
+</div>
+<div ng-show="typeView=='doc'">
+    <div style="position:relative;">
+        <script language="javascript" type="text/javascript"
+                src="/suite/plugins/ntkodemo_js/ntko/ntkoofficecontrolangular.js"></script>
+        <div id="ntkoControl" style="position:absolute;left:0;top:0;width:100%;height:100%">
+        </div>
+    </div>
+    <script>
+        $("#ntkoControl").css({'width':'100%','height':$(window).height()-62});
+    </script>
+    <script language="javascript" for="TANGER_OCX" event="OnDocumentClosed()"></script>
+    <!--文档打开后触发事件-->
+    <script language="javascript" for="TANGER_OCX" event="OnDocumentOpened(str,obj)"></script>
+    <!-- 文档控件菜单点击事件，可以接管默认的事件 -->
+    <script language="javascript" for="TANGER_OCX" event="OnFileCommand(commandid,canceled)"></script>
+    <!--自定义工具栏按钮触发事件-->
+    <script language="javascript" for="TANGER_OCX" event="OnCustomToolBarCommand(btnIdx)"></script>
+    <!--文档激活后触发事件-->
+    <script language="javascript" for="TANGER_OCX" event="OnDocActivated(bool)"></script>
+    <script language="javascript" for="TANGER_OCX" event="BeforeOriginalMenuCommand(menuTitle,canceled)"></script>
+    <script language="javascript" for="TANGER_OCX" event="OnWordWPSSelChange(menuTitle)"></script>
+
+    <script language="javascript" for="TANGER_OCX" event="AfterSaveAsPDFFile(code)"></script>
+</div>
+
+<div class="modal-footer">
+    <a class="btn btn-default" ng-if="operation=='view'" ng-click="cancel()">关闭</a>
+    <a class="btn btn-default" ng-if="operation!='view'" ng-click="cancel()">放弃修改</a>
+    <a class="btn btn-primary" ng-if="operation!='view'" ng-click="ok()">提交</a>
+</div>
+<style>
+    .modal-body{
+        padding: 0;
+    }
+    .modal-footer{
+        position: fixed;
+        z-index: 99999;
+        left:0;
+        bottom: 0;
+        background-color: #ffffff;
+        height: 60px;
+        width: 100%;
+        border: none;
+        border-radius: 0px;
+        -moz-box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.0784313725490196);
+        -webkit-box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.0784313725490196);
+        box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.0784313725490196);
+    }
+</style>
+
+

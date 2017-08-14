@@ -1,0 +1,413 @@
+<style>
+    .tabbable-line > .tab-content {
+        margin-top: 0;
+        border: 0;
+        padding: 30px 0;
+    }
+
+    .tabbable-line > .nav-tabs > li {
+        margin: 0;
+        border-bottom: 4px solid transparent;
+    }
+
+    .tabbable-line > .nav-tabs > li.active {
+        background: 0 0;
+        border-bottom: 4px solid #36c6d3;
+        position: relative;
+        -ms-box-sizing: border-box;
+    }
+
+    .tabbable-line > .nav-tabs > li.active > a {
+        border: 0px;
+    }
+
+    .tabbable-line > .nav-tabs > li > a {
+        background: 0 0 !important;
+        border: 0;
+        margin: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .nav > li > a {
+        padding: 10px 15px;
+    }
+
+</style>
+<div ng-controller="ContactsCtr">
+    <div class="row">
+        <div class="col-md-3 ">
+            <!-- BEGIN Portlet PORTLET-->
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold font-purple-plum uppercase"
+                              translate="common.SEARCH">查询</span>
+                        <span class="caption-helper"></span>
+                    </div>
+                    <div class="inputs">
+                        <div class="portlet-input input-inline input-small">
+                            <div class="input-icon right">
+                                <i class="icon-magnifier"></i>
+                                <input id="search" type="text" class="form-control input-circle" placeholder="搜索...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="scroller" style="_height:600px; min-height:600px;">
+                        <ul id="tree1" class="mini-tree" url="/suite/plugins/servlet/query/GM_getSystemOrgization"
+                            style="_height:600px; min-height:600px;"
+                            showTreeIcon="true" textField="text" expandOnLoad="1" allowDrag="true" allowDrop="true"
+                            allowLeafDropIn="true"
+                            idField="id" parentField="pid" resultAsTree="false"
+                        >
+                        </ul>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- END Portlet PORTLET-->
+        </div>
+        <div class="col-md-9">
+            <!-- BEGIN Portlet PORTLET-->
+            <div class="portlet light">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption">
+                        <span class="caption-subject bold font-yellow-lemon uppercase">{{grouInfos.groupName}}</span>
+                        <!-- <span class="caption-helper">该团队组被{{grouInfos.creator}}创建在{{grouInfos.createdate}}</span> -->
+                    </div>
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-target="#portlet_tab1" data-toggle="tab" translate="content.contact.MEMBER">成员</a>
+                        </li>
+                        <li>
+                            <a data-target="#portlet_tab2" data-toggle="tab"
+                               translate="content.contact.DEPARTMENTALATTR">部门属性</a>
+                        </li>
+                        <li ng-show="isAdmin == 'true'">
+                            <a data-target="#portlet_tab3" data-toggle="tab" translate="content.contact.USERMANAGEMENT">用户管理</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="portlet-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="portlet_tab1">
+                            <div class="scroller" style="height:750px">
+                                <div class="mini-toolbar"
+                                     style="padding:4px;border-right:1px solid #e7ecf1;border-top:1px solid #e7ecf1;border-left:1px solid #e7ecf1;border-bottom:0px;">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="width:100%;">
+                                                <label style="font-family:Verdana;">
+                                                    <span translate="content.knowledge.NAME">名称</span>
+                                                    : </label>
+                                                <input id="searchUserInfo" class="mini-textbox"
+                                                       onkeypress="searchUserIn()"/>
+                                                <a class="mini-button" onclick="searchUserIn()" plain="false"
+                                                   translate="common.SEARCH">查询</a>
+
+                                            </td>
+                                            <td style="white-space:nowrap;">
+                                                <a id="tresEx" class="mini-button" plain="false"
+                                                   onclick="treeExcelexport()"
+                                                   translate="content.contact.ARCHITECTUREEXPORT">架构导出</a>
+                                                <a id="formEx" class="mini-button" plain="false"
+                                                   onclick="formExcelexport()" translate="content.contact.PERSONEXPORT">人员导出</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="mini-fit">
+
+                                    <div id="grid1" class="mini-datagrid" style="width:100%;height:750px;"
+                                         showFilterRow="false" allowCellSelect="true" allowCellEdit="false"
+                                    >
+                                        <div property="columns" style="border-bottom: ">
+                                            <div field="firstName" width="100" headerAlign="center" allowSort="true">
+                                                员工姓名
+                                            </div>
+                                            <div field="userName" width="135" headerAlign="center" allowSort="true">员工帐号
+                                            </div>
+
+                                            <div field="customField3" width="100" allowSort="false">单位
+                                            </div>
+                                            <div field="customField2" width="100" allowSort="false">部门
+                                            </div>
+                                            <div field="customField1" width="120" allowSort="false">职位
+                                            </div>
+                                            <div field="supervisorName" width="100" headerAlign="center" visible="false"
+                                                 allowSort="true">上级主管
+                                            </div>
+                                            <div field="phoneMobile" width="120" allowSort="false">手机
+                                            </div>
+                                            <div field="email" width="120" allowSort="true">邮件
+                                            </div>
+                                            <div field="displayName" width="120" visible="false" allowSort="true">排序
+                                            </div>
+                                            <div name="action" field="action" width="140" headerAlign="center"
+                                                 align="center" renderer="onActionRenderer" cellStyle="padding:0;">操作
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="portlet_tab2">
+                            <div class="scroller" style="height: 800px;">
+                                <form action="#" id="form_sample_1" class="form-horizontal">
+                                    <div class="form-body">
+                                        <div class="alert alert-danger display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            <span translate="content.contact.ERROR">你的表单有填写错误，请检查。</span>
+                                        </div>
+                                        <div class="alert alert-success display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            <span translate="content.contact.OK">表单提交成功！</span>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                <span translate="content.contact.GROUPID">组ID</span>
+                                                :
+                                            </label>
+                                            <div class="col-md-5">
+                                                <span class="form-control" readonly>{{grouInfos.groupId}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                <span translate="content.knowledge.NAME">名称</span>
+                                                :
+                                            </label>
+                                            <div class="col-md-5">
+                                                <input name="name" type="text" class="form-control"
+                                                       ng-model="grouInfos.groupName"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                <span translate="content.knowledge.DESCRIPTION">描述</span>
+                                                :
+                                            </label>
+                                            <div class="col-md-7">
+                                                <textarea name="descript" class="form-control" rows="10"/>
+                                                {{grouInfos.description}}
+                                                </textarea>
+                                                                            <span class="help-block">
+                                                                                1000的0字符数
+                                                                            </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                <span translate="content.contact.ADMIN">管理员</span>
+                                                :
+                                            </label>
+                                            <div class="col-md-5">
+                                                <span class="form-control" readonly>{{grouInfos.adminUserCount}}
+                                                    <span translate="content.contact.USER">用户和</span>{{grouInfos.adminGroupCount}}
+                                                <span translate="content.contact.GROUP">组</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                <span translate="content.contact.MEMBER">成员</span>
+                                                :
+                                            </label>
+                                            <div class="col-md-5">
+                                                <span class="form-control" readonly>{{grouInfos.mberUserCount}}
+                                                    <span translate="content.contact.USER">用户和</span>{{grouInfos.memberGroupCount}}
+                                                <span translate="content.contact.GROUP">组</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                <span translate="content.contact.SUPERGROUP">上级组</span>
+                                                :
+                                            </label>
+                                            <div class="col-md-5">
+                                                <select class="form-control">
+                                                    <option selected>{{grouInfos.parentName}}</option>
+                                                    <option>{{grouInfos.parentName}}</option>
+                                                    <option>{{grouInfos.parentName}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                <span translate="content.contact.SECURITYSETTING">安全设定</span>
+                                                :
+                                            </label>
+                                            <div class="col-md-5">
+                                                <span class="help-block">
+                                                    <span translate="content.contact.TYPE">类型(谁能看见组?)</span>
+                                                </span>
+                                                <select class="form-control" name="select" disabled="">
+                                                    <option value="">
+                                                        <span translate="content.contact.RESTRICTED">受限制(只允许成员或管理员)</span>
+                                                    </option>
+                                                    <option value="Category 1">{{grouInfos.securityMapName}}</option>
+                                                    <option value="Category 2">{{grouInfos.securityMapName}}</option>
+                                                    <option value="Category 3" selected>{{grouInfos.securityMapName}}
+                                                    </option>
+                                                </select>
+                                                <span class="help-block">
+                                                    <span translate="content.contact.MEMBERPOLICY">成员政策</span>
+                                                </span>
+                                                <select class="form-control" name="select" disabled="">
+                                                    <option value="">
+                                                        <span translate="content.contact.CLOSED">封闭(管理员要决定成员)</span>
+                                                    </option>
+                                                    <option value="Category 1">{{grouInfos.memberPolicyName}}</option>
+                                                    <option value="Category 2">{{grouInfos.memberPolicyName}}</option>
+                                                    <option value="Category 3">{{grouInfos.memberPolicyName}}</option>
+                                                </select>
+                                                <span class="help-block" translate="content.contact.PRIVACYPOLICY">隐私政策</span>
+                                                <select class="form-control" name="select" disabled="">
+                                                    <option value="">
+
+                                                        <span translate="content.contact.LOW">低(成员能看见其他人)</span>
+                                                    </option>
+                                                    <option value="Category 1">{{grouInfos.viewingPolicyName}}</option>
+                                                    <option value="Category 2">{{grouInfos.viewingPolicyName}}</option>
+                                                    <option selected value="Category 3">
+                                                        {{grouInfos.viewingPolicyName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="portlet_tab3" ng-show="isAdmin == 'true'">
+                            <div style="height: 750px;">
+                                <div class="portlet light">
+                                    <div class="portlet-title tabbable-line">
+                                        <div class="caption">
+                                            <i class="icon-user"></i>
+                                            <span id="headText" class="caption-subject bold uppercase" translate="content.contact.INVALIDUSER">无效用户</span>
+                                        </div>
+                                        <div class="inputs">
+                                            <div class="portlet-input input-inline input-medium">
+                                                <div class="input-group">
+                                                    <input type="text" id="searchBox"
+                                                           class="form-control"
+                                                           style="border-radius:25px 0 0 25px !important;"
+                                                           placeholder="搜索...">
+                                                    <span class="input-group-btn">
+                                                         <button class="btn btn-circle-right btn-default"
+                                                                 onclick="search()" translate="common.SEARCH">查询
+                                                         </button>
+                                                     </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div>
+                                            <div id="datagrid1" class="mini-datagrid" style="width:100%;height:635px;"
+                                                 idField="id" allowCellWrap="true" allowResize="true"
+                                                 allowAlternating="true" showPagerButtonText="true">
+                                                <div property="columns">
+                                                    <div field="firstName" width="120" headerAlign="center"
+                                                         allowSort="true">员工姓名
+                                                    </div>
+                                                    <div field="userName" width="120" headerAlign="center"
+                                                         allowSort="true">员工账号
+                                                    </div>
+                                                    <div field="customField3" width="120" headerAlign="center"
+                                                         allowSort="true">单位
+                                                    </div>
+                                                    <div field="customField2" width="120" headerAlign="center"
+                                                         allowSort="true">部门
+                                                    </div>
+                                                    <div field="customField1" width="120" headerAlign="center"
+                                                         allowSort="true">职位
+                                                    </div>
+                                                    <div field="phoneMobile" width="120" headerAlign="center"
+                                                         allowSort="true">手机
+                                                    </div>
+                                                    <div field="email" width="120" headerAlign="center"
+                                                         allowSort="true">邮箱
+                                                    </div>
+                                                    <div field="action" width="120" headerAlign="center" align="center"
+                                                         allowSort="true">操作
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- END Portlet PORTLET-->
+        </div>
+    </div>
+    <div id="stack1" class="modal fade" tabindex="-1" data-width="400">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" translate="content.contact.CHANGEPWD">修改用户密码</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form role="form" class="form-horizontal form-row-seperated">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label for="firstname" class="col-sm-2 control-label">帐号
+                                        <span translate="content.contact.ACCOUNT">帐号</span>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="userName" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-sm-2 control-label">
+                                        <span translate="content.profile.account.NAME">姓名</span>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="firstName" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-sm-2 control-label">
+                                        <span translate="content.profile.account.NEWPWD">新密码</span>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="newPwd" placeholder="请输密码">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-sm-2 control-label">
+                                        <span translate="content.profile.account.CONFIRMNEWPWD">确认新密码</span>
+
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="newLastPwd" placeholder="确认新密码">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">取消</button>
+                    <button type="button" data-dismiss="modal" class="btn red" onclick="submitFo1()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="js/controllers/ContactsCtr.js"></script>

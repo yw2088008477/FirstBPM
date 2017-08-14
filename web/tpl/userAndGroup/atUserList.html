@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h3 class="modal-title"><span translate="user.selectUser"></span></h3>
+</div>
+<div class="modal-body">
+    <!-- <ul id="tree1" class="mini-tree" url="/suite/plugins/servlet/execute/getuserandgrouplazytree" style="width:300px;height:200px;padding:5px;"
+     showTreeIcon="true" textField="name" onbeforeload="onBeforeTreeLoad"  onnodeclick="onNodeclick" onnodecheck="onNodeclick"
+     showCheckBox="true" checkRecursive="true"
+     idField="id" parentField="pid" resultAsTree="false" expandOnNodeClick="true"  showTreeIcon="true" imgPath="/suite/plugins/processAndTasks/miniui3.5/themes/icons/"
+         >
+ </ul>-->
+    <ul class="list-group alt" ng-hide="participants.length==0" >
+        <li class="list-group-item" ng-repeat="participant in participants" >
+            <a href="" ng-click="ok(participant.id,participant.name)" ><div class="media">
+                <span class="pull-left thumb-sm"><img src="/suite/plugins/servlet/loadsource/3/{{participant.id}}.png" style="height:40px;width:40px;"  class="img-circle"></span>
+                <div class="pull-right text-success m-t-sm">
+                    <i class="fa fa-circle"></i>
+                </div>
+                <div class="media-body">
+                    <div>{{participant.name}}</div>
+                    <small class="text-muted">{{participant.id}}</small>&nbsp;&nbsp;
+                    <small class="text-muted">{{participant.department}}</small>&nbsp;&nbsp;
+                    <small class="text-muted">{{participant.position}}</small>
+                </div>
+            </div></a>
+        </li>
+    </ul>
+
+</div>

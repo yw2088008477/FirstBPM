@@ -1,0 +1,86 @@
+<!--<div ng-controller="PageCtrl" >
+<div class="bg-light lter b-b wrapper-md" >
+	  <h1 class="m-n font-thin h3">{{page.name}}</h1>
+	</div>
+	<div  style="padding:8px;">
+	  <div class="row">
+		<div ng-repeat="portlet in page.portlets" class="col-lg-{{portlet.col}} connected" >
+			<div ng-class="loadPortlet(portlet.frame)">
+				<div class="panel-heading">
+				  {{portlet.name}}
+				</div>
+				<div ng-show="portlet.type=='portal.portlet.report'" class="list-group bg-white" style="-webkit-overflow-scrolling:touch;-webkit-overflow: auto;overflow: auto;background: #FAFAFA;"  >
+					<span ng-class="loadReportIframe(portlet.id,portlet.parameters.reportId)" ></span>
+				    <iframe  id="{{portlet.id}}{{portlet.parameters.reportId}}"    class="portletIframe" width="100%" frameborder="0" height="{{portlet.parameters.chartHeight}}" scrolling="no" ></iframe>
+				</div>
+				<div ng-show="portlet.type=='portal.portlet.mini_proc'" class="list-group bg-white" style="-webkit-overflow-scrolling:touch;-webkit-overflow: auto;overflow: auto;"  >
+				   <div  id="{{portlet.id}}"  ng-bind-html="portlet.body"  ></div>
+				</div>
+			</div>
+		 </div>
+	  </div>
+
+
+	</div>
+</div>-->
+<div ng-controller="PageCtrl">
+ <div class="page-bar">
+     <ul class="page-breadcrumb breadcrumb">
+         <li>
+             <i class="fa fa-home"></i>
+             <a href="#home">
+                 <span translate="header.navbar.home.HOME">主页</span>
+             </a>
+             <i class="fa fa-angle-right"></i>
+         </li>
+         <li class="active">
+             <span translate="header.navbar.workingPlatform.PROCESSREPORT">流程报表</span>
+         </li>
+         <li class="active" style="cursor: pointer;" ng-click="reloadPage()">
+             &nbsp;&nbsp;<span translate="common.REFRESH">刷新</span>&nbsp;
+         </li>
+     </ul>
+ </div>
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN ROW -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN CHART PORTLET-->
+                    <div ng-repeat="portlet in page.portlets" class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-bar-chart font-green-haze"></i>
+                                <span class="caption-subject bold uppercase font-green-haze">{{portlet.name}}</span>
+                                <!-- <span class="caption-helper">两厂两矿生产日报</span> -->
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="fullscreen"> </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div ng-show="portlet.type=='portal.portlet.report'" class="list-group bg-white"
+                                 style="-webkit-overflow-scrolling:touch;-webkit-overflow: auto;overflow: auto;background: #FAFAFA;">
+                                <span ng-class="loadReportIframe(portlet.id,portlet.parameters.reportId)"></span>
+                                <iframe id="{{portlet.id}}{{portlet.parameters.reportId}}" class="portletIframe"
+                                        width="100%" frameborder="0" height="{{portlet.parameters.chartHeight}}"
+                                        scrolling="no"></iframe>
+                            </div>
+                            <div ng-show="portlet.type=='portal.portlet.mini_proc'" class="list-group bg-white"
+                                 style="-webkit-overflow-scrolling:touch;-webkit-overflow: auto;overflow: auto;">
+                                <div id="{{portlet.id}}" ng-bind-html="portlet.body"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- END CHART PORTLET-->
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- BEGIN ROW -->
+
+            <!-- END ROW -->
+        </div>
+    </div>
+</div>

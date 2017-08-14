@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-ng-app="MaterialApp">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <base target="_self">
+    <title>FirstBPM</title>
+    <link href="assets/css/firststyle.css" rel="stylesheet" type="text/css"/>
+    <!--ie9样式重置-->
+    <!--[if IE 9]>
+    <link href="assets/css/firststyle-ie9.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+</head>
+<body>
+<div class="first-warpper">
+    <div class="first-order">
+        <h4 class="first-order-title" ng-bind="orderTitle">合规与风险管理部单据</h4>
+
+        <form name="formName" class="first-form">
+            <fieldset>
+                <legend>单据信息</legend>
+                <div ng-if="!isStart">
+                    <div class="form-group col-sm-6 col-xs-12 form-row">
+                        <label>申请人：</label>
+                        <input type="text" class="form-control" ng-model="processVeriables.applicant" disabled>
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12 form-row">
+                        <label>归属部门：</label>
+                        <input type="text" class="form-control" ng-model="processVeriables.applyDept" disabled>
+                    </div>
+                </div>
+                <div ng-if="orderModelId==3154">
+                    <div class="form-group col-sm-12 form-row">
+                        <label>申请标题<span class="redstar">*</span>：</label>
+                        <input type="text" class="form-control" ng-model="processVeriables.title" required
+                               ng-disabled="isShow('title')">
+                    </div>
+                    <div class="form-group col-sm-12 form-row">
+                        <label>申请内容<span class="redstar">*</span>：</label>
+                        <textarea class="form-control" ng-model="processVeriables.content" required
+                                  ng-disabled="isShow('content')"></textarea>
+                    </div>
+                </div>
+                <div ng-if="orderModelId==3151">
+                    <div class="form-group col-sm-12 form-row">
+                        <label>关联交易品种<span class="redstar">*</span>：</label>
+                        <div class="ie9-row">
+                            <div class="col-sm-3 col-xs-6" ng-repeat="item in tradeTypeList track by $index"
+                                 ng-class="{'col-sm-6 col-xs-12':item.type=='long'}">
+                                <input type="checkbox" name="tradeType" id="ck+{{item.id}}"
+                                       ng-model="processVeriables.tradeType[item.text]" ng-true-value="'true'" ng-false-value="'false'"
+                                       ng-disabled="isShow('tradeType')">
+                                <label for="ck+{{item.id}}"></label>{{item.text}} <input ng-if="item.id==11" type="text"
+                                                                                         ng-model="processVeriables.tradeType['values']"
+                                                                                         class="line-input noback"
+                                                                                         ng-disabled="!processVeriables.tradeType[item.text] && isShow('tradeType')">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6 form-row">
+                        <label>资金账户名称：</label>
+                        <input type="text" class="form-control" ng-model="processVeriables.fundAccount"
+                               ng-disabled="isShow('fundAccount')">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <div class="col-full">
+                            <div class="form-row">
+                                <label>交易对手名称：</label>
+                                <input type="text" class="form-control" ng-model="processVeriables.counterparty"
+                                       ng-disabled="isShow('counterparty')">
+                            </div>
+                            <span class="remind-message pull-right">（或基础资产涉及关联方）</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6 form-row">
+                        <label>投资品种名称：</label>
+                        <input type="text" class="form-control" ng-model="processVeriables.investType"
+                               ng-disabled="isShow('investType')">
+                    </div>
+                    <div class="form-group col-sm-6 form-row">
+                        <label>关联交易金额：</label>
+                        <input type="text" class="form-control" ng-model="processVeriables.tradeAmt"
+                               ng-disabled="isShow('tradeAmt')">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <div class="col-full">
+                            <div class="form-row">
+                                <label>协议签署日期：</label>
+                                <input type="text" class="form-control" ng-model="processVeriables.agreeDate"
+                                       ng-disabled="isShow('agreeDate')">
+                            </div>
+                            <span class="remind-message pull-right">（若无协议，则为事项发生日期）</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 row" ng-if="orderModelId==3150">
+                    <div class="form-group col-sm-12 form-row">
+                        <label>申请事项<span class="redstar">*</span>：</label>
+                        <textarea class="form-control" ng-model="processVeriables.applyItem" required
+                                  ng-disabled="isShow('applyItem')"></textarea>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 form-row">
+                    <label>申请时间：</label>
+                    <input type="text" class="form-control" value="2017-01-01" ng-model="processVeriables.applyDate"
+                           disabled>
+                </div>
+            </fieldset>
+            <div style="position: relative">
+                <ng-include
+                        src="'tpl/page/temp-upload.html'"
+                        data-ng-controller="ArchiveFileUpload"></ng-include>
+            </div>
+            <div class="first-footer first-row">
+                <input class="form-control" id="note" ng-if="!isShow('note')"/>
+                <a class="btn btn-default" ng-click="submit('退回修改')" ng-if="!isShow('btn')">退回修改</a>
+                <a class="btn btn-default" ng-click="submit('不同意')" ng-if="!isShow('btn1')">驳回</a>
+                <a class="btn btn-primary" ng-click="submit('提交')" ng-if="!isShow('btn2')">提交</a>
+            </div>
+            <table class="table">
+                <tr ng-repeat="note in notes">
+                    <td ng-bind="note.content.content"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-body" id="modal-body">
+        <ng-include src="'tpl/page/temp-archivemanager.html'"></ng-include>
+    </div>
+</script>
+</body>
+</html>

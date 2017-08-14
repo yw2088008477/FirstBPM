@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-ng-app="MaterialApp">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <base target="_self">
+    <link href="assets/css/firststyle.css" rel="stylesheet" type="text/css" />
+    <!--ie9样式重置-->
+    <!--[if IE 9]>
+    <link href="assets/css/firststyle-ie9.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+</head>
+
+<body>
+    <form name="myForm">
+        <div class="first-warpper" ng-if="isStart||(isUpdate&&(taskDetails.display == '申请人'))">
+            <div class="first-framework">
+                <div class="first-left-panel">
+                    <ul class="panel" id="firstpane">
+                        <li data-ng-repeat="item in parentList">
+                            <a class="panel-heading" data-ng-click="parentChange(item.ID)" data-ng-bind="item.CATEGORY_NAME"></a>
+                            <div class="first-asset-list">
+                                <div class="list-item" data-ng-repeat="item in categoryList" data-ng-click="categoryChange(item.ID,item.CATEGORY_NAME)">
+                                    <div class="list-item-img"><img src="/suite/doc/{{item.CATEGORY_DESC}}" onerror="this.src='/suite/plugins/servlet/loadsource/5/asset-default.jpg'" />
+                                    </div>
+                                    <div class="list-item-name" data-ng-bind="item.CATEGORY_NAME"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="first-main-panel">
+                    <div class="nav nav-tabs first-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a role="tab" data-toggle="tab">资产类别信息</a>
+                        </li>
+                    </div>
+                    <div class="tab-content first-tabs-content">
+                        <div class="col-full base-box-bottomline">
+                            <h5 data-ng-bind="categoryShowName">资产类别名</h5>
+                        </div>
+                        <div class="col-full first-asset-list">
+                            <li class="list-item" data-ng-repeat="item in productList" data-ng-click="productChange(item.ID,item.PRODUCT_NAME)">
+                                <div class="list-item-img">
+                                    <img src="base.png" onerror="this.src='/suite/plugins/servlet/loadsource/5/asset-default.jpg'" />
+                                </div>
+                                <div class="list-item-name" data-ng-bind="item.PRODUCT_NAME">1111111</div>
+                            </li>
+                        </div>
+                        <div class="col-full height-auto">
+                            <h5 data-ng-bind="productShowName">1111111</h5>
+                        </div>
+                        <div class="col-full">
+                            <div class="nav nav-tabs first-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a role="tab" data-toggle="tab">资产详情</a>
+                                </li>
+                            </div>
+                            <div class="tab-content first-tabs-content first-orderinfo">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>参数名</th>
+                                            <th>参数值</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>规格</td>
+                                            <td data-ng-bind="productInfo.PRODUCT_SPEC">11111111111</td>
+                                        </tr>
+                                        <tr>
+                                            <td>单价</td>
+                                            <td data-ng-bind="productInfo.PRODUCT_PURPRICE">11111111111</td>
+                                        </tr>
+                                        <tr>
+                                            <td>单位</td>
+                                            <td data-ng-bind="productInfo.PRODUCT_UNIT_NAME">11111111111</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <label>描述</label>
+                                <span class="form-control" data-ng-bind="productInfo.PRODUCT_DESC" disabled></span>
+                                <label>备注</label>
+                                <span class="form-control" data-ng-bind="productInfo.PRODUCT_REMARK" disabled></span>
+                            </div>
+                        </div>
+                        <div class="col-full">
+                            <div class="first-tools flex-end">
+                                <div class="first-spinner">
+                                    <a href="javascript:void(0)" class="minus">-</a>
+                                    <input type="text" data-ng-model="productApplyDetail.PRODUCT_APPLY_NUM">
+                                    <a href="javascript:void(0)" class="plus">+</a></div>
+                                <a class="first-btns first-btn-primary" data-ng-click="addApplyItem()">添加到领用列表</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="first-right-panel first-orderinfo">
+                    <div class="form-group">
+                        <label>期望到货日期<span class="redstar">*</span></label>
+                        <input type="text" class="form-control" name="date" ng-model="productApplyInfo.PRODUCT_EXPIRE_DATE" ng-pattern=" /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/" placeholder="2017-01-01">
+                        <span style="color:red;" ng-show="myForm.date.$invalid">填写正确的日期</span>
+                    </div>
+                    <div class="form-group">
+                        <label>物品总金额：</label>
+                        <input type="text" class="form-control" ng-model="productApplyInfo.PRODUCT_PURPRICE_TOTAL" disabled>
+                    </div>
+                    <h5>申领资产列表</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>资产名称</th>
+                                <th>数量</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="item in productApplyDetails track by $index">
+                                <td data-ng-bind="item.PRODUCT_NAME">资产1</td>
+                                <td>
+                                    <div class="first-spinner">
+                                        <a href="javascript:void(0)" class="minus">-</a>
+                                        <input type="text" data-ng-model="item.PRODUCT_APPLY_NUM">
+                                        <a href="javascript:void(0)" class="plus">+</a></div>
+                                </td>
+                                <td data-ng-click="deleteItem($index)">删除</td>
+                            </tr>
+                            <tr ng-if="!isStart">
+                                <td>申请时间：</td>
+                                <td colspan="2" data-ng-bind="productApplyInfo.PRODUCT_APPLY_DATE"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="first-footer first-row">
+                <input class="form-control" data-ng-model="productApplyInfo.APPLY_DESC" placeholder="必填" />
+                <a class="btn btn-default" ng-click="reload()" ng-if="!isShow('btn3')"></i>撤销</a>
+                <a class="btn btn-primary" ng-click="submit('提交')" ng-if="!isShow('btn2')" ng-disabled="myForm.date.$invalid">提交</a>
+            </div>
+            <table class="table">
+                <tr ng-repeat="note in notes">
+                    <td ng-bind="note.content.content"></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <div class="first-warpper" ng-if="!isStart">
+        <div class="first-order">
+            <h4 class="first-order-title">物品申请审批单</h4>
+            <form name="formName" class="first-form">
+                <fieldset>
+                    <legend>单据信息</legend>
+                    <div class="form-group col-sm-6 col-xs-12 form-row">
+                        <label>申请人：</label>
+                        <input type="text" class="form-control" ng-model="productApplyInfo.APPLY_PEOP" disabled>
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12 form-row">
+                        <label>归属部门：</label>
+                        <input type="text" class="form-control" ng-model="productApplyInfo.APPLY_DEPT" disabled>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-6 form-row">
+                        <label>申请时间：</label>
+                        <input type="text" class="form-control" ng-model="productApplyInfo.PRODUCT_APPLY_DATE" disabled>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-6 form-row">
+                        <label>期望到货日期：</label>
+                        <input type="text" class="form-control" ng-model="productApplyInfo.PRODUCT_EXPIRE_DATE" disabled>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-6 form-row">
+                        <label>申请物品金额：</label>
+                        <input type="text" class="form-control" ng-model="productApplyInfo.PRODUCT_PURPRICE_TOTAL" disabled>
+                    </div>
+                    <div class="form-group col-xs-12 form-row">
+                        <label>申请说明：</label>
+                        <textarea class="form-control" ng-bind="productApplyInfo.APPLY_DESC" disabled></textarea>
+                    </div>
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>物品编号</th>
+                                    <th>物品名称</th>
+                                    <th>单价</th>
+                                    <th>数量</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="item in productApplyDetails track by $index ">
+                                    <td data-ng-bind="$index"></td>
+                                    <td data-ng-bind="item.PRODUCT_ID">10001</td>
+                                    <td data-ng-bind="item.PRODUCT_NAME">PC</td>
+                                    <td data-ng-bind="item.PRODUCT_PURPRICE">PC</td>
+                                    <td data-ng-bind="item.PRODUCT_APPLY_NUM">1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                <div class="first-footer first-row">
+                    <input class="form-control" id="note" ng-if="!isShow('note')" />
+                    <a class="btn btn-default" ng-click="submit('退回修改')" ng-if="!isShow('btn')">退回修改</a>
+                    <a class="btn btn-default" ng-click="submit('不同意')" ng-if="!isShow('btn1')">驳回</a>
+                    <a class="btn btn-primary" ng-click="submit('提交')" ng-if="!isShow('btn2')">提交</a>
+                </div>
+                <table class="table">
+                    <tr ng-repeat="note in notes">
+                        <td ng-bind="note.content.content"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script>
+    var step = 1;
+    $(".first-spinner input").css({ "width": "30px", "textAlign": "center" });
+    $(".first-right-panel .first-spinner input").css({ "width": "20px", "textAlign": "center" });
+    $(".first-spinner .minus").click(function() {
+        changeValue($(this).siblings('input'), $($(this).siblings('input')[0]).val(), 'minus');
+    });
+    $(".first-spinner .plus").click(function() {
+        changeValue($(this).siblings('input')[0], $($(this).siblings('input')[0]).val(), 'plus');
+    });
+
+    function changeValue(el, value, operation) {
+        $(el).val(operation == 'plus' ? Number(value) + step : Number(value) - step > 0 ? Number(value) - step : 0);
+        $(el).trigger('input');
+        $(el).trigger('change');
+    }
+    </script>
+</body>
+
+</html>

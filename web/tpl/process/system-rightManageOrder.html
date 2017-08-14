@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-ng-app="MaterialApp">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <base target="_self">
+    <title>FirstBPM</title>
+    <link href="assets/css/firststyle.css" rel="stylesheet" type="text/css" />
+    <!--ie9样式重置-->
+    <!--[if IE 9]>
+    <link href="assets/css/firststyle-ie9.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="first-warpper">
+        <div class="first-order">
+            <h4 class="first-order-title" ng-bind="orderTitle"></h4>
+            <form name="formName" class="first-form">
+                <fieldset>
+                    <legend>单据信息</legend>
+                    <div ng-if="!isStart">
+                        <div ng-if="orderModelId==3171 || orderModelId==3177">
+                            <div class="form-group col-sm-6 col-xs-12 form-row">
+                                <label>申请人：</label>
+                                <input type="text" class="form-control" ng-model="processVeriables.applicant" disabled>
+                            </div>
+                            <div class="form-group col-sm-6 col-xs-12 form-row">
+                                <label>申请部门：</label>
+                                <input type="text" class="form-control" ng-model="processVeriables.applyDept" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="orderModelId==3171">
+                        <div class="form-group col-sm-12 form-row">
+                            <label>申请修改内容<span class="redstar">*</span>：</label>
+                            <textarea type="text" class="form-control" ng-model="processVeriables.applyReason" ng-disabled="isShow('applyReason')"></textarea>
+                        </div>
+                        <div class="form-group col-sm-12 form-row">
+                            <label>修改内容：</label>
+                            <select class="form-control" ng-model="processVeriables.content" ng-disabled="isShow('content')">
+                                <option value="系统设置">系统设置</option>
+                                <option value="基金信息">基金信息</option>
+                                <option value="证券参数">证券参数</option>
+                                <option value="业务流程">业务流程</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-12 form-row">
+                            <label>参数类型：</label>
+                            <select class="form-control" ng-model="processVeriables.parameterType" ng-disabled="isShow('parameterType')">
+                                <option value="0">直达信息技术部审批</option>
+                                <option value="1">需合规审批</option>
+                                <option value="2">需合规与运营审批</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div ng-if="orderModelId==3160">
+                        <div class="form-group col-sm-6 col-xs-12 form-row">
+                            <label>用户姓名：</label>
+                            <input type="text" class="form-control" ng-model="processVeriables.userName" disabled>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12 form-row">
+                            <label>系统名称<span class="redstar">*</span>：</label>
+                            <select class="form-control" ng-model="processVeriables.sysName" ng-options="item.ID as item.CATEGORY_NAME for item in sysNames" ng-disabled="isShow('sysName')"></select>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12 form-row">
+                            <label>申请类别<span class="redstar">*</span>：</label>
+                            <select class="form-control" ng-model="processVeriables.applyType"  ng-disabled="isShow('applyType')">
+                                <option value="新设">新设</option>
+                                <option value="变更">变更</option>
+                                <option value="注销">注销</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-12 col-xs-12 form-row">
+                            <label>申请具体权限<span class="redstar">*</span>：</label>
+                            <textarea class="form-control" ng-model="processVeriables.permission"  ng-disabled="isShow('permission')"></textarea>
+                        </div>
+                        <div class="form-group col-sm-12 col-xs-12 form-row">
+                            <label>申请原因：</label>
+                            <textarea type="text" class="form-control" ng-model="processVeriables.applyReason"  ng-disabled="isShow('applyReason')"></textarea>
+                        </div>
+                    </div>
+                    <div ng-if="orderModelId==3177">
+                        <div class="form-group col-sm-12 form-row">
+                            <label>申请标题<span class="redstar">*</span>：</label>
+                            <input type="text" class="form-control" ng-model="processVeriables.title"  ng-disabled="isShow('title')">
+                            </textarea>
+                        </div>
+                        <div class="form-group col-sm-12 form-row">
+                            <label>审批内容<span class="redstar">*</span>：</label>
+                            <textarea class="form-control" ng-model="processVeriables.content"  ng-disabled="isShow('content')"></textarea>
+                        </div>
+                    </div>
+                    <div  ng-if="orderModelId==3186">
+                        <div class="form-group col-sm-12 form-row">
+                            <label>申请标题：</label>
+                            <input type="text" class="form-control" ng-model="processVeriables.title"  ng-disabled="isShow('title')">
+                            </textarea>
+                        </div>
+                        <div class="form-group col-sm-12 form-row">
+                            <label>审批内容：</label>
+                            <textarea class="form-control" ng-model="processVeriables.content"  ng-disabled="isShow('content')"></textarea>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12 form-row">
+                            <label>是否涉及采购<span class="redstar">*</span>：</label>
+                            <select class="form-control" ng-model="processVeriables.isPurchase"  ng-disabled="isShow('isPurchase')">
+                                <option value="需采购">需采购</option>
+                                <option value="不涉及">不涉及</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12 form-row" ng-show="processVeriables.isPurchase=='需采购'">
+                            <label>采购状态：</label>
+                            <select class="form-control" ng-model="processVeriables.purchaseStatus"  ng-disabled="isShow('purchaseStatus')">
+                                <option value="集中采购">集中采购</option>
+                                <option value="合同签订">合同签订</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12 form-row">
+                            <label>是否涉及版本<span class="redstar">*</span>：</label>
+                            <select class="form-control" ng-model="processVeriables.isVersion"  ng-disabled="isShow('isVersion')">
+                                <option value="需版本">需版本</option>
+                                <option value="不涉及">不涉及</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12 form-row" ng-show="processVeriables.isVersion=='需版本'" >
+                            <label>版本状态：</label>
+                            <select class="form-control" ng-model="processVeriables.versionStatus" ng-disabled="isShow('versionStatus')">
+                                <option value="需求排期">需求排期</option>
+                                <option value="开发测试">开发测试</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12 form-row">
+                             <label>需求状态<span class="redstar">*</span>：</label>
+                            <select class="form-control" ng-model="processVeriables.reqStatus" ng-disabled="isShow('reqStatus')">
+                                <option value="进行中">进行中</option>
+                                <option value="已解决">已解决</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-6 form-row">
+                        <label>申请时间：</label>
+                        <input type="text" class="form-control" value="2017-01-01" ng-model="processVeriables.applyDate" disabled>
+                    </div>
+                </fieldset>
+                <div style="position: relative">
+                    <ng-include src="'tpl/page/temp-upload.html'" data-ng-controller="ArchiveFileUpload"></ng-include>
+                </div>
+                <div class="first-footer first-row">
+                    <input class="form-control" id="note" ng-if="!isShow('note')" />
+                    <a class="btn btn-default" ng-click="submit('退回修改')" ng-if="!isShow('btn')">退回修改</a>
+                    <a class="btn btn-default" ng-click="submit('不同意')" ng-if="!isShow('btn1')">驳回</a>
+                    <a class="btn btn-primary" ng-click="submit('提交')" ng-if="!isShow('btn2')">提交</a>
+                </div>
+                <table class="table">
+                    <tr ng-repeat="note in notes">
+                        <td ng-bind="note.content.content"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-body" id="modal-body">
+            <ng-include src="'tpl/page/temp-archivemanager.html'"></ng-include>
+        </div>
+    </script>
+</body>
+
+</html>

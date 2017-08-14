@@ -1,0 +1,132 @@
+<link href="/suite/plugins/metronic/theme/assets/global/plugins/cubeportfolio/css/cubeportfolio.min.css" rel="stylesheet"
+      type="text/css"/>
+<link href="/suite/plugins/metronic/theme/assets/pages/css/portfolio.min.css" rel="stylesheet" type="text/css"/>
+<script src="/suite/plugins/metronic/theme/assets/global/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js"
+        type="text/javascript"></script>
+<div class="page-bar">
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#home">
+                <span translate="header.navbar.home.HOME">主页</span>
+            </a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li class="active">
+            <span translate="header.navbar.workingPlatform.PROCESSCENTER">流程中心</span>
+        </li>
+        <li class="active" style="cursor: pointer;" ng-click="reloadPage()">
+            &nbsp;&nbsp;<span translate="common.REFRESH">刷新</span>&nbsp;
+        </li>
+    </ul>
+</div>
+<!-- END PAGE HEADER-->
+<div class="portfolio-content grid">
+
+</div>
+<script>
+    var processModelFolder, processModelTopFolder, html;
+    /*processDetailsFactory.getProcessModelByFolder();
+     $scope.$on('processModelFolderUpdate',function (event, req) {
+     processModelFolder = req.data;
+     });
+     processDetailsFactory.getProcessModelTopFolder(27);
+     $scope.$on('processModelTopFolderUpdate',function (event, req) {
+     processModelTopFolder = req.data;
+     });*/
+    processModelFolder = query("getprocessmodelbyfolder");
+    processModelTopFolder = query("getprocessmodetopfolder", {id: 27});
+
+    html = " <div id='js-filters-juicy-projects' class='cbp-l-filters-button'><div data-filter='*' class='cbp-filter-item-active cbp-filter-item'>所有流程<div class='cbp-filter-counter'></div></div>";
+    for (var i = 0; i < processModelTopFolder.length; i++) {
+        html += "<div data-filter='." + processModelTopFolder[i].id + "'class='cbp-filter-item'>" + processModelTopFolder[i].name + "<div class='cbp-filter-counter'></div></div>";
+    }
+    html += "</div> <div id='js-grid-juicy-projects' class='cbp'>";
+    for (var j = 0; j < processModelFolder.length; j++) {
+        var imgUrl = "";
+        var folderId = 13;
+        if (processModelFolder[j].icon == null) {
+            imgUrl = "/suite/plugins/img/process/flowchart.png";
+        } else {
+            imgUrl = "/suite/plugins/servlet/loadsource/5/" + processModelFolder[j].icon;
+        }
+        if (processModelFolder[j].folderId != null) {
+            folderId = processModelFolder[j].folderId;
+        }
+        html += "<div class='cbp-item " + folderId + "'><div class='cbp-caption'><div class='cbp-caption-defaultWrap'><img src='" + imgUrl + "' alt='' style='border-radius: 10px;'></div>" +
+            "<div class='cbp-caption-activeWrap' style='border-radius: 10px;'><div class='cbp-l-caption-alignCenter'>" +
+            "<div class='cbp-l-caption-body'><a href='javascript:void(0);' data-ng-click='toProcessModelInfo(" + processModelFolder[j].id + ")' class='cbp-l-caption-buttonLeft' rel='nofollow'>查看详情</a>&nbsp;&nbsp;" +
+            "<a href='javascript:void(0);' data-ng-click='toProcessModelStart(" + JSON.stringify(processModelFolder[j]) + ")' class='cbp-l-caption-buttonRight'>发起流程</a></div></div></div></div>" +
+            "<div class='cbp-l-grid-projects-title text-center'>" + processModelFolder[j].name + "</div></div>";
+    }
+    html += "</div>";
+    /*<div id='js-loadMore-juicy-projects' class='cbp-l-loadMore-button'> " +
+     "<a href='../assets/global/plugins/cubeportfolio/ajax/loadMore.html'class='cbp-l-loadMore-link btn grey-mint btn-outline' rel='nofollow' ng-click='reloadPage()'> " +
+     "<span class='cbp-l-loadMore-defaultText'>加载更多</span> <span class='cbp-l-loadMore-loadingText'>加载中...</span> <span class='cbp-l-loadMore-noMoreLoading'>没有更多了</span> </a> </div>"
+     */
+    $('.grid').html(html);
+
+    $('#js-grid-juicy-projects').cubeportfolio({
+        filters: '#js-filters-juicy-projects',
+        loadMore: '#js-loadMore-juicy-projects',
+        loadMoreAction: 'click',
+        layoutMode: 'grid',
+        defaultFilter: '*',
+        animationType: 'quicksand',
+        gapHorizontal: 35,
+        gapVertical: 30,
+        gridAdjustment: 'responsive',
+
+        mediaQueries: [{
+            width: 1500,
+            cols: 9
+        }, {
+            width: 1280,
+            cols: 7
+        }, {
+            width: 1024,
+            cols: 5
+        }],
+        caption: 'overlayBottomReveal',
+        displayType: 'sequentially',
+        displayTypeSpeed: 80,
+
+        // lightbox
+        lightboxDelegate: '.cbp-lightbox',
+        lightboxGallery: true,
+        lightboxTitleSrc: 'data-title',
+        lightboxCounter: '<div class="cbp-popup-lightbox-counter">{{current}} of {{total}}</div>',
+
+        // singlePage popup
+        singlePageDelegate: '.cbp-singlePage',
+        singlePageDeeplinking: true,
+        singlePageStickyNavigation: true,
+        singlePageCounter: '<div class="cbp-popup-singlePage-counter">{{current}} of {{total}}</div>',
+        singlePageCallback: function (url, element) {
+            // to update singlePage content use the following method: this.updateSinglePage(yourContent)
+            var t = this;
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'html',
+                timeout: 10000
+            })
+                .done(function (result) {
+                    t.updateSinglePage(result);
+                })
+                .fail(function () {
+                    t.updateSinglePage('AJAX Error! Please refresh the page!');
+                });
+        },
+    });
+</script>
+<style>
+    .cbp-l-caption-buttonLeft,
+    .cbp-l-caption-buttonRight {
+        display: inline;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+</style>
+

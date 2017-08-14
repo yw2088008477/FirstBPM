@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-ng-app="MaterialApp">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <base target="_self">
+    <link href="assets/css/firststyle.css" rel="stylesheet" type="text/css"/>
+    <!--ie9样式重置-->
+    <!--[if IE 9]>
+    <link href="assets/css/firststyle-ie9.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+</head>
+<body>
+<div class="first-warpper">
+    <div class="first-order">
+        <h4 class="first-order-title">资产信息管理</h4>
+        <div class="col-md-offset-6 col-md-6 col-xs-12 form-row">
+        <label>所属类别：</label>
+        <select data-ng-model="type" data-ng-change="selectItem()"  class="form-control">
+            <option value="" selected>全部</option>
+            <option data-ng-repeat="category in categoryList" value="{{category.ID}}" data-ng-bind="category.CATEGORY_NAME"></option>
+        </select>
+        <a class="btn btn-primary right" data-ng-click="addItem()">添加</a>
+            </div>
+        <table class="table">
+            <thead><tr><th>ID</th><th>名称</th><th>类别</th><th>规格</th><th>单位</th><th>单价</th><th>创建时间</th><th>操作</th></tr></thead>
+            <tbody><tr data-ng-repeat="product in products track by $index">
+                <td data-ng-bind="product.ID">ID</td>
+                <td data-ng-bind="product.PRODUCT_NAME">名称</td>
+                <td data-ng-bind="product.PRODUCT_CATEGORY_NAME">类别</td>
+                <td data-ng-bind="product.PRODUCT_SPEC">规格</td>
+                <td data-ng-bind="product.PRODUCT_UNIT_NAME">单位</td>
+                <td data-ng-bind="product.PRODUCT_PURPRICE">单价</td>
+                <td data-ng-bind="product.PRODUCT_CREATEDATE">创建时间</td>
+                <td><a data-ng-click="updateItem(product.ID)">编辑</a>&nbsp;|&nbsp;<a data-ng-click="deleteItem(product)">删除</a></td></tr></tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

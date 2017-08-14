@@ -1,0 +1,89 @@
+<div class="inbox">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="inbox-sidebar">
+                <a ng-click="loadPageBy()" data-title="新建事项" class="btn red compose-btn btn-block">
+                    <i class="fa fa-edit"></i>
+                    <span translate="content.circulated.STARTCIRCULATE">开始传阅</span>
+                    </a>
+                <ul class="inbox-nav">
+                    <li class="active">
+                        <a ng-click="loadPageFr('0',$event,'所有传阅')"  data-type="inbox" data-title="待办事项">
+                            <span translate="content.circulated.ALLCIRCULATE">所有传阅</span>
+                            <span ng-show="cyTaskData.cyTask>0||cyTaskData.cyTaskEnd>0" class="badge badge-danger">{{cyTaskData.cyTaskAll}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="loadPageFr('1',$event,'我的待阅')" data-type="inbox" data-title="待办事项"> &nbsp;&nbsp;
+                            <span translate="content.circulated.GOINGREAD">我的待阅</span>
+                            <span ng-show="cyTaskData.cyTaskWait>0" class="badge badge-warning">{{cyTaskData.cyTaskWait}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="loadPageFr('2',$event,'我的已阅')" data-type="important" data-title="已办事项">&nbsp;&nbsp;
+                            <span translate="content.circulated.HAVEREAD">我的已阅</span>
+                            <span ng-show="cyTaskData.cyTaskOn>0" class="badge badge-success">{{cyTaskData.cyTaskAll-cyTaskData.cyTaskWait}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="inbox-sidebar">
+                <a data-title="新建事项" class="btn blue compose-btn btn-block">
+                    <i class="fa fa-flag-o"></i>
+                    <span translate="content.circulated.MYCIRCULATE">我的传阅</span>
+                </a>
+                <ul class="inbox-nav">
+                    <li>
+                        <a ng-click="loadPageFt('5',$event,'所有传阅')"  data-type="inbox" data-title="待办事项">
+                            <span translate="content.circulated.MYINITIATION">我的发起</span>
+                            <span ng-show="cyProcessData.cyallNu>0" class="badge badge-danger">{{cyProcessData.cyallNu}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="loadPageFt('0',$event,'我的待阅')" data-type="inbox" data-title="待办事项"> &nbsp;&nbsp;
+                            <span translate="content.task.PROCESSING">进行中</span>
+                            <span ng-show="cyProcessData.cyonNu>0" class="badge badge-success">{{cyProcessData.cyonNu}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="loadPageFt('1',$event,'我的已阅')" data-type="important" data-title="已办事项">&nbsp;&nbsp;
+                            <span translate="content.task.COMPLETED">已完成</span>
+                            <span ng-show="cyProcessData.cyendNu>0" class="badge badge-primary">{{cyProcessData.cyendNu}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="loadPageFt('3',$event,'我的已阅')" data-type="important" data-title="已办事项">&nbsp;&nbsp;
+                            <span translate="content.initiated.CANCELLED">有问题</span>
+                            <span ng-show="cyProcessData.cycancelNu>0" class="badge badge-warning">{{cyProcessData.cycancelNu}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="loadPageFt('2',$event,'我的已阅')" data-type="important" data-title="已办事项">&nbsp;&nbsp;
+                            <span translate="content.task.PROBLEM">有问题</span>
+                            <span ng-show="cyProcessData.cyproNu>0" class="badge badge-default">{{cyProcessData.cyproNu}}</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="inbox-body">
+                <!--<div id="inboxHeader" class="inbox-header">
+                    <h1 class="pull-left">所有传阅</h1>
+                    <form class="form-inline pull-right" action="index.html">
+                        <div class="input-group input-medium">
+                            <input type="text" class="form-control" placeholder="Password">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn green">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>-->
+                <div ui-view class="inbox-content fade-in-up"> </div>
+            </div>
+        </div>
+    </div>
+</div>

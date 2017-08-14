@@ -1,0 +1,134 @@
+<style>
+    .tabbable-line > .tab-content {
+        margin-top: 0;
+        border: 0;
+        padding: 30px 0;
+    }
+
+    .tabbable-line > .nav-tabs > li {
+        margin: 0;
+        border-bottom: 4px solid transparent;
+    }
+
+    .tabbable-line > .nav-tabs > li.active {
+        background: 0 0;
+        border-bottom: 4px solid #36c6d3;
+        position: relative;
+        -ms-box-sizing: border-box;
+    }
+
+    .tabbable-line > .nav-tabs > li.active > a {
+        border: 0px;
+    }
+
+    .tabbable-line > .nav-tabs > li > a {
+        background: 0 0 !important;
+        border: 0;
+        margin: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .nav > li > a {
+        padding: 10px 15px;
+    }
+
+</style>
+<div ng-controller="TabsDemoCtrl">
+    <div class="row">
+        <div class="col-md-3 ">
+            <!-- BEGIN Portlet PORTLET-->
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold font-purple-plum uppercase">收发文节点组</span>
+                        <span class="caption-helper"></span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="scroller" style="_height:400px; min-height:400px;">
+                        <ul id="tree1" class="mini-tree"
+                            url="/suite/plugins/servlet/query/GM_getSystemOrgizationFunction"
+                            style="_height:400px; min-height:400px;"
+                            showTreeIcon="true" textField="text" expandOnLoad="0" allowDrag="true" allowDrop="true"
+                            allowLeafDropIn="true"
+                            idField="id" parentField="pid" resultAsTree="false"
+                        >
+                        </ul>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- END Portlet PORTLET-->
+        </div>
+        <div class="col-md-9">
+            <!-- BEGIN Portlet PORTLET-->
+            <div class="portlet light">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption">
+                        <span class="caption-subject bold font-yellow-lemon uppercase">{{grouInfos.groupName}}</span>
+                        <!-- <span class="caption-helper">该团队组被{{grouInfos.creator}}创建在{{grouInfos.createdate}}</span> -->
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    <div class="scroller" style="height:450px">
+                        <div class="mini-toolbar"
+                             style="padding:4px;border-right:1px solid #e7ecf1;border-top:1px solid #e7ecf1;border-left:1px solid #e7ecf1;border-bottom:0px;">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width:100%;">
+                                    </td>
+                                    <td style="white-space:nowrap;">
+                                        <a class="mini-button" plain="false" onclick="addRow()">增加</a>
+                                        <a class="mini-button" plain="false" onclick="delRows()">删除</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="mini-fit">
+
+                            <div id="grid1" class="mini-datagrid" style="width:100%;height:100%;"
+                                 showFilterRow="false" allowCellSelect="true" allowCellEdit="false"
+                            >
+                                <div property="columns">
+                                    <div type="checkcolumn"></div>
+                                    <div field="firstName" width="80" headerAlign="center" allowSort="true">员工姓名
+                                    </div>
+                                    <div field="userName" width="80" headerAlign="center" allowSort="true">员工帐号
+                                    </div>
+
+                                    <div field="customField3" visible="false" allowSort="false">单位
+                                    </div>
+                                    <div field="customField2" visible="false" allowSort="false">部门
+                                    </div>
+                                    <div field="customField1" width="100" allowSort="false">职位
+                                    </div>
+                                    <div field="supervisorName" headerAlign="center" visible="false" allowSort="true">
+                                        上级主管
+                                    </div>
+                                    <div field="phoneMobile" width="100" allowSort="false">手机
+                                    </div>
+                                    <div field="email" visible="false" allowSort="true">邮件
+                                    </div>
+                                    <div field="displayName" visible="false" allowSort="true">排序
+                                    </div>
+                                    <div name="action" width="100" headerAlign="center" align="center"
+                                         renderer="onActionRenderer" cellStyle="padding:0;">操作
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- END Portlet PORTLET-->
+</div>
+
+<script type="text/javascript" src="js/apps/profile/userProfileFunction.js"></script>

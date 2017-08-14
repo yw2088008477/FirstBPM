@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <h3 class="modal-title"><span translate="user.selectUser"></span></h3>
+</div>
+<div class="modal-body">
+    <!-- <ul id="tree1" class="mini-tree" url="/suite/plugins/servlet/execute/getuserandgrouplazytree" style="width:300px;height:200px;padding:5px;"
+     showTreeIcon="true" textField="name" onbeforeload="onBeforeTreeLoad"  onnodeclick="onNodeclick" onnodecheck="onNodeclick"
+     showCheckBox="true" checkRecursive="true"
+     idField="id" parentField="pid" resultAsTree="false" expandOnNodeClick="true"  showTreeIcon="true" imgPath="/suite/plugins/processAndTasks/miniui3.5/themes/icons/"
+         >
+ </ul>-->
+    <input type="hidden" id="countersignUserId" value="">
+
+    <input id="countersignUserNmae" type="text" class="form-control input-lg">
+    <br>
+    <br>
+    <ul class="list-group alt" ng-hide="participants.length==0" >
+        <li class="list-group-item" ng-repeat="participant in participants" >
+            <a href="" ng-click="selectUser(participant.id,participant.name)" ><div class="media">
+                <span class="pull-left thumb-sm"><img src="/suite/plugins/servlet/loadsource/3/{{participant.id}}.png" style="height:40px;width:40px;"  class="img-circle"></span>
+                <div class="pull-right text-success m-t-sm">
+                    <i class="fa fa-circle"></i>
+                </div>
+                <div class="media-body">
+                    <div>{{participant.name}}</div>
+                    <small class="text-muted">{{participant.id}}</small>&nbsp;&nbsp;
+                    <small class="text-muted">{{participant.department}}</small>&nbsp;&nbsp;
+                    <small class="text-muted">{{participant.position}}</small>
+                </div>
+            </div></a>
+        </li>
+    </ul>
+    <b><span>问题描述</b>:<br/>
+    <input id="userAndComments" class="mini-textarea form-control" borderStyle="border-radius:5px;" style="height:76px;width:100%;"/>
+
+
+
+
+
+    <!-- <b><span>请选择用户</b>:<br/>
+    <select id="countersignUserNmae" style="height:38px;width:100%;">
+        <option value="" selected></option>
+        <option ng-repeat="participant in participants" ng-hide="participants.length==0" value="{{participant.name}}" borderStyle="border:1px solid;border-radius:5px;">{{participant.name}}</option>
+    </select>
+    <br>
+    <b><span>问题描述</b>:<br/>
+    <input id="userAndComments" class="mini-textarea" borderStyle="border-radius:5px;" style="height:76px;width:100%;"/> -->
+
+    <div class="modal-footer" >
+        <button class="btn btn-default" ng-click="ok()"><span translate="common.ok"></span></button>
+        <button class="btn btn-primary" ng-click="cancel()"><span translate="common.cancel"></span></button>
+    </div>
+
+</div>

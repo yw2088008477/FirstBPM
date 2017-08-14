@@ -1,0 +1,112 @@
+<div id="stack2" class="modal fade" tabindex="-1" data-width="400">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">选择</h4>
+            </div>
+            <div class="modal-body">
+                <div class="mini-splitter"  vertical="false" style="width:100%;height:100%;">
+                    <div  size="30%" showCollapseButton="false"    >
+                        <div style="width:100%;height:100%;">
+                            <div class="mini-toolbar" style="margin:0 auto;border-top:0;border-left:0;border-right:0;border-bottom:1;">
+                                <table style="width:100%">
+                                    <tr>
+                                        <td>
+                                            <span style="padding-left:5px;">部门：</span>
+                                            <input class="mini-textbox" id="key" style="width:100px"/>
+                                            <a class="mini-button" iconCls="icon-search" plain="true" onclick="search()">查找</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <ul id="treeemp" expandOnLoad="0" class="mini-tree" url="/suite/plugins/servlet/query/GM_getSystemOrgization" style="width:100%;height:100%;"
+                                expandOnLoad="true" showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false"
+                            >
+                            </ul>
+                        </div>
+                    </div>
+                    <div size="70%"  showCollapseButton="false">
+                        <div class="mini-splitter"  vertical="true" style="width:100%;height:100%;">
+                            <div  size="50%" showCollapseButton="false"    >
+                                <div class="mini-toolbar" style="margin:0 auto;" >
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td width="80%">
+                                                <span style="padding-left:5px;">姓名：</span>
+                                                <input class="mini-textbox" id="searchBox" style="width:200px"/>
+                                                <a class="mini-button" iconCls="icon-search" plain="true" onclick="doFilter()">查找</a>
+                                            </td>
+                                            <td width="20%" align="right">
+                                                待选
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="mini-fit">
+                                    <div id="gridemp" class="mini-datagrid" style="width:100%;height:100%"   allowResize="false" sizeList=[50,100,200,300,400,500]
+                                         idField="userName" pageSize="50"  multiSelect="true"  onload="onGridLoad"
+                                         allowUnselect="true">
+                                        <div property="columns">
+                                            <div type="indexcolumn" ></div>
+                                            <div type="checkcolumn" ></div>
+                                            <!--<div field="DEPTNAME" width="120" headerAlign="center" allowSort="true">部门</div>
+                                            <div field="TEXT" width="120" headerAlign="center" allowSort="true">姓名</div>-->
+
+                                            <div field="firstName" width="100" headerAlign="center" allowSort="true">员工姓名
+                                            </div>
+                                            <div field="userName" width="80" headerAlign="center" allowSort="true">员工帐号
+                                            </div>
+                                            <div field="customField2" width="120" allowSort="false">部门
+                                            </div>
+                                            <div field="customField1" width="120" allowSort="false">职位
+                                            </div>
+                                            <div field="customField3" width="120" allowSort="false">单位
+                                            </div>
+                                            <div field="displayName" width="120" visible="false" allowSort="false">单位
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  size="50%" showCollapseButton="false"    >
+                                <div class="mini-toolbar" style="margin:0 auto;"  >
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td width="80%">
+
+                                                <a class="mini-button" iconCls="icon-ok" onclick="submit()">确定</a>
+                                                <a class="mini-button" iconCls="icon-close" onclick="back()">返回</a>
+                                                <a class="mini-button" iconCls="icon-remove" onclick="removeRow()">删除</a>
+                                            </td>
+                                            <td width="20%" align="right">
+                                                已选
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div id="selectedgrid" class="mini-listbox"   style="width:100%;height:100%;"
+                                     showCheckBox="true" multiSelect="true" >
+                                    <div property="columns">
+                                        <div type="indexcolumn" ></div>
+                                        <!--<div field="TEXT" width="150" headerAlign="center" allowSort="true">姓名</div>-->
+                                        <div field="firstName" width="100" headerAlign="center" allowSort="true">员工姓名
+                                        </div>
+                                        <div field="userName" width="80" headerAlign="center" allowSort="true">员工帐号
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">取消</button>
+                <button type="button" data-dismiss="modal" class="btn red" onclick="submitFo()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/userAndGroup/selectUserModel.js"></script>

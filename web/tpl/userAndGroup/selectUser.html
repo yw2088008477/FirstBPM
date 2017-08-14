@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3 class="modal-title"><span translate="user.selectUser"></span></h3>
+</div>
+<div class="modal-body" style="height:230px;" >
+
+    <b><span translate="user.searchUserOrGroup"></span></b>：<input id="userAndGroup"  class="mini-textboxlist" borderStyle="border:1px solid;border-radius:5px;" style="height:38px;width:100%;"  searchField="recordValue" url="/suite/plugins/servlet/searchUsersAndGroup?recordType=1,2,4&operator=2" valueField="id" textField="name" />
+    <b><span>问题描述</span></b>:<br/><input id="userAndComments" class="mini-textarea" borderStyle="border-radius:5px;" style="height:76px;width:100%;"/>
+</div>
+<div class="modal-footer" >
+    <button class="btn btn-default" ng-click="ok()"><span translate="common.ok"></span></button>
+    <button class="btn btn-primary" ng-click="cancel()"><span translate="common.cancel"></span></button>
+</div>
+<script type="text/javascript">
+    mini.parse();
+</script>
