@@ -94,7 +94,7 @@
                             <textarea class="form-control" ng-model="processVeriables.content"  ng-disabled="isShow('content')"></textarea>
                         </div>
                     </div>
-                    <div  ng-if="orderModelId==3186">
+                    <div ng-if="orderModelId==3186">
                         <div class="form-group col-sm-12 form-row">
                             <label>申请标题：</label>
                             <input type="text" class="form-control" ng-model="processVeriables.title"  ng-disabled="isShow('title')">
@@ -141,9 +141,29 @@
                         </div>
 
                     </div>
-                    <div class="form-group col-xs-12 col-sm-6 form-row">
-                        <label>申请时间：</label>
-                        <input type="text" class="form-control" value="2017-01-01" ng-model="processVeriables.applyDate" disabled>
+                    <div ng-if="orderModelId==3518">
+                        <div class="form-group col-sm-12 form-row">
+                            <label>姓名：</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-sm-12 form-row">
+                            <label>年龄：</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-sm-12 form-row">
+                            <label>性别：</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12 form-row">
+                            <label>公司<span class="redstar">*</span>：</label>
+                            <select class="form-control">
+                                <option value="总部">总部</option>
+                                <option value="惠众">惠众</option>
+                                <option value="金控">金控</option>
+                                <option value="信联">信联</option>
+                                <option value="易购">易购</option>
+                            </select>
+                        </div>
                     </div>
                 </fieldset>
                 <div style="position: relative">
